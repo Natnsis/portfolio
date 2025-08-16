@@ -41,7 +41,7 @@ const projects = [
       "A modern, responsive portfolio website built with Next.js and deployed on Vercel.",
     image: "/portfolio.png",
     technologies: ["Next.js", "Tailwind CSS", "Shadcn ui", "Vercel"],
-    liveUrl: "https://example.com",
+    liveUrl: "https://portfolio-ochre-gamma-qo1o5kn8o5.vercel.app/",
     githubUrl: "https://github.com/Natnsis/portfolio",
     isLive: true,
   },
