@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 
 const projects = [
@@ -11,26 +11,29 @@ const projects = [
       "A mobile app built with React Native to help university students manage their academic life more efficiently. The app is currently in beta and designed to solve everyday student problems like GPA tracking and class schedule organization.",
     image: "/asu_app.jpg",
     technologies: ["React Native", "TypeScript", "SQLite"],
-    liveUrl: "https://example.com",
+    liveUrl: " https://uni-site-nu.vercel.app/",
     githubUrl: "https://github.com/Natnsis/asu_students_appV2.0",
+    isLive: true,
   },
   {
     title: "E-commerce Platform",
     description:
-      "An end-to-end ecommerce solution  designed to support both web users. The platform features seamless product browsing, cart management, order placement, and admin controls",
+      "An end-to-end ecommerce solution designed to support both web users. The platform features seamless product browsing, cart management, order placement, and admin controls",
     image: "/ecommerce.png",
     technologies: ["React.js", "Node.js", "express.js", "MySQL"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/Natnsis/Ecommerce",
+    isLive: false,
   },
   {
     title: "E-commerce Platform (mobile app)",
     description:
-      "A sleek, cross-platform client-side mobile app built with React Native, designed as the mobile front of our ecommerce platform. It allows users to browse products, manage carts, and simulate the checkout process — all with a responsive and intuitive UI.A responsive weather dashboard with location-based forecasts and interactive charts.",
+      "A sleek, cross-platform client-side mobile app built with React Native, designed as the mobile front of our ecommerce platform. It allows users to browse products, manage carts, and simulate the checkout process — all with a responsive and intuitive UI.",
     image: "/ecom_app.jpg",
     technologies: ["React Native", "node.js", "express.js", "Tailwind CSS"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/Natnsis/ecommerce_mobile",
+    isLive: false,
   },
   {
     title: "Portfolio Website",
@@ -40,6 +43,7 @@ const projects = [
     technologies: ["Next.js", "Tailwind CSS", "Shadcn ui", "Vercel"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/Natnsis/portfolio",
+    isLive: true,
   },
 ];
 
@@ -80,21 +84,30 @@ export function Projects() {
                         className="rounded-full bg-white/10 border-white/20 text-white hover:bg-white/20"
                       >
                         <a
-                          href={project.githubUrl}
+                          href={
+                            project.isLive ? project.liveUrl : project.githubUrl
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Github className="h-4 w-4 mr-2" />
-                          Code
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          {project.isLive ? "Live" : "Code"}
                         </a>
                       </Button>
                     </div>
                   </div>
                 </div>
                 <CardContent className="p-6 group-hover:bg-muted/50 transition-colors duration-300">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    {project.isLive && (
+                      <Badge className="bg-green-500 text-white">
+                        Now Live
+                      </Badge>
+                    )}
+                  </div>
                   <p className="text-muted-foreground mb-4 group-hover:text-foreground/80 transition-colors duration-300">
                     {project.description}
                   </p>
@@ -110,7 +123,6 @@ export function Projects() {
                     ))}
                   </div>
                 </CardContent>
-                {/* CardFooter removed */}
               </Card>
             ))}
           </div>

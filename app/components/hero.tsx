@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
-import Image from "next/image";
 
 export function Hero() {
   const scrollToSection = (sectionId: string) => {
@@ -15,28 +14,21 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center pt-16"
+      className="min-h-screen flex items-center justify-center pt-16 bg-gradient-to-b from-background via-muted/30 to-background"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-8">
-          <div className="space-y-4">
-            <div className="relative w-32 h-32 mx-auto mb-8">
-              <Image
-                src="/pic1.jpg"
-                alt="Profile Picture"
-                fill
-                className="rounded-full object-cover border-4 border-primary/20"
-              />
-            </div>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+          <div className="space-y-6">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
               Natnael Sisay
             </h1>
-            <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
+            <p className="text-2xl sm:text-3xl font-semibold text-primary">
               Full-Stack Developer
             </p>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Passionate about creating exceptional digital experiences through
-              clean code and innovative solutions
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+              I design and build scalable, user-focused applications with modern
+              technologies. <br /> Passionate about solving real-world problems
+              through clean code and innovative solutions.
             </p>
           </div>
 
@@ -46,7 +38,7 @@ export function Hero() {
               className="rounded-full px-8"
               onClick={() => scrollToSection("projects")}
             >
-              View My Work
+              🚀 View My Work
             </Button>
             <Button
               variant="outline"
@@ -54,7 +46,7 @@ export function Hero() {
               className="rounded-full px-8 bg-transparent"
               onClick={() => scrollToSection("contact")}
             >
-              Contact Me
+              ✉️ Contact Me
             </Button>
           </div>
 
@@ -65,7 +57,7 @@ export function Hero() {
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
-              <Github className="h-6 w-6" />
+              <Github className="h-7 w-7" />
             </a>
             <a
               href="https://linkedin.com/in/natnael-sisay-orcadev"
@@ -73,13 +65,13 @@ export function Hero() {
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
-              <Linkedin className="h-6 w-6" />
+              <Linkedin className="h-7 w-7" />
             </a>
             <a
               href="mailto:nsisay49@gmail.com"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
-              <Mail className="h-6 w-6" />
+              <Mail className="h-7 w-7" />
             </a>
           </div>
         </div>
