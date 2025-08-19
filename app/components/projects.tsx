@@ -28,7 +28,7 @@ const projects = [
   {
     title: "E-commerce Platform (mobile app)",
     description:
-      "A sleek, cross-platform client-side mobile app built with React Native, designed as the mobile front of our ecommerce platform. It allows users to browse products, manage carts, and simulate the checkout process — all with a responsive and intuitive UI.",
+      "A sleek, cross-platform client-side mobile app built with React Native, designed as the mobile front of our e-commerce platform. It allows users to browse products, manage carts, and simulate the checkout process — all with a responsive and intuitive UI.",
     image: "/ecom_app.jpg",
     technologies: ["React Native", "node.js", "express.js", "Tailwind CSS"],
     liveUrl: "https://example.com",
@@ -36,14 +36,19 @@ const projects = [
     isLive: false,
   },
   {
-    title: "Portfolio Website",
+    title: "Human resource management",
     description:
-      "A modern, responsive portfolio website built with Next.js and deployed on Vercel.",
-    image: "/portfolio.png",
-    technologies: ["Next.js", "Tailwind CSS", "Shadcn ui", "Vercel"],
+      "A simple HR made with angular, crud functionality on angular in memory web api.",
+    image: "/angular_project.png",
+    technologies: [
+      "Angular.js",
+      "Tailwind CSS",
+      "Angular Material",
+      "In-memory-web-api",
+    ],
     liveUrl: "https://portfolio-ochre-gamma-qo1o5kn8o5.vercel.app/",
-    githubUrl: "https://github.com/Natnsis/portfolio",
-    isLive: true,
+    githubUrl: "https://github.com/Natnsis/Human-Resource",
+    isLive: false,
   },
 ];
 
