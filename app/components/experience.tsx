@@ -1,18 +1,16 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Briefcase, GraduationCap } from "lucide-react";
 
 const experiences = [
   {
     title: "Internship",
     company: "Commercial Bank of Ethiopia",
-    period: "2022 - Present",
+    period: "2022 – Present",
     description:
-      "Gained hands-on experience working in a structured enterprise environment. I was part of a collaborative team where I learned the importance of clear communication, documentation, and team workflows. While I didn’t work on production-level code, I was exposed to internal systems, development standards, and real-world software processes.",
+      "Gained hands-on experience in a structured enterprise environment, learning about team workflows, documentation, and software development standards. While not directly contributing to production code, I engaged with internal systems and real-world processes.",
     achievements: [
-      "Assisted in identifying and reporting bugs in internal software systems",
-      "Created internal documentation and walkthroughs for onboarding and clarity",
-      "Participated in code reviews and team discussions, offering fresh perspectives",
+      "Identified and reported bugs in internal software systems",
+      "Created onboarding documentation and system walkthroughs",
+      "Participated in code reviews and team discussions",
     ],
   },
   {
@@ -20,11 +18,11 @@ const experiences = [
     company: "Final Year Project – ASU",
     period: "2024",
     description:
-      "Led the development of a full-featured ecommerce platform as part of my final year project, delivering both a web and mobile experience using modern full stack technologies. Focused on solving real-world problems with clean, scalable architecture.",
+      "Led the development of a full-featured e-commerce platform as my capstone project, delivering both web and mobile experiences with a focus on clean, scalable architecture.",
     achievements: [
-      "Led a team and handled the majority of frontend and backend implementation",
-      "Built both web (React.js + Node.js) and mobile (React Native) versions with SQL integration",
-      "Won 'Best Final Year Project' award for innovation and practical impact",
+      "Led a team and implemented most of the frontend and backend",
+      "Built web (React + Node.js) and mobile (React Native) versions with SQL",
+      "Awarded 'Best Final Year Project' for innovation and impact",
     ],
   },
   {
@@ -32,20 +30,20 @@ const experiences = [
     company: "Self-Initiated Projects",
     period: "2024 – Present",
     description:
-      "After graduation, I focused on sharpening my full stack skills by building practical web and mobile applications. I worked on personal and community-driven projects, experimenting with modern frameworks and deploying end-to-end solutions.",
+      "Building practical web and mobile applications to sharpen full-stack skills, with a focus on real-world utility and cross-platform consistency.",
     achievements: [
-      "Built and released the ASU Student App (GPA calculator, schedule planner) in beta",
-      "Practiced advanced concepts like Next.js Server Components and TypeScript",
-      "Improved skills in project structuring, API design, and UI/UX consistency across platforms",
+      "Launched ASU Student App (GPA calculator, schedule planner) in beta",
+      "Implemented Next.js Server Components and TypeScript best practices",
+      "Refined API design and UI/UX patterns across projects",
     ],
   },
 ];
 
 const education = [
   {
-    degree: "Bachelor of Science in Computer Science",
+    degree: "BSc in Computer Science",
     institution: "Assosa University",
-    period: "2021 - 2025",
+    period: "2021 – 2025",
     description:
       "Focused on software engineering, algorithms, and web development. Graduated with honors.",
     coursework: [
@@ -60,24 +58,25 @@ const education = [
     institution: "Cisco Networking Academy",
     period: "2023",
     description:
-      "Completed a foundational course covering core networking concepts, protocols, and infrastructure. Gained hands-on knowledge of how networks operate and how data flows through wired and wireless systems.",
+      "Foundational training in networking protocols, infrastructure, and data flow across wired and wireless systems.",
     coursework: [
-      "IP addressing",
+      "IP Addressing",
       "Routing & Switching",
-      "Network security basics",
-      "OSI & TCP/IP models",
+      "Network Security",
+      "OSI/TCP/IP Models",
     ],
   },
   {
-    degree: "Foundations in AI, Data Analysis, and Android Development",
+    degree: "Foundations in AI, Data Analysis & Android Dev",
     institution: "Udacity",
     period: "Feb 2025",
     description:
-      "Completed foundational courses to expand my knowledge across AI, data analysis, and Android development. Built hands-on projects and explored real-world applications in each area.",
+      "Hands-on courses in AI concepts, data analysis, and Android development with Kotlin.",
     coursework: [
-      "AI Fundamentals – machine learning concepts, ethical AI",
-      "Data Analysis – data wrangling, visualization, basic statistics",
-      "Android Development – UI components, activity lifecycle, Kotlin basics",
+      "AI & Ethics",
+      "Data Wrangling",
+      "Visualization",
+      "Android UI & Lifecycle",
     ],
   },
 ];
@@ -88,113 +87,95 @@ export function Experience() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <h2 className="text-3xl font-bold text-[#2a2a2a] tracking-tight">
               Experience & Education
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="mt-4 text-lg text-[#2a2a2a]/70">
               My professional journey and academic background
             </p>
           </div>
 
-          <div className="space-y-12">
-            {/* Experience Section */}
-            <div>
+          <div className="space-y-14">
+            {/* Experience */}
+            <section>
               <div className="flex items-center gap-3 mb-8">
-                <Briefcase className="h-6 w-6 text-primary" />
-                <h3 className="text-2xl font-semibold">
+                <Briefcase className="h-5 w-5 text-[#2a2a2a]" />
+                <h3 className="text-xl font-semibold text-[#2a2a2a]">
                   Professional Experience
                 </h3>
               </div>
-              <div className="space-y-6">
-                {experiences.map((exp, index) => (
-                  <Card key={index} className="rounded-2xl">
-                    <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <div>
-                          <h4 className="text-xl font-semibold">{exp.title}</h4>
-                          <p className="text-primary font-medium">
-                            {exp.company}
-                          </p>
-                        </div>
-                        <Badge
-                          variant="outline"
-                          className="rounded-full mt-2 md:mt-0"
-                        >
-                          {exp.period}
-                        </Badge>
-                      </div>
-                      <p className="text-muted-foreground mb-4">
-                        {exp.description}
-                      </p>
+              <div className="space-y-8">
+                {experiences.map((exp, i) => (
+                  <div key={i} className="group">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                       <div>
-                        <h5 className="font-medium mb-2">Key Achievements:</h5>
-                        <ul className="space-y-1">
-                          {exp.achievements.map((achievement, achIndex) => (
-                            <li
-                              key={achIndex}
-                              className="text-sm text-muted-foreground"
-                            >
-                              • {achievement}
-                            </li>
-                          ))}
-                        </ul>
+                        <h4 className="text-lg font-semibold text-[#2a2a2a]">
+                          {exp.title}
+                        </h4>
+                        <p className="text-[#2a2a2a]/80">{exp.company}</p>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <time className="text-sm text-[#2a2a2a]/60 font-medium">
+                        {exp.period}
+                      </time>
+                    </div>
+                    <p className="text-[#2a2a2a]/70 mb-3 leading-relaxed">
+                      {exp.description}
+                    </p>
+                    <ul className="space-y-1.5">
+                      {exp.achievements.map((ach, j) => (
+                        <li
+                          key={j}
+                          className="text-[#2a2a2a]/80 flex items-start"
+                        >
+                          <span className="mr-2">•</span>
+                          {ach}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            {/* Education Section */}
-            <div>
+            {/* Education */}
+            <section>
               <div className="flex items-center gap-3 mb-8">
-                <GraduationCap className="h-6 w-6 text-primary" />
-                <h3 className="text-2xl font-semibold">Education</h3>
+                <GraduationCap className="h-5 w-5 text-[#2a2a2a]" />
+                <h3 className="text-xl font-semibold text-[#2a2a2a]">
+                  Education
+                </h3>
               </div>
-              <div className="space-y-6">
-                {education.map((edu, index) => (
-                  <Card key={index} className="rounded-2xl">
-                    <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <div>
-                          <h4 className="text-xl font-semibold">
-                            {edu.degree}
-                          </h4>
-                          <p className="text-primary font-medium">
-                            {edu.institution}
-                          </p>
-                        </div>
-                        <Badge
-                          variant="outline"
-                          className="rounded-full mt-2 md:mt-0"
-                        >
-                          {edu.period}
-                        </Badge>
-                      </div>
-                      <p className="text-muted-foreground mb-4">
-                        {edu.description}
-                      </p>
+              <div className="space-y-8">
+                {education.map((edu, i) => (
+                  <div key={i} className="group">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                       <div>
-                        <h5 className="font-medium mb-2">
-                          Relevant Coursework:
-                        </h5>
-                        <div className="flex flex-wrap gap-2">
-                          {edu.coursework.map((course, courseIndex) => (
-                            <Badge
-                              key={courseIndex}
-                              variant="secondary"
-                              className="rounded-full"
-                            >
-                              {course}
-                            </Badge>
-                          ))}
-                        </div>
+                        <h4 className="text-lg font-semibold text-[#2a2a2a]">
+                          {edu.degree}
+                        </h4>
+                        <p className="text-[#2a2a2a]/80">{edu.institution}</p>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <time className="text-sm text-[#2a2a2a]/60 font-medium">
+                        {edu.period}
+                      </time>
+                    </div>
+                    <p className="text-[#2a2a2a]/70 mb-3 leading-relaxed">
+                      {edu.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {edu.coursework.map((course, j) => (
+                        <span
+                          key={j}
+                          className="px-2.5 py-1 text-xs font-medium text-[#2a2a2a]/70 bg-[#f5f5f5] rounded-full"
+                        >
+                          {course}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>

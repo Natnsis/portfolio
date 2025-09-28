@@ -1,136 +1,160 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const projects = [
   {
     title: "Asu Students App",
     description:
-      "A mobile app built with React Native to help university students manage their academic life more efficiently. The app is currently in beta and designed to solve everyday student problems like GPA tracking and class schedule organization.",
+      "A mobile app built with React Native to help university students manage academic life — GPA tracking, schedule organization, and more. Currently in beta.",
     image: "/asu_app.jpg",
     technologies: ["React Native", "TypeScript", "SQLite"],
-    liveUrl: " https://uni-site-nu.vercel.app/",
+    liveUrl: "https://uni-site-nu.vercel.app/",
     githubUrl: "https://github.com/Natnsis/asu_students_appV2.0",
     isLive: true,
   },
   {
     title: "E-commerce Platform",
     description:
-      "An end-to-end ecommerce solution designed to support both web users. The platform features seamless product browsing, cart management, order placement, and admin controls",
+      "Full-stack e-commerce solution with product browsing, cart management, and admin controls. Built with React, Node.js, and MySQL.",
     image: "/ecommerce.png",
-    technologies: ["React.js", "Node.js", "express.js", "MySQL"],
-    liveUrl: "https://example.com",
+    technologies: ["React", "Node.js", "Express", "MySQL"],
     githubUrl: "https://github.com/Natnsis/Ecommerce",
     isLive: false,
   },
   {
-    title: "E-commerce Platform (mobile app)",
+    title: "E-commerce Mobile App",
     description:
-      "A sleek, cross-platform client-side mobile app built with React Native, designed as the mobile front of our e-commerce platform. It allows users to browse products, manage carts, and simulate the checkout process — all with a responsive and intuitive UI.",
+      "Cross-platform mobile client for the e-commerce platform, built with React Native and Tailwind CSS.",
     image: "/ecom_app.jpg",
-    technologies: ["React Native", "node.js", "express.js", "Tailwind CSS"],
-    liveUrl: "https://example.com",
+    technologies: ["React Native", "Tailwind CSS"],
     githubUrl: "https://github.com/Natnsis/ecommerce_mobile",
     isLive: false,
   },
   {
-    title: "Human resource management",
+    title: "HR Management System",
     description:
-      "A simple HR made with angular, crud functionality on angular in memory web api.",
+      "Angular-based HR dashboard with CRUD operations using in-memory web API.",
     image: "/angular_project.png",
-    technologies: [
-      "Angular.js",
-      "Tailwind CSS",
-      "Angular Material",
-      "In-memory-web-api",
-    ],
+    technologies: ["Angular", "Angular Material", "Tailwind CSS"],
     liveUrl: "https://portfolio-ochre-gamma-qo1o5kn8o5.vercel.app/",
     githubUrl: "https://github.com/Natnsis/Human-Resource",
+    isLive: true,
+  },
+  {
+    title: "Mini Chat App",
+    description:
+      "Real-time chat app with React, Node.js, Socket.IO, and Zustand for state management.",
+    image: "/chat.png",
+    technologies: ["React", "Node.js", "Socket.IO", "Tailwind CSS"],
+    githubUrl: "https://github.com/Natnsis/chat-app.git",
     isLive: false,
   },
 ];
 
 export function Projects() {
   return (
-    <section id="projects" className="py-20 bg-muted/50">
+    <section id="projects" className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              A showcase of my recent work and personal projects
-            </p>
-          </div>
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <h2 className="text-3xl font-bold text-[#2a2a2a] tracking-tight">
+            Featured Projects
+          </h2>
+          <p className="mt-4 text-lg text-[#2a2a2a]/70">
+            Practical solutions built with care — from student tools to
+            full-stack platforms.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <Card
-                key={index}
-                className="rounded-2xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2 border-2 hover:border-primary/20"
-              >
-                <div className="relative aspect-video overflow-hidden">
+        <div className="space-y-12">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="group flex flex-col md:flex-row gap-6 items-start"
+            >
+              {/* Image */}
+              <div className="relative w-full md:w-1/3 aspect-video rounded-xl overflow-hidden bg-[#f0f0f0] border border-[#e0e0e0]">
+                {project.image ? (
                   <Image
-                    src={project.image || "/placeholder.svg"}
+                    src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
-                    <div className="flex gap-2">
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="rounded-full bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      >
-                        <a
-                          href={
-                            project.isLive ? project.liveUrl : project.githubUrl
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          {project.isLive ? "Live" : "Code"}
-                        </a>
-                      </Button>
-                    </div>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-[#2a2a2a]/30">
+                    {project.title}
                   </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="w-full md:w-2/3">
+                <div className="flex flex-wrap items-baseline gap-2 mb-2">
+                  <h3 className="text-xl font-semibold text-[#2a2a2a]">
+                    {project.title}
+                  </h3>
+                  {project.isLive && (
+                    <span className="text-sm font-medium text-green-600">
+                      Live
+                    </span>
+                  )}
                 </div>
-                <CardContent className="p-6 group-hover:bg-muted/50 transition-colors duration-300">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    {project.isLive && (
-                      <Badge className="bg-green-500 text-white">
-                        Now Live
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground mb-4 group-hover:text-foreground/80 transition-colors duration-300">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge
-                        key={techIndex}
-                        variant="outline"
-                        className="rounded-full group-hover:border-primary/50 group-hover:text-primary transition-colors duration-300"
+
+                <p className="text-[#2a2a2a]/80 mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 text-xs font-medium text-[#2a2a2a]/70 bg-[#f5f5f5] rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-3">
+                  {project.liveUrl && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="rounded-full border-[#2a2a2a]/20 text-[#2a2a2a] hover:bg-[#f5f5f5]"
+                      asChild
+                    >
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                        <ExternalLink className="h-4 w-4 mr-1.5" />
+                        Live Demo
+                      </a>
+                    </Button>
+                  )}
+                  {project.githubUrl && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-[#2a2a2a]/70 hover:text-[#2a2a2a] hover:bg-[#f5f5f5]"
+                      asChild
+                    >
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View Code
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
