@@ -83,4 +83,49 @@ export const projects = [
     isLive: false,
     tags: ["Lua"],
   },
+  {
+    id: 8,
+    title: "Node-typescript-initialization ",
+    date: "22, january, 2025",
+    image: "/wallpaper.png",
+    description:
+      "An interactive setup guide that streamlines the process of building a modern backend with Node.js, Express, TypeScript, and Prisma. It provides step-by-step instructions, copy-ready code snippets, and configuration files — from npm init -y all the way to database migrations, ESLint/Prettier setup, and a working Express server. The goal is to help developers scaffold a production-ready backend stack in just minutes.",
+    live: "https://node-typescript-initialization.vercel.app/",
+    source: "https://github.com/Natnsis/Node-typescript-initialization",
+    isLive: true,
+    tags: ["Next.js", "TailwindCss"],
+  },
+];
+
+export const experience = [
+  {
+    id: 1,
+    title: "Internship - Commercial Bank of Ethiopia",
+    description:
+      "Gained hands-on experience in a structured enterprise environment, learning about team workflows, documentation, and software development standards. While not directly contributing to production code, I engaged with internal systems and real-world processes.",
+  },
+  {
+    id: 2,
+    title: "Full Stack Developer (Student) - Final Year Project ",
+    description:
+      "Led the development of a full-featured e-commerce platform as my capstone project, delivering both web and mobile experiences with a focus on clean, scalable architecture.",
+  },
+  {
+    id: 3,
+    title: "BSc in Computer Science",
+    description:
+      "Focused on software engineering, algorithms, and web development. Graduated with honors from Assosa University",
+  },
+  {
+    id: 4,
+    title: "Networking Essentials Certification - Cisco Networking Academy",
+    description:
+      "Foundational training in networking protocols, infrastructure, and data flow across wired and wireless systems.",
+  },
+  {
+    id: 5,
+    title: "Foundations in AI, Data Analysis & Android Dev - Udacity",
+    description:
+      "Hands-on courses in AI concepts, data analysis, and Android development with Kotlin.",
+  },
 ];

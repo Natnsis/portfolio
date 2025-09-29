@@ -1,35 +1,78 @@
-import React from "react";
-import { projects } from "./demos/arrays";
-import { CalendarDaysIcon } from "@/components/ui/calendar-days";
+"use client";
+import { useState } from "react";
+import { experience, projects } from "./demos/arrays";
 import Image from "next/image";
-import { KeyIcon } from "lucide-react";
+import { DownloadIcon, KeyIcon } from "lucide-react";
 import { GithubIcon } from "@/components/ui/github";
 import { LinkedinIcon } from "@/components/ui/linkedin";
 import { GitPullRequestIcon } from "@/components/ui/git-pull-request";
 import { RadioIcon } from "@/components/ui/radio";
+import { LayersIcon } from "@/components/ui/layers";
+import {
+  SiReact,
+  SiTypescript,
+  SiTailwindcss,
+  SiPostgresql,
+  SiPrisma,
+  SiNextdotjs,
+  SiExpress,
+  SiMysql,
+} from "react-icons/si";
+import { TbBrandReactNative } from "react-icons/tb";
+import { DiNodejsSmall } from "react-icons/di";
 
-const page = () => {
+const Page = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
   return (
     <div className="text-primary h-screen">
+      {/* Header */}
       <div className=" bg-shades p-5 border-b-2 border-[#787878] ">
-        <p className="text-2xl font-bold text-center mb-5 font-heading">
+        <p className="text-3xl font-bold text-center mb-5 font-heading">
           Natnael Sisay - Full Stack Dev
         </p>
         <div className="flex items-center justify-center">
-          <button className="border-[#00202E] border-1 px-2 rounded-sm font-bold">
-            Download CV
+          <button className="border-[#00202E] border-1 px-2 rounded-sm font-bold flex gap-2 py-1">
+            <DownloadIcon /> <p>Download CV</p>
           </button>
         </div>
       </div>
+
+      {/* Layout */}
       <div className="bg-cards h-full flex flex-col">
+        {/* Navigation */}
         <header className="flex justify-center items-center  py-5 ">
           <nav className="flex gap-5 text-primary font-bold text-lg font-titles">
-            <button>Home</button>
-            <button>Skills</button>
-            <button>Experience</button>
+            <button
+              className={`cursor-pointer ${
+                activeTab === "home" && "underline"
+              }`}
+              onClick={() => setActiveTab("home")}
+            >
+              Home
+            </button>
+            <button
+              className={`cursor-pointer ${
+                activeTab === "skills" && "underline"
+              }`}
+              onClick={() => setActiveTab("skills")}
+            >
+              Skills & Tech
+            </button>
+            <button
+              className={`cursor-pointer ${
+                activeTab === "experience" && "underline"
+              }`}
+              onClick={() => setActiveTab("experience")}
+            >
+              Experience
+            </button>
           </nav>
         </header>
+
+        {/* Grid Layout */}
         <div className="grid grid-cols-4 border-t-2 border-[#787878]  h-0">
+          {/* Left Sidebar */}
           <div className="col-span-1 border-r-2 border-[#787878] p-5">
             <div>
               <h1 className="font-bold border-b-2 border-[#787878] font-titles text-xl pb-2">
@@ -52,68 +95,108 @@ const page = () => {
               </button>
             </div>
           </div>
-          <div className="col-span-2 border-r-2 border-[#787878] p-5 h-[90vh] flex flex-col">
-            <div>
-              <h1 className="text-4xl font-heading">Featured Projects</h1>
-            </div>
-            <div className="w-full overflow-y-scroll ">
-              {projects.map((p) => (
-                <div
-                  key={p.id}
-                  className="py-5 flex flex-col gap-2 overflow-y-scrollable"
-                >
-                  <div>
-                    <h1 className="font-titles capitalize text-xl">
-                      {p.title}
-                    </h1>
-                  </div>
-                  <div className="flex gap-3 items-center">
-                    <CalendarDaysIcon />
-                    <p>{p.date}</p>
-                  </div>
-                  <div className="relative w-full h-64">
-                    <Image
-                      src={p.image}
-                      alt="Picture of the author"
-                      fill
-                      className="object-cover rounded-lg"
-                    />
-                  </div>
 
+          {/* Middle Section (Dynamic) */}
+          <div className="col-span-2 border-r-2 border-[#787878] p-5 h-[90vh] flex flex-col">
+            {activeTab === "home" && (
+              <>
+                <h1 className="text-4xl font-heading">Featured Projects</h1>
+                <div className="w-full overflow-y-scroll ">
+                  {projects.map((p) => (
+                    <div
+                      key={p.id}
+                      className="py-5 flex flex-col gap-2 overflow-y-scrollable"
+                    >
+                      <h1 className="font-titles capitalize text-xl">
+                        {p.title}
+                      </h1>
+                      <div className="relative w-full h-64">
+                        <Image
+                          src={p.image}
+                          alt="project image"
+                          fill
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
+
+                      <div>
+                        <p>{p.description}</p>
+                        <button className="font-bold cursor-pointer hover:underline">
+                          Read more
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {p.tags.map((tag, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 text-sm bg-shades font-bold rounded-full font-tags"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="py-5 flex gap-10">
+                        <button className=" border-2 border-[#787878] px-3 rounded-lg font-bold flex gap-2 py-1 text-center justify-center">
+                          <GitPullRequestIcon />
+                          Source
+                        </button>
+                        {p.isLive && (
+                          <button className=" border-2 border-[#787878] px-3  rounded-lg font-bold flex gap-2 py-1">
+                            <RadioIcon />
+                            Live
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {activeTab === "experience" && (
+              <div>
+                <h1 className="text-4xl font-heading">
+                  Experience & Education
+                </h1>
+                <div className="overflow-y-auto max-h-[70vh]">
+                  {experience.map((e) => (
+                    <div key={e.id} className="py-5 flex flex-col gap-2">
+                      <h1 className="font-titles text-xl flex gap-2 py-5">
+                        <LayersIcon /> {e.title}
+                      </h1>
+                      <div className="bg-shades border-2 border-[#787878] rounded p-5">
+                        <p>{e.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === "skills" && (
+              <div>
+                <h1 className="text-4xl font-heading">
+                  Skills and Technologies
+                </h1>
+                <div className="flex flex-wrap">
                   <div>
-                    <p>{p.description}</p>
-                    <button className="font-bold cursor-pointer hover:underline">
-                      Read more
-                    </button>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {p.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 text-sm bg-shades font-bold rounded-full font-tags"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="py-5 flex gap-10">
-                    <button className=" border-2 border-[#787878] px-3 rounded-lg font-bold flex gap-2 py-1 text-center justify-center">
-                      <GitPullRequestIcon />
-                      Source
-                    </button>
-                    {p.isLive ? (
-                      <button className=" border-2 border-[#787878] px-3  rounded-lg font-bold flex gap-2 py-1">
-                        <RadioIcon />
-                        Live
-                      </button>
-                    ) : (
-                      ""
-                    )}
+                    <SiReact title="React.js" />
+                    <SiTypescript title="Typescript" />
+                    <SiPostgresql title="Postgressql" />
+                    <SiTailwindcss title="Tailwindcss" />
+                    <SiPrisma title="Prisma" />
+                    <TbBrandReactNative title="ReactNative" />
+                    <SiNextdotjs title="Next.js" />
+                    <DiNodejsSmall title="Next.js" />
+                    <SiExpress title="Next.js" />
+                    <SiMysql title="Next.js" />
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </div>
+
+          {/* Right Sidebar */}
           <div className="col-span-1 p-5 flex flex-col gap-5">
             <div className="bg-shades border-2 border-[#787878] rounded p-5">
               <h1 className="font-titles text-xl">About Me</h1>
@@ -121,9 +204,11 @@ const page = () => {
                 My journey into web and mobile development began with curiosity
                 and has evolved into a passion for building digital tools that
                 solve real problems — especially in student and local community
-                spaces. I focus on writing clean, maintainable code and
-                continuously improving my craft.
+                spaces.
               </p>
+              <button className="font-bold cursor-pointer hover:underline">
+                Read more
+              </button>
               <div className="flex gap-3">
                 <div className="flex gap-2 py-5 items-center">
                   <button>
@@ -156,4 +241,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
