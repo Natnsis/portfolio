@@ -17,6 +17,7 @@ import {
   SiNextdotjs,
   SiExpress,
   SiMysql,
+  SiExpo,
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { DiNodejsSmall } from "react-icons/di";
@@ -57,7 +58,7 @@ const Page = () => {
               }`}
               onClick={() => setActiveTab("skills")}
             >
-              Skills & Tech
+              Tech Stack
             </button>
             <button
               className={`cursor-pointer ${
@@ -175,21 +176,56 @@ const Page = () => {
 
             {activeTab === "skills" && (
               <div>
-                <h1 className="text-4xl font-heading">
-                  Skills and Technologies
-                </h1>
-                <div className="flex flex-wrap">
-                  <div>
-                    <SiReact title="React.js" />
-                    <SiTypescript title="Typescript" />
-                    <SiPostgresql title="Postgressql" />
-                    <SiTailwindcss title="Tailwindcss" />
-                    <SiPrisma title="Prisma" />
-                    <TbBrandReactNative title="ReactNative" />
-                    <SiNextdotjs title="Next.js" />
-                    <DiNodejsSmall title="Next.js" />
-                    <SiExpress title="Next.js" />
-                    <SiMysql title="Next.js" />
+                <h1 className="text-4xl font-heading">Tech Stack</h1>
+                <div className="flex flex-wrap p-5 gap-5">
+                  <div className=" p-3">
+                    <SiReact title="React.js" className="w-24 h-24" />
+                    <p className="text-center font-bold">React.js</p>
+                  </div>
+                  <div className=" p-3">
+                    <SiTypescript title="Typescript" className="w-24 h-24" />
+                    <p className="text-center font-bold">TypeScript</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <SiPostgresql title="Postgressql" className="w-24 h-24" />
+                    <p className="text-center font-bold">Postgressql</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <SiTailwindcss title="Tailwindcss" className="w-24 h-24" />
+                    <p className="text-center font-bold">TailwindCss</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <SiNextdotjs title="Next.js" className="w-24 h-24" />
+                    <p className="text-center font-bold">Next.js</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <DiNodejsSmall title="Next.js" className="w-24 h-24" />
+                    <p className="text-center font-bold">Node.js</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <SiExpress title="Next.js" className="w-24 h-24" />
+                    <p className="text-center font-bold">Express.js</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <SiPrisma title="Prisma" className="w-24 h-24" />
+
+                    <p className="text-center font-bold">Prisma Orm</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <TbBrandReactNative
+                      title="ReactNative"
+                      className="w-24 h-24"
+                    />
+                    <p className="text-center font-bold">ReactNative</p>
+                  </div>{" "}
+                  <div className=" p-3">
+                    <SiMysql title="Next.js" className="w-24 h-24" />
+                    <p className="text-center font-bold">MySql</p>
+                  </div>
+                  <div className=" p-3">
+                    <SiExpo title="Next.js" className="w-24 h-24" />
+
+                    <p className="text-center font-bold">Expo</p>
                   </div>
                 </div>
               </div>
