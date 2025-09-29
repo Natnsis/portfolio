@@ -5,6 +5,8 @@ import Image from "next/image";
 import { KeyIcon } from "lucide-react";
 import { GithubIcon } from "@/components/ui/github";
 import { LinkedinIcon } from "@/components/ui/linkedin";
+import { GitPullRequestIcon } from "@/components/ui/git-pull-request";
+import { RadioIcon } from "@/components/ui/radio";
 
 const page = () => {
   return (
@@ -52,7 +54,7 @@ const page = () => {
           </div>
           <div className="col-span-2 border-r-2 border-[#787878] p-5 h-[90vh] flex flex-col">
             <div>
-              <h1 className="text-4xl font-heading">Featured Works</h1>
+              <h1 className="text-4xl font-heading">Featured Projects</h1>
             </div>
             <div className="w-full overflow-y-scroll ">
               {projects.map((p) => (
@@ -94,13 +96,15 @@ const page = () => {
                       </span>
                     ))}
                   </div>
-                  <div className="py-5 flex justify-center gap-10">
+                  <div className="py-5 flex gap-10">
                     <button className=" border-2 border-[#787878] px-3 rounded-lg font-bold flex gap-2 py-1 text-center justify-center">
+                      <GitPullRequestIcon />
                       Source
                     </button>
                     {p.isLive ? (
                       <button className=" border-2 border-[#787878] px-3  rounded-lg font-bold flex gap-2 py-1">
-                        Source
+                        <RadioIcon />
+                        Live
                       </button>
                     ) : (
                       ""
