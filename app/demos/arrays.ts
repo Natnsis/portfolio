@@ -20,7 +20,7 @@ export const projects = [
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non temporibus ullam at, totam in, laudantium ex ipsa recusandae error repellat voluptatibus possimus perspiciatis sit provident voluptates esse animi minima quis.",
     live: "http://localhost/haha",
     source: "http://hehe",
-    isLive: false,
+    isLive: true,
     tags: ["React.js", "Tailwind", "Node.js"],
   },
   {
