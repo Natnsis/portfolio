@@ -24,12 +24,12 @@ import { DiNodejsSmall } from "react-icons/di";
 import Link from "next/link";
 
 const Page = () => {
-  const [activeTab, setActiveTab] = useState("home");
-  const [expandedProject, setExpandedProject] = useState(null);
-  const [aboutExpanded, setAboutExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>("home");
+  const [expandedProject, setExpandedProject] = useState<number | null>(null);
+  const [aboutExpanded, setAboutExpanded] = useState<boolean>(false);
   const MAX_LENGTH = 150;
 
-  const toggleProject = (id:number) => {
+  const toggleProject = (id: number) => {
     setExpandedProject((prev) => (prev === id ? null : id));
   };
 
@@ -136,7 +136,7 @@ const Page = () => {
                             src={p.image}
                             alt="project image"
                             fill
-                            className="object-fit rounded-lg"
+                            className="object-contain rounded-lg"
                           />
                         </div>
 
