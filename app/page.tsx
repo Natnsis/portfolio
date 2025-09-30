@@ -29,7 +29,7 @@ const Page = () => {
   const [aboutExpanded, setAboutExpanded] = useState(false);
   const MAX_LENGTH = 150;
 
-  const toggleProject = (id) => {
+  const toggleProject = (id:number) => {
     setExpandedProject((prev) => (prev === id ? null : id));
   };
 
