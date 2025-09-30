@@ -3,7 +3,7 @@ export const projects = [
     id: 1,
     title: "Asu Students App",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/asu.jpg",
     description:
       "A mobile app built with React Native to help university students manage academic life — GPA tracking, schedule organization, and more. Currently in beta.",
     live: "https://uni-site-nu.vercel.app/",
@@ -15,7 +15,7 @@ export const projects = [
     id: 2,
     title: "Mini Chat App",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/chat.png",
     description:
       "A real time chat app with seamless mobile, and desktop responsiveness, with authentication and free chatting functionality.",
     live: "http://localhost/haha",
@@ -27,7 +27,7 @@ export const projects = [
     id: 3,
     title: "HR Management System",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/hr.jpg",
     description:
       "A foundational HRMS built using Angular (TypeScript) to demonstrate proficiency with alternative frontend frameworks and design patterns outside the React ecosystem. This application features full CRUD functionality for managing employee records, offering a clean, modern interface and a lightweight architecture.",
     live: "",
@@ -39,7 +39,7 @@ export const projects = [
     id: 4,
     title: "E-commerce Platform",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/ecom-site.jpg",
     description:
       "A comprehensive, scalable e-commerce solution engineered for robust performance and a seamless user experience. This platform features distinct operational roles (Admin, Vendor, Customer) and a secure, end-to-end purchasing lifecycle, from product browsing and cart management to secure payment processing.",
     live: "",
@@ -51,7 +51,7 @@ export const projects = [
     id: 5,
     title: "E-commerce Mobile App (Customer-Side)",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/ecom-app.jpg",
     description:
       "A dedicated, cross-platform mobile application built with React Native to provide customers with an optimized and native-feeling mobile shopping experience. This project specifically focuses on the frontend client, consuming a back-end RESTful API to handle authentication, product retrieval, and secure checkout flows.",
     live: "",
@@ -63,7 +63,7 @@ export const projects = [
     id: 6,
     title: "Clinic Management System",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/clinic.png",
     description:
       "A full-stack web application designed to digitize and optimize the operations of a university clinic, replacing manual, paper-based workflows with an efficient, computer-based system. This platform significantly reduces administrative overhead, improves data accuracy, and streamlines patient care from check-in to treatment.",
     live: "",
@@ -75,7 +75,7 @@ export const projects = [
     id: 7,
     title: "Fimple",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/fimple.png",
     description:
       "A custom, drop-in Neovim configuration designed for modern full-stack development using JavaScript, TypeScript, and Node.js. Built in Lua and centered on a 'zero-setup' philosophy, this configuration transforms Neovim into a lightweight, powerful IDE, focusing on efficiency, speed, and seamless integration with the tools developers use every day.",
     live: "",
@@ -87,7 +87,7 @@ export const projects = [
     id: 8,
     title: "Node-typescript-initialization ",
     date: "22, january, 2025",
-    image: "/wallpaper.png",
+    image: "/initializer.png",
     description:
       "An interactive setup guide that streamlines the process of building a modern backend with Node.js, Express, TypeScript, and Prisma. It provides step-by-step instructions, copy-ready code snippets, and configuration files — from npm init -y all the way to database migrations, ESLint/Prettier setup, and a working Express server. The goal is to help developers scaffold a production-ready backend stack in just minutes.",
     live: "https://node-typescript-initialization.vercel.app/",

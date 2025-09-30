@@ -21,29 +21,30 @@ import {
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 import { DiNodejsSmall } from "react-icons/di";
+import Link from "next/link";
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState("home");
 
   return (
-    <div className="text-primary h-screen">
+    <div className="text-primary min-h-screen w-full">
       {/* Header */}
       <div className=" bg-shades p-5 border-b-2 border-[#787878] ">
-        <p className="text-3xl font-bold text-center mb-5 font-heading">
+        <p className="text-2xl sm:text-3xl font-bold text-center mb-5 font-heading">
           Natnael Sisay - Full Stack Dev
         </p>
         <div className="flex items-center justify-center">
-          <button className="border-[#00202E] border-1 px-2 rounded-sm font-bold flex gap-2 py-1">
+          <button className="border-[#00202E] border px-2 rounded-sm font-bold flex gap-2 py-1 cursor-pointer">
             <DownloadIcon /> <p>Download CV</p>
           </button>
         </div>
       </div>
 
       {/* Layout */}
-      <div className="bg-cards h-full flex flex-col">
+      <div className="bg-cards min-h-screen flex flex-col">
         {/* Navigation */}
         <header className="flex justify-center items-center  py-5 ">
-          <nav className="flex gap-5 text-primary font-bold text-lg font-titles">
+          <nav className="flex flex-wrap gap-5 text-primary font-bold text-lg font-titles">
             <button
               className={`cursor-pointer ${
                 activeTab === "home" && "underline"
@@ -72,16 +73,16 @@ const Page = () => {
         </header>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-4 border-t-2 border-[#787878]  h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-4 border-t-2 border-[#787878] flex-1">
           {/* Left Sidebar */}
-          <div className="col-span-1 border-r-2 border-[#787878] p-5">
+          <div className="col-span-1 border-r-0 lg:border-r-2 border-[#787878] p-5">
             <div>
-              <h1 className="font-bold border-b-2 border-[#787878] font-titles text-xl pb-2">
+              <h1 className="font-bold border-b-2 border-[#787878] font-titles text-lg sm:text-xl pb-2">
                 Core Values
               </h1>
             </div>
             <div className="py-5 ">
-              <ul className="list-disc list-inside flex flex-col gap-2 font-tags">
+              <ul className="list-disc list-inside flex flex-col gap-2 font-tags text-sm sm:text-base">
                 <li> Continuous learning and improvement</li>
                 <li> User-centered design and accessibility</li>
                 <li> Collaboration and knowledge sharing</li>
@@ -90,7 +91,7 @@ const Page = () => {
               </ul>
             </div>
             <div className="flex justify-center items-center">
-              <button className=" border-2 border-[#787878] px-3 w-1/3 rounded-lg font-bold flex gap-2 py-1">
+              <button className=" border-2 border-[#787878] px-3 w-1/2 sm:w-1/3 rounded-lg font-bold flex gap-2 py-1 text-sm sm:text-base cursor-pointer">
                 <KeyIcon />
                 Hire Me!
               </button>
@@ -98,25 +99,24 @@ const Page = () => {
           </div>
 
           {/* Middle Section (Dynamic) */}
-          <div className="col-span-2 border-r-2 border-[#787878] p-5 h-[90vh] flex flex-col">
+          <div className="col-span-2 border-r-0 lg:border-r-2 border-[#787878] p-5 min-h-[70vh] flex flex-col">
             {activeTab === "home" && (
               <>
-                <h1 className="text-4xl font-heading">Featured Projects</h1>
-                <div className="w-full overflow-y-scroll ">
+                <h1 className="text-2xl sm:text-4xl font-heading">
+                  Featured Projects
+                </h1>
+                <div className="w-full overflow-y-auto max-h-[70vh]">
                   {projects.map((p) => (
-                    <div
-                      key={p.id}
-                      className="py-5 flex flex-col gap-2 overflow-y-scrollable"
-                    >
-                      <h1 className="font-titles capitalize text-xl">
+                    <div key={p.id} className="py-5 flex flex-col gap-2">
+                      <h1 className="font-titles capitalize text-lg sm:text-xl">
                         {p.title}
                       </h1>
-                      <div className="relative w-full h-64">
+                      <div className="relative w-full h-50 sm:h-64">
                         <Image
                           src={p.image}
                           alt="project image"
                           fill
-                          className="object-cover rounded-lg"
+                          className="object-fit rounded-lg"
                         />
                       </div>
 
@@ -136,16 +136,22 @@ const Page = () => {
                           </span>
                         ))}
                       </div>
-                      <div className="py-5 flex gap-10">
-                        <button className=" border-2 border-[#787878] px-3 rounded-lg font-bold flex gap-2 py-1 text-center justify-center">
+                      <div className="py-5 flex flex-wrap gap-5">
+                        <Link
+                          href={p.source}
+                          className=" border-2 border-[#787878] px-3 rounded-lg font-bold flex gap-2 py-1 text-center justify-center"
+                        >
                           <GitPullRequestIcon />
                           Source
-                        </button>
+                        </Link>
                         {p.isLive && (
-                          <button className=" border-2 border-[#787878] px-3  rounded-lg font-bold flex gap-2 py-1">
+                          <Link
+                            href={p.live}
+                            className=" border-2 border-[#787878] px-3  rounded-lg font-bold flex gap-2 py-1"
+                          >
                             <RadioIcon />
                             Live
-                          </button>
+                          </Link>
                         )}
                       </div>
                     </div>
@@ -156,13 +162,13 @@ const Page = () => {
 
             {activeTab === "experience" && (
               <div>
-                <h1 className="text-4xl font-heading">
+                <h1 className="text-2xl sm:text-4xl font-heading">
                   Experience & Education
                 </h1>
                 <div className="overflow-y-auto max-h-[70vh]">
                   {experience.map((e) => (
                     <div key={e.id} className="py-5 flex flex-col gap-2">
-                      <h1 className="font-titles text-xl flex gap-2 py-5">
+                      <h1 className="font-titles text-lg sm:text-xl flex gap-2 py-5">
                         <LayersIcon /> {e.title}
                       </h1>
                       <div className="bg-shades border-2 border-[#787878] rounded p-5">
@@ -176,55 +182,85 @@ const Page = () => {
 
             {activeTab === "skills" && (
               <div>
-                <h1 className="text-4xl font-heading">Tech Stack</h1>
-                <div className="flex flex-wrap p-5 gap-5">
+                <h1 className="text-2xl sm:text-4xl font-heading">
+                  Tech Stack
+                </h1>
+                <div className="flex flex-wrap p-5 gap-5 justify-center">
                   <div className=" p-3">
-                    <SiReact title="React.js" className="w-24 h-24" />
+                    <SiReact
+                      title="React.js"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">React.js</p>
                   </div>
                   <div className=" p-3">
-                    <SiTypescript title="Typescript" className="w-24 h-24" />
+                    <SiTypescript
+                      title="Typescript"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">TypeScript</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <SiPostgresql title="Postgressql" className="w-24 h-24" />
+                    <SiPostgresql
+                      title="Postgressql"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">Postgressql</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <SiTailwindcss title="Tailwindcss" className="w-24 h-24" />
+                    <SiTailwindcss
+                      title="Tailwindcss"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">TailwindCss</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <SiNextdotjs title="Next.js" className="w-24 h-24" />
+                    <SiNextdotjs
+                      title="Next.js"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">Next.js</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <DiNodejsSmall title="Next.js" className="w-24 h-24" />
+                    <DiNodejsSmall
+                      title="Node.js"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">Node.js</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <SiExpress title="Next.js" className="w-24 h-24" />
+                    <SiExpress
+                      title="Express.js"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">Express.js</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <SiPrisma title="Prisma" className="w-24 h-24" />
-
+                    <SiPrisma
+                      title="Prisma"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">Prisma Orm</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
                     <TbBrandReactNative
                       title="ReactNative"
-                      className="w-24 h-24"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
                     />
                     <p className="text-center font-bold">ReactNative</p>
-                  </div>{" "}
+                  </div>
                   <div className=" p-3">
-                    <SiMysql title="Next.js" className="w-24 h-24" />
+                    <SiMysql
+                      title="MySql"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">MySql</p>
                   </div>
                   <div className=" p-3">
-                    <SiExpo title="Next.js" className="w-24 h-24" />
-
+                    <SiExpo
+                      title="Expo"
+                      className="w-16 sm:w-24 h-16 sm:h-24"
+                    />
                     <p className="text-center font-bold">Expo</p>
                   </div>
                 </div>
@@ -235,8 +271,8 @@ const Page = () => {
           {/* Right Sidebar */}
           <div className="col-span-1 p-5 flex flex-col gap-5">
             <div className="bg-shades border-2 border-[#787878] rounded p-5">
-              <h1 className="font-titles text-xl">About Me</h1>
-              <p>
+              <h1 className="font-titles text-lg sm:text-xl">About Me</h1>
+              <p className="text-sm sm:text-base">
                 My journey into web and mobile development began with curiosity
                 and has evolved into a passion for building digital tools that
                 solve real problems — especially in student and local community
@@ -245,29 +281,29 @@ const Page = () => {
               <button className="font-bold cursor-pointer hover:underline">
                 Read more
               </button>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <div className="flex gap-2 py-5 items-center">
-                  <button>
+                  <Link href="https://www.linkedin.com/in/natnael-sisay-orcadev/">
                     <GithubIcon />
-                  </button>
+                  </Link>
                   <span>Natnael Sisay</span>
                 </div>
                 <div className="flex gap-2 py-5 items-center">
-                  <button>
+                  <Link href="https://github.com/Natnsis">
                     <LinkedinIcon />
-                  </button>
+                  </Link>
                   <span>Natnael Sisay</span>
                 </div>
               </div>
             </div>
-            <div className="bg-shades border-2 border-[#787878] rounded p-5">
+            <div className="bg-shades border-2 border-[#787878] rounded py-5 px-5 sm:px-10">
               <div className="flex justify-between items-center ">
-                <p>Work</p>
-                <p>12</p>
+                <p>Projects</p>
+                <p>8</p>
               </div>
               <div className="flex justify-between items-center">
-                <p>Articles</p>
-                <p>8</p>
+                <p>Certificates</p>
+                <p>6</p>
               </div>
             </div>
           </div>
