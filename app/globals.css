@@ -1,26 +1,249 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.205 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.87 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.87 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.87 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* GitHub contributions calendar tweaks 🔧 */
+.github-calendar {
+  max-width: none; /* allow full width */
+  --cell-size: 1rem; /* larger by default */
+}
+.github-calendar {
+  /* larger cells on wider screens */
+}
+@media (min-width: 768px) {
+  .github-calendar {
+    --cell-size: 1.25rem;
+  }
+}
+.github-calendar svg {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+.github-calendar rect {
+  shape-rendering: geometricPrecision;
+  stroke: var(--border);
+  stroke-width: 0.4;
+}
+
+/* Styles for the custom GraphQL contributions grid */
+.github-calendar {
+  --cell-size: 0.75rem;
+}
+.github-calendar > div.overflow-auto {
+  padding-bottom: 0.5rem;
+}
+.github-calendar .w-3 {
+  width: var(--cell-size) !important;
+  height: var(--cell-size) !important;
+}
+.github-calendar .w-3:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Slightly larger legend swatches */
+.github-calendar .legend-swatch {
+  width: calc(var(--cell-size) * 1.2) !important;
+  height: calc(var(--cell-size) * 1.2) !important;
+}
+
+/* Graph wrapper and legend styling for clarity */
+.github-calendar .graph-wrapper {
+  position: relative;
+  padding-bottom: calc(var(--cell-size) * 2.5); /* room for legend */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.github-calendar .legend {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  color: var(--color-muted-foreground);
+  width: 100%;
+  order: 1; /* ensure it appears after the grid */
+  margin-top: 0.5rem;
+}
+/* On medium+ screens position absolute to bottom-right */
+.github-calendar .legend.static {
+  position: static;
+}
+@media (min-width: 768px) {
+  .github-calendar .legend {
+    position: absolute;
+    right: 1rem;
+    bottom: 0.5rem;
+    background: color-mix(in srgb, var(--card) 85%, transparent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.08);
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* Slightly smoother hover */
+.github-calendar .w-3 {
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+/* Contribution color scale (maps to site theme / chart colors) */
+:root {
+  --contrib-0: var(--color-muted);
+  --contrib-1: var(--color-chart-1);
+  --contrib-2: var(--color-chart-2);
+  --contrib-3: var(--color-chart-3);
+  --contrib-4: var(--color-chart-5);
+}
+.dark {
+  /* In dark mode we keep the same mapping but prefer slightly stronger contrast */
+  --contrib-0: var(--color-muted);
+  --contrib-1: var(--color-chart-1);
+  --contrib-2: var(--color-chart-2);
+  --contrib-3: var(--color-chart-3);
+  --contrib-4: var(--color-chart-5);
+}
+
+.github-calendar rect[data-level="0"] {
+  fill: var(--contrib-0);
+}
+.github-calendar rect[data-level="1"] {
+  fill: var(--contrib-1);
+}
+.github-calendar rect[data-level="2"] {
+  fill: var(--contrib-2);
+}
+.github-calendar rect[data-level="3"] {
+  fill: var(--contrib-3);
+}
+.github-calendar rect[data-level="4"] {
+  fill: var(--contrib-4);
+}
+
+.github-calendar .contrib-legend {
+  display: none;
 }
