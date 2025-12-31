@@ -4,14 +4,14 @@ import { Card, CardHeader, CardContent, CardTitle } from "./ui/card"
 
 const Hero = () => {
   return (
-    <div className="flex gap-10">
+    <div className="flex gap-10 py-5">
       <div className="p-15 flex flex-col gap-10">
         <div className="flex flex-col gap-2">
           <div>
             <h1 className="text-5xl mb-2"> Hi, I'm Natnael Sisay 👋</h1>
             <p className="text-sm text-gray-500">Full-Stack Developer</p>
           </div>
-          <p className="font-priamry">Am a developer passionate about my field and obsesseed with learning</p>
+          <p className="font-primary">Am a developer passionate about my field and obsesseed with learning</p>
         </div>
         <div className="flex gap-5">
           <Button className="flex gap-2 items-center" variant="outline">
