@@ -1,12 +1,44 @@
-import { GithubIcon, LinkedinIcon, SendIcon } from "lucide-react"
-import { ModeToggle } from "./mode-toggle"
-import { Button } from "@/components/ui/button"
+"use client";
 
-const Header = () => {
+import { useEffect, useState } from "react";
+import { GithubIcon, LinkedinIcon, SendIcon } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
+import { Button } from "@/components/ui/button";
+
+const Header = ({ username = "Natnsis" }: { username?: string }) => {
+  const [total, setTotal] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch(
+          `/api/github-graphql?user=${encodeURIComponent(username)}`
+        );
+        if (!res.ok) return;
+        const body = await res.json();
+        if (!mounted) return;
+        setTotal(body.total ?? null);
+      } catch {
+        // ignore
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [username]);
+
   return (
-    <header className="flex justify-between">
-      <h1 className="text-2xl font-tertiary">543 <span className="text-sm">Github contributions</span></h1>
-      <nav className=" flex gap-3">
+    <header className="flex justify-between items-center">
+      <h1 className="text-2xl font-tertiary">
+        {loading ? "…" : total ?? "—"}{" "}
+        <span className="text-sm">GitHub contributions this year</span>
+      </h1>
+      <nav className=" flex gap-3 items-center">
         <Button size="icon" variant="ghost">
           <SendIcon />
         </Button>
@@ -19,7 +51,7 @@ const Header = () => {
         <ModeToggle />
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
