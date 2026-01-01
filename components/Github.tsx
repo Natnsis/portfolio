@@ -65,13 +65,11 @@ export default function GithubCalendar({
     };
   }, [username]);
 
-  // Build flattened days grid (array of week columns, each with 7 days)
   const columns = useMemo(() => {
     if (!weeks) return [];
     return weeks.map((w: Week) => w.contributionDays);
   }, [weeks]);
 
-  // find max contributions to compute levels
   const maxCount = useMemo(() => {
     if (!columns.length) return 0;
     let max = 0;
