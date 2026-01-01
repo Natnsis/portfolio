@@ -39,14 +39,37 @@ const Header = ({ username = "Natnsis" }: { username?: string }) => {
         <span className="text-sm">GitHub contributions this year</span>
       </h1>
       <nav className=" flex gap-3 items-center">
-        <Button size="icon" variant="ghost">
-          <SendIcon />
+        <Button asChild size="icon" variant="ghost">
+          <a
+            href="https://t.me/Flawless_22_4"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Telegram"
+          >
+            <SendIcon />
+          </a>
         </Button>
-        <Button size="icon" variant="ghost">
-          <GithubIcon />
+
+        <Button asChild size="icon" variant="ghost">
+          <a
+            href="https://github.com/Natnsis"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+          >
+            <GithubIcon />
+          </a>
         </Button>
-        <Button size="icon" variant="ghost">
-          <LinkedinIcon />
+
+        <Button asChild size="icon" variant="ghost">
+          <a
+            href="https://www.linkedin.com/in/natnael-sisay-orcadev/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+          >
+            <LinkedinIcon />
+          </a>
         </Button>
         <ModeToggle />
       </nav>

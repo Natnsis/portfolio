@@ -21,7 +21,11 @@ const Experience = () => {
               <p className="font-primary">{e.descritpion}</p>
               <div className="flex gap-3 items-center justify-end">
                 <p>Downlaod Files</p>
-                <Button size="icon"><DownloadIcon /></Button>
+                <Button size="icon">
+                  <a href={e.file} download>
+                    <DownloadIcon />
+                  </a>
+                </Button>
               </div>
             </div>
           </div>

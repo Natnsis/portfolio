@@ -1,7 +1,5 @@
 "use client";
-
 import { useEffect, useMemo, useState } from "react";
-
 type ContributionDay = {
   date: string;
   weekday: number;

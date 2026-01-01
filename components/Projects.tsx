@@ -136,15 +136,20 @@ const Projects = () => {
               </CardContent>
 
               <CardFooter className="flex gap-4 mt-auto">
-                <Button size="sm" variant="outline" className="flex gap-2">
-                  <ExternalLink size={16} />
-                  Source
+                <Button size="sm" variant="outline" asChild>
+                  <a href={p.source} className="flex gap-2">
+                    <ExternalLink size={16} />
+                    Source
+                  </a>
                 </Button>
-
-                <Button size="sm" className="flex gap-2">
-                  <LinkIcon size={16} />
-                  Live
-                </Button>
+                {p.isLive &&
+                  <Button size="sm" asChild>
+                    <a href={p.live} className="flex gap-2">
+                      <LinkIcon size={16} />
+                      Live
+                    </a>
+                  </Button>
+                }
               </CardFooter>
             </Card>
           )

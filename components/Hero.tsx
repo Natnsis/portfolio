@@ -17,16 +17,20 @@ const Hero = () => {
           <p className="font-primary">Am a developer passionate about my field and obsesseed with learning</p>
         </div>
         <div className="flex gap-5">
-          <Button className="flex gap-2 items-center cursor-pointer" variant="outline">
-            <DownloadIcon /> Download CV
+          <Button variant="outline">
+            <a href="/natnael-sisay-cv.pdf" className="flex gap-2 items-center cursor-pointer" download>
+              <DownloadIcon /> Download CV
+            </a>
           </Button>
           <Button className="flex gap-2 items-center" variant="outline" onClick={() => router.push('/exp')}>
             <BookIcon />
             Experience & Skills
           </Button>
-          <Button className="flex gap-2 items-center" variant="outline">
-            <MailIcon />
-            Contact Me
+          <Button variant="outline">
+            <a href="mailto:nsisay49@gmail.com" className="flex gap-2 items-center">
+              <MailIcon />
+              Contact Me
+            </a>
           </Button>
         </div>
       </div>
