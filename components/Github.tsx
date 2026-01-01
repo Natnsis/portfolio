@@ -128,9 +128,9 @@ export default function GithubCalendar({
         )}
 
         {status === "ready" && (
-          <div className="overflow-auto p-2">
+          <div className="overflow-x-auto p-2">
             <div className="graph-wrapper">
-              <div className="flex gap-1 md:gap-2 items-start justify-center flex-wrap">
+              <div className="flex gap-1 md:gap-2 items-start justify-start md:justify-center flex-nowrap min-w-max">
                 {columns.map((col: ContributionDay[], i: number) => (
                   <div key={i} className="flex flex-col gap-1 md:gap-2">
                     {col.map((d: ContributionDay) => {
