@@ -132,7 +132,10 @@ export default function GithubCalendar({
             <div className="graph-wrapper">
               <div className="flex gap-1 md:gap-2 items-start justify-start md:justify-center flex-nowrap min-w-max">
                 {columns.map((col: ContributionDay[], i: number) => (
-                  <div key={i} className="flex flex-col gap-1 md:gap-2">
+                  <div
+                    key={i}
+                    className="flex flex-col gap-1 md:gap-2 flex-none"
+                  >
                     {col.map((d: ContributionDay) => {
                       const lvl = levelFor(d.contributionCount);
                       return (

@@ -50,7 +50,7 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="hidden md:flex p-15 flex-col gap-10 w-full md:w-[40vw]">
+      <div className="hidden md:flex p-15 flex-col gap-10 w-full">
         <Card className="w-full p-5">
           <CardHeader>
             <CardTitle>
