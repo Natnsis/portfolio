@@ -33,12 +33,12 @@ const Header = ({ username = "Natnsis" }: { username?: string }) => {
   }, [username]);
 
   return (
-    <header className="flex justify-between items-center">
-      <h1 className="text-2xl font-tertiary">
+    <header className="flex flex-col md:flex-row md:justify-between gap-3 items-start md:items-center">
+      <h1 className="text-lg md:text-2xl font-tertiary">
         {loading ? "…" : total ?? "—"}{" "}
-        <span className="text-sm">GitHub contributions this year</span>
+        <span className="block text-sm">GitHub contributions this year</span>
       </h1>
-      <nav className=" flex gap-3 items-center">
+      <nav className="flex flex-wrap gap-3 items-center">
         <Button asChild size="icon" variant="ghost">
           <a
             href="https://t.me/Flawless_22_4"

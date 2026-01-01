@@ -130,9 +130,9 @@ export default function GithubCalendar({
         {status === "ready" && (
           <div className="overflow-auto p-2">
             <div className="graph-wrapper">
-              <div className="flex gap-2 items-start justify-center">
+              <div className="flex gap-1 md:gap-2 items-start justify-center flex-wrap">
                 {columns.map((col: ContributionDay[], i: number) => (
-                  <div key={i} className="flex flex-col gap-2">
+                  <div key={i} className="flex flex-col gap-1 md:gap-2">
                     {col.map((d: ContributionDay) => {
                       const lvl = levelFor(d.contributionCount);
                       return (
@@ -140,7 +140,7 @@ export default function GithubCalendar({
                           key={d.date}
                           title={`${d.contributionCount} contributions on ${d.date}`}
                           aria-label={`${d.contributionCount} contributions on ${d.date}`}
-                          className={`w-3 h-3 rounded-sm border`}
+                          className={`w-2 h-2 sm:w-3 sm:h-3 rounded-sm border`}
                           style={{
                             background: `var(--contrib-${lvl})`,
                           }}

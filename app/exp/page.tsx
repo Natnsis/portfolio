@@ -1,22 +1,35 @@
-"use client"
-import Experience from "@/components/Experience"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MoveLeft } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { SiExpo, SiExpress, SiMysql, SiNextdotjs, SiNodedotjs, SiPostgresql, SiPrisma, SiReact, SiReactquery, SiSupabase, SiTailwindcss, SiTypescript } from "react-icons/si";
+"use client";
+import Experience from "@/components/Experience";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MoveLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  SiExpo,
+  SiExpress,
+  SiMysql,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPrisma,
+  SiReact,
+  SiReactquery,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 
 const page = () => {
   const router = useRouter();
   return (
     <section className="p-5">
-      <Button onClick={() => router.push('/')}>
+      <Button onClick={() => router.push("/")}>
         <MoveLeft />
         Go Back
       </Button>
-      <main className="mt-10 px-10 grid grid-cols-9 gap-5">
+      <main className="mt-10 px-4 md:px-10 grid grid-cols-1 md:grid-cols-9 gap-5">
         <Experience />
-        <Card className="col-span-3 h-fit">
+        <Card className="col-span-1 md:col-span-3 h-fit">
           <CardHeader>
             <CardTitle>
               <h1 className="text-xl font-primary underline">Tech Stack</h1>
@@ -41,7 +54,7 @@ const page = () => {
         </Card>
       </main>
     </section>
-  )
-}
+  );
+};
 
-export default page
+export default page;
