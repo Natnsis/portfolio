@@ -91,7 +91,7 @@ export const tools = [
   },
   {
     title: "Node-typescript-initialization",
-    image: "/project/ecom-site.jpg",
+    image: "/project/initializer.png",
     description: "An interactive setup guide that streamlines the process of building a modern backend with Node.js, Express, TypeScript, and Prisma. It provides step-by-step instructions, copy-ready code snippets, and configuration files — from npm init -y all the way to database migrations, ESLint/Prettier setup, and a working Express server. The goal is to help developers scaffold a production-ready backend stack in just minutes.",
     tags: ["Next.js", "Tailwindcss", "Clipboard"],
     source: "https://github.com/Natnsis/Snippet-Boilerplate-Manager",

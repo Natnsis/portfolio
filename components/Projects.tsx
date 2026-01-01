@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -25,7 +26,8 @@ import { apps, bots, tools, websites } from "@/constants/projects"
 type Variant = "default" | "outline" | "link"
 
 const Projects = () => {
-  const [type, setType] = useState<number>(2)
+  const [type, setType] = useState<number>(1)
+  const [expanded, setExpanded] = useState<Record<number, boolean>>({})
 
   const getVariant = (btnType: number): Variant =>
     type === btnType ? "default" : "outline"
@@ -38,6 +40,13 @@ const Projects = () => {
   }
 
   const projects = dataMap[type] ?? []
+
+  const toggleReadMore = (index: number) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }))
+  }
 
   return (
     <section className="p-15 flex flex-col gap-5">
@@ -83,41 +92,64 @@ const Projects = () => {
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {projects.map((p, index) => (
-          <Card key={index} className="w-full">
-            <Image
-              src={p.image}
-              alt={p.title}
-              width={300}
-              height={200}
-              className="w-full rounded-t-md object-cover"
-            />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 gap-y-10 items-start">
+        {projects.map((p, index) => {
+          const isExpanded = expanded[index]
 
-            <CardHeader>
-              <CardTitle className="font-primary text-base">
-                {p.title}
-              </CardTitle>
-              <Separator />
-            </CardHeader>
+          return (
+            <Card key={index} className="w-full flex flex-col">
+              <Image
+                src={p.image}
+                alt={p.title}
+                width={300}
+                height={200}
+                className="w-full rounded-t-md object-cover"
+              />
 
-            <CardContent className="text-sm text-muted-foreground line-clamp-3">
-              {p.description}
-            </CardContent>
+              <CardHeader>
+                <CardTitle className="font-primary text-base">
+                  {p.title}
+                </CardTitle>
+                <Separator />
+              </CardHeader>
 
-            <CardFooter className="flex gap-4">
-              <Button size="sm" variant="outline" className="flex gap-2">
-                <ExternalLink size={16} />
-                Source
-              </Button>
+              <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground">
+                {/* Description */}
+                <p className={isExpanded ? "" : "line-clamp-3"}>
+                  {p.description}
+                </p>
 
-              <Button size="sm" className="flex gap-2">
-                <LinkIcon size={16} />
-                Live
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
+                <button
+                  onClick={() => toggleReadMore(index)}
+                  className="text-xs text-primary w-fit hover:underline"
+                >
+                  {isExpanded ? "Read less" : "Read more"}
+                </button>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {p.tags.map((t, i) => (
+                    <Badge key={i} variant="secondary">
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+
+              <CardFooter className="flex gap-4 mt-auto">
+                <Button size="sm" variant="outline" className="flex gap-2">
+                  <ExternalLink size={16} />
+                  Source
+                </Button>
+
+                <Button size="sm" className="flex gap-2">
+                  <LinkIcon size={16} />
+                  Live
+                </Button>
+              </CardFooter>
+            </Card>
+          )
+        })}
       </div>
     </section>
   )
