@@ -1,8 +1,11 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { BookIcon, DownloadIcon, MailIcon } from "lucide-react"
 import { Card, CardHeader, CardContent, CardTitle } from "./ui/card"
+import { useRouter } from "next/navigation"
 
 const Hero = () => {
+  const router = useRouter()
   return (
     <div className="flex gap-10 py-5">
       <div className="p-15 flex flex-col gap-10">
@@ -14,10 +17,10 @@ const Hero = () => {
           <p className="font-primary">Am a developer passionate about my field and obsesseed with learning</p>
         </div>
         <div className="flex gap-5">
-          <Button className="flex gap-2 items-center" variant="outline">
-            <DownloadIcon /> Downlaod CV
+          <Button className="flex gap-2 items-center cursor-pointer" variant="outline">
+            <DownloadIcon /> Download CV
           </Button>
-          <Button className="flex gap-2 items-center" variant="outline">
+          <Button className="flex gap-2 items-center" variant="outline" onClick={() => router.push('/exp')}>
             <BookIcon />
             Experience & Skills
           </Button>
