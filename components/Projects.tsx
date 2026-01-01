@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 import Image from "next/image"
 import {
@@ -22,23 +23,37 @@ import {
 import { Separator } from "./ui/separator"
 import { apps, bots, tools, websites } from "@/constants/projects"
 
+
 type Variant = "default" | "outline" | "link"
 
+type Project = {
+  title: string
+  image: string
+  description: string
+  tags: string[]
+  source: string
+  live: string
+  isLive: boolean
+}
+
+type ProjectType = 1 | 2 | 3 | 4
+
+
 const Projects = () => {
-  const [type, setType] = useState<number>(1)
+  const [type, setType] = useState<ProjectType>(1)
   const [expanded, setExpanded] = useState<Record<number, boolean>>({})
 
-  const getVariant = (btnType: number): Variant =>
+  const getVariant = (btnType: ProjectType): Variant =>
     type === btnType ? "default" : "outline"
 
-  const dataMap = {
+  const dataMap: Record<ProjectType, Project[]> = {
     1: websites,
     2: apps,
     3: bots,
     4: tools,
   }
 
-  const projects = dataMap[type] ?? []
+  const projects = dataMap[type]
 
   const toggleReadMore = (index: number) => {
     setExpanded((prev) => ({
@@ -113,7 +128,6 @@ const Projects = () => {
               </CardHeader>
 
               <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground">
-                {/* Description */}
                 <p className={isExpanded ? "" : "line-clamp-3"}>
                   {p.description}
                 </p>
@@ -125,7 +139,6 @@ const Projects = () => {
                   {isExpanded ? "Read less" : "Read more"}
                 </button>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 pt-2">
                   {p.tags.map((t, i) => (
                     <Badge key={i} variant="secondary">
@@ -137,19 +150,30 @@ const Projects = () => {
 
               <CardFooter className="flex gap-4 mt-auto">
                 <Button size="sm" variant="outline" asChild>
-                  <a href={p.source} className="flex gap-2">
+                  <a
+                    href={p.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex gap-2"
+                  >
                     <ExternalLink size={16} />
                     Source
                   </a>
                 </Button>
-                {p.isLive &&
+
+                {p.isLive && (
                   <Button size="sm" asChild>
-                    <a href={p.live} className="flex gap-2">
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex gap-2"
+                    >
                       <LinkIcon size={16} />
                       Live
                     </a>
                   </Button>
-                }
+                )}
               </CardFooter>
             </Card>
           )
