@@ -8,7 +8,15 @@ export const websites = [
     live: "https://snippet-boilerplate-manager-ozzyoc03g-natnsis-projects.vercel.app",
     isLive: true
   },
-
+  {
+    title: "E-commerce Platform",
+    image: "/project/ecom-site.png",
+    description: "A comprehensive, scalable e-commerce solution engineered for robust performance and a seamless user experience. This platform features distinct operational roles (Admin, Customer) and a secure, end-to-end purchasing lifecycle, from product browsing and cart management to secure payment processing.",
+    tags: ["Nextjs", "Tailwindcss", "Tanstack-Query", "Zod"],
+    source: "https://github.com/Natnsis/Ecommerce",
+    live: "https://ecommerce-lemon-iota-14.vercel.app/",
+    isLive: true
+  },
   {
     title: "Rate My Portfolio",
     image: "/project/rmp.png",
@@ -33,15 +41,6 @@ export const websites = [
     description: "A foundational HRMS built using Angular (TypeScript) to demonstrate proficiency with alternative frontend frameworks and design patterns outside the React ecosystem. This application features full CRUD functionality for managing employee records, offering a clean, modern interface and a lightweight architecture.",
     tags: ["Angular.js", "Tailwind", "In-Memory-Db"],
     source: "https://github.com/Natnsis/Human-Resource",
-    live: "",
-    isLive: false
-  },
-  {
-    title: "E-commerce Platform",
-    image: "/project/ecom-site.jpg",
-    description: "A comprehensive, scalable e-commerce solution engineered for robust performance and a seamless user experience. This platform features distinct operational roles (Admin, Vendor, Customer) and a secure, end-to-end purchasing lifecycle, from product browsing and cart management to secure payment processing.",
-    tags: ["React.js", "Tailwindcss", "Node.js", "sessions"],
-    source: "https://github.com/Natnsis/Ecommerce",
     live: "",
     isLive: false
   },
