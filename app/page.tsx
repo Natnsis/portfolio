@@ -1,3 +1,4 @@
+import About from "@/components/About";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ProjectsCut from "@/components/ProjectsCut";
@@ -7,8 +8,8 @@ const page = () => {
     <div className="p-5">
       <Header />
       <Hero />
-      
       <ProjectsCut />
+      <About />
     </div>
   );
 };
