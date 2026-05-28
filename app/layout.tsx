@@ -47,7 +47,7 @@ export default function RootLayout({
         jetbrainsMono.variable,
       )}
     >
-      <body className="min-h-full flex flex-col bg-[#F7F4EB]">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#F7F4EB]" suppressHydrationWarning>{children}</body>
     </html>
   );
 }
