@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  weight: ["400", "500"],
+});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -34,9 +40,10 @@ export default function RootLayout({
       className={cn(
         "h-full",
         "antialiased",
+        newsreader.variable,
         geistSans.variable,
         geistMono.variable,
-        "font-mono",
+        "font-serif",
         jetbrainsMono.variable,
       )}
     >
