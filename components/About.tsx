@@ -41,10 +41,10 @@ const About = () => {
         <div>
           <h1 className="text-4xl md:text-5xl mb-6">About Me</h1>
           <p className="text-base md:text-lg leading-relaxed">
-            I am a developer who cares about how things work — not just that they work. I
-            research before I build, communicate openly, and adapt quickly to whatever the
-            project throws my way. Whether solo or in a team, I bring ideas, feedback, and
-            a drive to ship quality software.
+            I am a developer who cares about how things work — not just that
+            they work. I research before I build, communicate openly, and adapt
+            quickly to whatever the project throws my way. Whether solo or in a
+            team, I bring ideas, feedback, and a drive to ship quality software.
           </p>
         </div>
 
@@ -56,8 +56,8 @@ const About = () => {
             <h1 className="text-5xl md:text-7xl">120%</h1>
           </div>
           <p className="text-sm md:text-base leading-relaxed">
-            That is the energy I bring to every project. Full commitment, full focus,
-            full delivery — no half measures.
+            That is the energy I bring to every project. Full commitment, full
+            focus, full delivery — no half measures.
           </p>
         </div>
       </div>
@@ -69,12 +69,15 @@ const About = () => {
         </p>
       </div>
 
-      <div className="relative overflow-hidden w-full border-y border-black py-6">
-        <div className="flex gap-8 animate-marquee" style={{ width: "max-content" }}>
+      <div className="relative overflow-hidden w-full py-6">
+        <div
+          className="flex gap-8 animate-marquee"
+          style={{ width: "max-content" }}
+        >
           {[...storyEntries, ...storyEntries].map((entry, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[280px] md:w-[350px] border border-black p-5 flex flex-col gap-3 bg-[#F7F4EB]"
+              className="flex-shrink-0 w-[280px] md:w-[350px] p-5 flex flex-col gap-3"
             >
               <div className="w-full h-40 bg-black/10 flex items-center justify-center overflow-hidden">
                 <Image
@@ -90,7 +93,10 @@ const About = () => {
                   <h2 className="text-lg font-bold">{entry.title}</h2>
                   <p className="text-sm opacity-60">{entry.subtitle}</p>
                 </div>
-                <DownloadSimpleIcon size={20} className="cursor-pointer hover:opacity-60 transition-opacity flex-shrink-0" />
+                <DownloadSimpleIcon
+                  size={20}
+                  className="cursor-pointer hover:opacity-60 transition-opacity flex-shrink-0"
+                />
               </div>
               <p className="text-sm leading-relaxed">{entry.description}</p>
             </div>
