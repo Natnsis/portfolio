@@ -1,6 +1,5 @@
 "use client";
-import { DownloadSimpleIcon, EnvelopeIcon } from "@phosphor-icons/react";
-import { Button } from "./ui/button";
+import { EnvelopeIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 const routes = [

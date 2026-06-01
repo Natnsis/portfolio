@@ -2,12 +2,10 @@
 
 import {
   EnvelopeIcon,
-  DownloadSimpleIcon,
   TelegramLogoIcon,
   XLogoIcon,
 } from "@phosphor-icons/react";
 import { Button } from "./ui/button";
-import Link from "next/link";
 
 const Contact = () => {
   return (

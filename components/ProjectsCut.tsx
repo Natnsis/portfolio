@@ -6,12 +6,42 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 const projects = [
-  { title: "Snippet And Boilerplate Manager" },
-  { title: "Snippet And Boilerplate Manager" },
-  { title: "Snippet And Boilerplate Manager" },
-  { title: "Snippet And Boilerplate Manager" },
-  { title: "Snippet And Boilerplate Manager" },
-  { title: "Snippet And Boilerplate Manager" },
+  {
+    title: "Snippet And Boilerplate Manager",
+    live: "#",
+    url: "/sbm.png",
+    visit: "visit site",
+  },
+  {
+    title: "Rate My Portfolio",
+    live: "#",
+    url: "/rmp(1).png",
+    visit: "visit site",
+  },
+  {
+    title: "Asu Students App",
+    live: "#",
+    url: "/asu.jpg",
+    visit: "visit site",
+  },
+  {
+    title: "Fimple NVIM Config",
+    live: "#",
+    url: "fimple.png",
+    visit: "visit site",
+  },
+  {
+    title: "Poster Boi",
+    live: "#",
+    url: "/tg.jpg",
+    visit: "visit site",
+  },
+  {
+    title: "Ecommerce Web App",
+    live: "#",
+    url: "/ecom-site.png",
+    visit: "visit site",
+  },
 ];
 
 const ProjectsCut = () => {
@@ -29,13 +59,17 @@ const ProjectsCut = () => {
             <div
               key={index}
               className={className}
-              style={{ backgroundImage: "url('/project.webp')" }}
+              style={{ backgroundImage: `url("${p.url}")` }}
             >
               <Badge className="text-sm md:text-lg rounded-full py-2 md:py-3 px-3 border-black">
                 {p.title}
               </Badge>
               <div className="flex justify-end">
-                <Button variant="outline" size="sm" className="border-black gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-black gap-2"
+                >
                   <GlobeIcon size={20} />
                   Visit Site
                 </Button>
