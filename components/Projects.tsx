@@ -1,186 +1,182 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import {
-  Bot,
-  ExternalLink,
-  Link as LinkIcon,
-  MonitorIcon,
-  Smartphone,
-  ToolboxIcon,
-} from "lucide-react"
+import { GlobeIcon, GithubLogoIcon } from "@phosphor-icons/react";
+import { Button } from "./ui/button";
+import { useState } from "react";
 
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card"
-import { Separator } from "./ui/separator"
-import { apps, bots, tools, websites } from "@/constants/projects"
-
-
-type Variant = "default" | "outline" | "link"
-
-type Project = {
-  title: string
-  image: string
-  description: string
-  tags: string[]
-  source: string
-  live: string
-  isLive: boolean
+interface Project {
+  title: string;
+  image: string;
+  tags: string[];
+  isLive?: boolean;
+  visitUrl?: string;
+  sourceUrl?: string;
 }
 
-type ProjectType = 1 | 2 | 3 | 4
-
+const projects: Project[] = [
+  {
+    title: "E-Commerce Platform",
+    image: "/project.webp",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL"],
+    isLive: true,
+    visitUrl: "#",
+    sourceUrl: "#",
+  },
+  {
+    title: "AI Chat Application",
+    image: "/project.webp",
+    tags: ["Next.js", "TypeScript", "Python", "FastAPI"],
+    isLive: true,
+    visitUrl: "#",
+    sourceUrl: "#",
+  },
+  {
+    title: "Task Manager",
+    image: "/project.webp",
+    tags: ["React", "TanStack Query", "Node.js", "Prisma"],
+    isLive: false,
+    sourceUrl: "#",
+  },
+  {
+    title: "Portfolio Site",
+    image: "/project.webp",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    isLive: true,
+    visitUrl: "#",
+    sourceUrl: "#",
+  },
+  {
+    title: "Analytics Dashboard",
+    image: "/project.webp",
+    tags: ["React", "TypeScript", "D3.js", "Node.js"],
+    isLive: true,
+    visitUrl: "#",
+  },
+  {
+    title: "Blog Platform",
+    image: "/project.webp",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
+    isLive: false,
+    sourceUrl: "#",
+  },
+  {
+    title: "Weather App",
+    image: "/project.webp",
+    tags: ["React", "TypeScript", "TanStack Query"],
+    isLive: true,
+    visitUrl: "#",
+    sourceUrl: "#",
+  },
+  {
+    title: "DevOps Toolkit",
+    image: "/project.webp",
+    tags: ["Python", "Docker", "Node.js"],
+    isLive: true,
+    visitUrl: "#",
+  },
+];
 
 const Projects = () => {
-  const [type, setType] = useState<ProjectType>(1)
-  const [expanded, setExpanded] = useState<Record<number, boolean>>({})
+  const [activeTags, setActiveTags] = useState<string[]>([]);
 
-  const getVariant = (btnType: ProjectType): Variant =>
-    type === btnType ? "default" : "outline"
+  const allTags = [...new Set(projects.flatMap((p) => p.tags))].sort();
 
-  const dataMap: Record<ProjectType, Project[]> = {
-    1: websites,
-    2: apps,
-    3: bots,
-    4: tools,
-  }
+  const toggleTag = (tag: string) => {
+    setActiveTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  };
 
-  const projects = dataMap[type]
-
-  const toggleReadMore = (index: number) => {
-    setExpanded((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }))
-  }
+  const filteredProjects =
+    activeTags.length === 0
+      ? projects
+      : projects.filter((p) => activeTags.every((tag) => p.tags.includes(tag)));
 
   return (
-    <section className="p-15 flex flex-col gap-5">
-      <h1 className="text-lg font-secondary">Projects</h1>
+    <div className="py-10 md:py-20 px-4 md:px-10">
+      <h1 className="text-4xl md:text-6xl text-center mb-12">
+        Explore my work
+      </h1>
 
-      {/* Filters */}
-      <div className="flex gap-5 flex-wrap">
-        <Button
-          variant={getVariant(1)}
-          onClick={() => setType(1)}
-          className="flex gap-2 items-center"
-        >
-          <MonitorIcon />
-          Web App
-        </Button>
-
-        <Button
-          variant={getVariant(2)}
-          onClick={() => setType(2)}
-          className="flex gap-2 items-center"
-        >
-          <Smartphone />
-          Mobile App
-        </Button>
-
-        <Button
-          variant={getVariant(3)}
-          onClick={() => setType(3)}
-          className="flex gap-2 items-center"
-        >
-          <Bot />
-          Bot APIs
-        </Button>
-
-        <Button
-          variant={getVariant(4)}
-          onClick={() => setType(4)}
-          className="flex gap-2 items-center"
-        >
-          <ToolboxIcon />
-          Tools & Configs
-        </Button>
-      </div>
-
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 gap-y-10 items-start">
-        {projects.map((p, index) => {
-          const isExpanded = expanded[index]
-
+      <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {allTags.map((tag) => {
+          const isActive = activeTags.includes(tag);
           return (
-            <Card key={index} className="w-full flex flex-col">
-              <Image
-                src={p.image}
-                alt={p.title}
-                width={300}
-                height={200}
-                className="w-full rounded-t-md object-cover"
-              />
-
-              <CardHeader>
-                <CardTitle className="font-primary text-base">
-                  {p.title}
-                </CardTitle>
-                <Separator />
-              </CardHeader>
-
-              <CardContent className="flex flex-col gap-3 text-sm text-muted-foreground">
-                <p className={isExpanded ? "" : "line-clamp-3"}>
-                  {p.description}
-                </p>
-
-                <button
-                  onClick={() => toggleReadMore(index)}
-                  className="text-xs text-primary w-fit hover:underline"
-                >
-                  {isExpanded ? "Read less" : "Read more"}
-                </button>
-
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {p.tags.map((t, i) => (
-                    <Badge key={i} variant="secondary">
-                      {t}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-
-              <CardFooter className="flex gap-4 mt-auto">
-                <Button size="sm" variant="outline" asChild>
-                  <a
-                    href={p.source}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex gap-2"
-                  >
-                    <ExternalLink size={16} />
-                    Source
-                  </a>
-                </Button>
-
-                {p.isLive && (
-                  <Button size="sm" asChild>
-                    <a
-                      href={p.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex gap-2"
-                    >
-                      <LinkIcon size={16} />
-                      Live
-                    </a>
-                  </Button>
-                )}
-              </CardFooter>
-            </Card>
-          )
+            <button
+              key={tag}
+              onClick={() => toggleTag(tag)}
+              className={`px-4 py-2 text-sm border rounded-full transition-colors ${
+                isActive
+                  ? "bg-black text-[#F7F4EB] border-black"
+                  : "bg-transparent text-black border-black hover:bg-black/5"
+              }`}
+            >
+              {tag}
+            </button>
+          );
         })}
       </div>
-    </section>
-  )
-}
 
-export default Projects
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProjects.map((p, i) => (
+          <div key={i} className="border border-black p-5 flex flex-col gap-4">
+            <div className="w-full h-48 bg-black/5 border border-black overflow-hidden">
+              <img
+                src={p.image}
+                alt={p.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h2 className="text-xl font-bold">{p.title}</h2>
+            <div className="flex flex-wrap gap-2">
+              {p.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs border border-black px-2 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-3 mt-auto">
+              {p.isLive && p.visitUrl && (
+                <a href={p.visitUrl} target="_blank" rel="noopener noreferrer">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-black gap-2"
+                  >
+                    <GlobeIcon size={16} /> Visit
+                  </Button>
+                </a>
+              )}
+              {p.sourceUrl && (
+                <a
+                  href={p.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-black gap-2"
+                  >
+                    <GithubLogoIcon size={16} /> Source
+                  </Button>
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {filteredProjects.length === 0 && (
+        <p className="text-center text-lg mt-10 opacity-60">
+          No projects match your filters.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default Projects;

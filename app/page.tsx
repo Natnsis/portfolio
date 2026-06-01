@@ -1,19 +1,21 @@
-import Github from "@/components/Github"
-import Header from "@/components/Header"
-import Hero from "@/components/Hero"
-import Projects from "@/components/Projects"
-import { Separator } from "@/components/ui/separator"
+import About from "@/components/About";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import ProjectsCut from "@/components/ProjectsCut";
 
 const page = () => {
   return (
-    <main className="p-10">
+    <div className="p-5 md:p-0">
       <Header />
       <Hero />
-      <Github />
-      <Separator />
-      <Projects />
-    </main>
-  )
-}
+      <ProjectsCut />
+      <About />
+      <Contact />
+      <Footer />
+    </div>
+  );
+};
 
-export default page
+export default page;

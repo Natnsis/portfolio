@@ -1,78 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { GithubIcon, LinkedinIcon, SendIcon } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
-import { Button } from "@/components/ui/button";
+import { ListIcon, XIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+import { useState } from "react";
 
-const Header = ({ username = "Natnsis" }: { username?: string }) => {
-  const [total, setTotal] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+const Header = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const res = await fetch(
-          `/api/github-graphql?user=${encodeURIComponent(username)}`
-        );
-        if (!res.ok) return;
-        const body = await res.json();
-        if (!mounted) return;
-        setTotal(body.total ?? null);
-      } catch {
-        // ignore
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, [username]);
+  const routes = [
+    { name: "Home", path: "/" },
+    { name: "Projects", path: "/projects" },
+    { name: "About", path: "/#about" },
+    { name: "Contact", path: "/#contact" },
+  ];
 
   return (
-    <header className="flex flex-col md:flex-row md:justify-between gap-3 items-start md:items-center">
-      <h1 className="text-lg md:text-2xl font-tertiary">
-        {loading ? "…" : total ?? "—"}{" "}
-        <span className="block text-sm">GitHub contributions this year</span>
-      </h1>
-      <nav className="flex flex-wrap gap-3 items-center">
-        <Button asChild size="icon" variant="ghost">
-          <a
-            href="https://t.me/Flawless_22_4"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Telegram"
-          >
-            <SendIcon />
-          </a>
-        </Button>
+    <header className="flex justify-between items-center p-5 md:px-10 md:py-8">
+      <h1 className="text-lg md:text-xl">Full Stack - Software Developer</h1>
 
-        <Button asChild size="icon" variant="ghost">
-          <a
-            href="https://github.com/Natnsis"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-          >
-            <GithubIcon />
-          </a>
-        </Button>
+      <div className="hidden md:flex gap-10">
+        {routes.map((r, index) => (
+          <Link key={index} href={r.path} className="text-lg hover:opacity-60 transition-opacity">
+            {r.name}
+          </Link>
+        ))}
+      </div>
 
-        <Button asChild size="icon" variant="ghost">
-          <a
-            href="https://www.linkedin.com/in/natnael-sisay-orcadev/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-          >
-            <LinkedinIcon />
-          </a>
-        </Button>
-        <ModeToggle />
-      </nav>
+      <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
+        {mobileOpen ? <XIcon size={28} /> : <ListIcon size={28} />}
+      </button>
+
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 bg-[#F7F4EB] flex flex-col items-center justify-center gap-10">
+          {routes.map((r, index) => (
+            <Link
+              key={index}
+              href={r.path}
+              className="text-3xl"
+              onClick={() => setMobileOpen(false)}
+            >
+              {r.name}
+            </Link>
+          ))}
+        </div>
+      )}
     </header>
   );
 };

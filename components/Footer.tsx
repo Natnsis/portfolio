@@ -1,14 +1,45 @@
-import { HeartIcon } from "lucide-react";
+"use client";
+import { EnvelopeIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+
+const routes = [
+  { name: "Home", path: "/" },
+  { name: "Projects", path: "/projects" },
+  { name: "About", path: "/#about" },
+];
 
 const Footer = () => {
   return (
-    <footer className="w-full text-center py-6 font-primary text-sm text-muted-foreground">
-      <div className="flex items-center justify-center gap-2">
-        <span>Developed by Orca-dev with</span>
-        <HeartIcon size={16} />
-        <span>&copy; 2026</span>
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-end p-5 mt-10 h-40">
+        <div className="flex flex-col gap-6 ">
+          <div className="flex gap-3">
+            {routes.map((r, i) => (
+              <Link
+                key={i}
+                href={r.path}
+                className="text-lg md:text-xl hover:opacity-60 transition-opacity"
+              >
+                {r.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-start md:justify-end">
+          <a
+            href="mailto:nsisay49@gmail.com"
+            className="text-lg md:text-2xl hover:opacity-60 transition-opacity break-all flex items-center"
+          >
+            <EnvelopeIcon size={28} className="inline mr-2" />
+            nsisay49@gmail.com
+          </a>
+        </div>
       </div>
-    </footer>
+      <div className="flex items-center justify-center">
+        <p>&copy; {new Date().getFullYear()}. Natnael Sisay</p>
+      </div>
+    </div>
   );
 };
 
