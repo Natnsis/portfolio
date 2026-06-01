@@ -62,14 +62,13 @@ const About = () => {
         </div>
       </div>
 
-      <div className="mb-10">
-        <h1 className="text-4xl md:text-5xl mb-2">My Story</h1>
+      <div className="mb-10 flex flex-col items-center">
         <p className="text-base md:text-lg">
           A timeline of my journey through education, work, and building things.
         </p>
       </div>
 
-      <div className="relative overflow-hidden w-full py-6">
+      <div className="relative overflow-hidden w-full pb-6">
         <div
           className="flex gap-8 animate-marquee"
           style={{ width: "max-content" }}

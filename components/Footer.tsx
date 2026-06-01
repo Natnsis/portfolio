@@ -7,7 +7,6 @@ const routes = [
   { name: "Home", path: "/" },
   { name: "Projects", path: "/projects" },
   { name: "About", path: "/#about" },
-  { name: "Contact", path: "/#contact" },
 ];
 
 const Footer = () => {
@@ -33,7 +32,7 @@ const Footer = () => {
             href="mailto:nsisay49@gmail.com"
             className="text-lg md:text-2xl hover:opacity-60 transition-opacity break-all flex items-center"
           >
-            <EnvelopeIcon size={28} className="inline mb-1 md:mb-2 mr-2" />
+            <EnvelopeIcon size={28} className="inline mr-2" />
             nsisay49@gmail.com
           </a>
         </div>
