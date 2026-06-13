@@ -151,11 +151,7 @@ const Projects = () => {
                 </a>
               )}
               {p.sourceUrl && (
-                <a
-                  href={p.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="outline"
                     size="sm"

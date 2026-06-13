@@ -20,13 +20,21 @@ const Header = () => {
 
       <div className="hidden md:flex gap-10">
         {routes.map((r, index) => (
-          <Link key={index} href={r.path} className="text-lg hover:opacity-60 transition-opacity">
+          <Link
+            key={index}
+            href={r.path}
+            className="text-lg hover:opacity-60 transition-opacity"
+          >
             {r.name}
           </Link>
         ))}
       </div>
 
-      <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
+      <button
+        className="md:hidden"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label="Toggle menu"
+      >
         {mobileOpen ? <XIcon size={28} /> : <ListIcon size={28} />}
       </button>
 
