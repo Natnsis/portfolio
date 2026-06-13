@@ -1,48 +1,40 @@
 "use client";
 
-import {
-  EnvelopeIcon,
-  TelegramLogoIcon,
-  XLogoIcon,
-} from "@phosphor-icons/react";
-import { Button } from "./ui/button";
+import { EnvelopeIcon, TelegramLogoIcon, XLogoIcon, GithubLogoIcon } from "@phosphor-icons/react";
+
+const links = [
+  { icon: EnvelopeIcon, label: "nsisay49@gmail.com", href: "mailto:nsisay49@gmail.com" },
+  { icon: GithubLogoIcon, label: "GitHub", href: "#" },
+  { icon: TelegramLogoIcon, label: "Telegram", href: "#" },
+  { icon: XLogoIcon, label: "X / Twitter", href: "#" },
+];
 
 const Contact = () => {
   return (
-    <div className="px-5">
-      <div id="contact" className="md:py-20 px-4 md:px-10">
-        <p className="text-lg md:text-xl mb-1 md:mb-2 text-center">
-          Got a project idea?
+    <section className="section border-t border-border" id="contact">
+      <div className="max-w-2xl">
+        <p className="section-label">Contact</p>
+        <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-3">
+          Let&apos;s build something together.
+        </h2>
+        <p className="text-base text-muted-foreground mb-8">
+          Whether you have a project in mind or just want to say hi,
+          I&apos;m always open to a conversation.
         </p>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl mb-10 md:mb-10 leading-tight text-center">
-          Let&apos;s bring it to life
-        </h1>
-        <div className="flex items-center gap-5 justify-center">
-          <h1 className="text-lg">Get In Touch: </h1>
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-black gap-2 rounded-full"
-          >
-            <TelegramLogoIcon size={32} />
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-black gap-2 rounded-full"
-          >
-            <XLogoIcon size={32} />
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-black gap-2 rounded-full"
-          >
-            <EnvelopeIcon size={32} />
-          </Button>
+        <div className="flex flex-col gap-3">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="inline-flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors w-fit"
+            >
+              <l.icon size={18} />
+              {l.label}
+            </a>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

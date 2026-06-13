@@ -7,14 +7,14 @@ import ProjectsCut from "@/components/ProjectsCut";
 
 const page = () => {
   return (
-    <div className="p-5 md:p-0">
+    <>
       <Header />
       <Hero />
       <ProjectsCut />
       <About />
       <Contact />
       <Footer />
-    </div>
+    </>
   );
 };
 

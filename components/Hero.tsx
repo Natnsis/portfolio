@@ -1,89 +1,139 @@
 "use client";
 
-import {
-  LightningIcon,
-  TrendUpIcon,
-  ArrowsLeftRightIcon,
-  UsersThreeIcon,
-  MagnifyingGlassIcon,
-  LightbulbFilamentIcon,
-  ChatCircleDotsIcon,
-  PuzzlePieceIcon,
-} from "@phosphor-icons/react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { Badge } from "./ui/badge";
+import Image from "next/image";
+import { ArrowRightIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const featured = [
+  {
+    title: "Snippet & Boilerplate Manager",
+    url: "/sbm.png",
+    desc: "A tool for managing code snippets and boilerplate templates across projects.",
+  },
+  {
+    title: "Rate My Portfolio",
+    url: "/rmp(1).png",
+    desc: "A community platform for developers to share and get feedback on their portfolios.",
+  },
+  {
+    title: "Asu Students App",
+    url: "/asu.jpg",
+    desc: "A mobile app built for university students to access campus resources and updates.",
+  },
+  {
+    title: "Fimple NVIM Config",
+    url: "fimple.png",
+    desc: "A carefully curated Neovim configuration optimized for full-stack development.",
+  },
+];
 
 const Hero = () => {
-  const HoverCards = [
-    {
-      icon: LightningIcon,
-      label: "Fast Learner",
-      content: "I pick up new technologies and concepts quickly, adapting to any stack or tool with ease.",
-    },
-    {
-      icon: TrendUpIcon,
-      label: "Continuous Growth",
-      content: "Always leveling up — reading, building, and pushing my skills forward every day.",
-    },
-    {
-      icon: ArrowsLeftRightIcon,
-      label: "Adaptable",
-      content: "Whether it's a new framework, role, or problem domain, I adjust fast and deliver.",
-    },
-    {
-      icon: UsersThreeIcon,
-      label: "Solo & Team Player",
-      content: "I thrive working independently or collaborating closely with a team to ship great products.",
-    },
-    {
-      icon: MagnifyingGlassIcon,
-      label: "Researches Before Building",
-      content: "I dig deep into how things work first — no blind vibecoding. Understanding before applying is my rule.",
-    },
-    {
-      icon: LightbulbFilamentIcon,
-      label: "Brilliant Ideas",
-      content: "I bring creative, out-of-the-box solutions that elevate every project.",
-    },
-    {
-      icon: ChatCircleDotsIcon,
-      label: "Direct & Honest Feedback",
-      content: "Not shy to speak up. Clear, honest feedback helps teams grow and products improve.",
-    },
-    {
-      icon: PuzzlePieceIcon,
-      label: "Problem Solver",
-      content: "Complex challenges excite me. I break them down and build clean solutions.",
-    },
-  ];
+  const [current, setCurrent] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % featured.length);
+        setFade(true);
+      }, 300);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const p = featured[current];
 
   return (
-    <div id="home" className="flex items-center justify-center mt-10 md:mt-20 px-4">
-      <div className="flex flex-col items-center gap-6 md:gap-8 max-w-full">
-        <div className="flex flex-wrap justify-center gap-4 md:gap-5">
-          {HoverCards.map((h, index) => (
-            <div key={index}>
-              <HoverCard openDelay={0.2} closeDelay={100}>
-                <HoverCardTrigger>
-                  <h.icon size={24} className="md:w-8 md:h-8 w-6 h-6 hover:opacity-60 transition-opacity" />
-                </HoverCardTrigger>
-                <HoverCardContent className="text-sm max-w-[250px]">
-                  <span className="font-bold">{h.label}:</span> {h.content}
-                </HoverCardContent>
-              </HoverCard>
-            </div>
-          ))}
+    <section className="py-14 md:py-20" id="home">
+      <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+        <div className="flex flex-col gap-5">
+          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-border overflow-hidden">
+            <Image
+              src="/another.webp"
+              alt="Natnael Sisay"
+              width={96}
+              height={96}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight">
+              Natnael Sisay
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground mt-3 max-w-md leading-relaxed">
+              Full-stack developer who researches before building, communicates
+              openly, and ships quality software — solo or with a team.
+            </p>
+          </div>
+          <div className="flex items-center gap-4 pt-1">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 text-sm font-medium bg-primary text-primary-foreground px-5 py-2.5 hover:opacity-90 transition-opacity"
+            >
+              See my work
+              <ArrowRightIcon size={15} />
+            </Link>
+            <Link
+              href="/credentials"
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              View credentials
+            </Link>
+          </div>
         </div>
-        <h1 className="text-5xl md:text-7xl lg:text-9xl text-center leading-tight">Natnael Sisay</h1>
-        <p className="w-full md:w-[75%] text-center text-sm md:text-base leading-relaxed px-2">
-          AN AWARD WINNING{" "}
-          <Badge variant="outline" className="text-sm md:text-lg rounded-full border-black mx-1 pt-1">
-            DEVELOPER
-          </Badge>{" "}
-          WHO WORKS WITH A VARIETY OF CONSUMER FACING BRANDS FROM AROUND THE WORLD
-        </p>
+
+        <div className="hidden md:flex flex-col gap-4 p-6 border border-border">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">
+              Available for new projects
+            </span>
+          </div>
+          <div className="border-t border-border" />
+          <div className="relative h-[340px]">
+            <div
+              key={current}
+              className={`absolute inset-0 transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`}
+            >
+              <div className="h-[180px] border border-border overflow-hidden mb-3">
+                <img
+                  src={p.url}
+                  alt={p.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
+                Featured project
+              </p>
+              <p className="text-sm font-medium leading-snug">{p.title}</p>
+              <p className="text-xs text-muted-foreground mt-1 leading-relaxed line-clamp-2">
+                {p.desc}
+              </p>
+              <Link
+                href="/projects"
+                className="text-xs text-primary hover:underline underline-offset-4 mt-2 inline-flex items-center gap-1"
+              >
+                View project <ArrowRightIcon size={12} />
+              </Link>
+            </div>
+          </div>
+          <div className="flex gap-1.5">
+            {featured.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setFade(false); setTimeout(() => { setCurrent(i); setFade(true); }, 300); }}
+                className={`w-1.5 h-1.5 rounded-full transition-all ${
+                  i === current ? "bg-foreground w-3" : "bg-border"
+                }`}
+                aria-label={`Show project ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
