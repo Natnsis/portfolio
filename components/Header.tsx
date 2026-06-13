@@ -1,52 +1,77 @@
 "use client";
 
-import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { ListIcon, XIcon, SunIcon, MoonIcon } from "@phosphor-icons/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const routes = [
+  { name: "Work", path: "/#work" },
+  { name: "About", path: "/#about" },
+  { name: "Contact", path: "/#contact" },
+];
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dark, setDark] = useState(false);
 
-  const routes = [
-    { name: "Home", path: "/" },
-    { name: "Projects", path: "/projects" },
-    { name: "About", path: "/#about" },
-    { name: "Contact", path: "/#contact" },
-  ];
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = stored ? stored === "dark" : prefersDark;
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
 
   return (
-    <header className="flex justify-between items-center py-8">
-      <Link href="/" className="text-sm font-medium tracking-tight">
-        N. Sisay
+    <header className="sticky top-0 z-40 bg-background flex items-center justify-between py-5 md:py-6">
+      <Link href="/" className="text-base font-medium tracking-tight">
+        Natnael<span className="text-primary">.</span>
       </Link>
 
-      <div className="hidden md:flex gap-10">
-        {routes.map((r, index) => (
-          <Link
-            key={index}
-            href={r.path}
-            className="text-xs uppercase tracking-widest hover:underline underline-offset-4 decoration-1 transition-all"
-          >
-            {r.name}
-          </Link>
-        ))}
+      <div className="flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-8">
+          {routes.map((r) => (
+            <Link
+              key={r.path}
+              href={r.path}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {r.name}
+            </Link>
+          ))}
+        </nav>
+
+        <button
+          onClick={toggleTheme}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+          aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {dark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
+        </button>
+
+        <button
+          className="md:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <XIcon size={20} /> : <ListIcon size={20} />}
+        </button>
       </div>
 
-      <button
-        className="md:hidden"
-        onClick={() => setMobileOpen(!mobileOpen)}
-        aria-label="Toggle menu"
-      >
-        {mobileOpen ? <XIcon size={22} /> : <ListIcon size={22} />}
-      </button>
-
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-12">
-          {routes.map((r, index) => (
+        <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-10">
+          {routes.map((r) => (
             <Link
-              key={index}
+              key={r.path}
               href={r.path}
-              className="text-2xl uppercase tracking-widest"
+              className="text-2xl"
               onClick={() => setMobileOpen(false)}
             >
               {r.name}

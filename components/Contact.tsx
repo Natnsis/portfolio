@@ -1,38 +1,38 @@
 "use client";
 
-import { EnvelopeIcon, TelegramLogoIcon, XLogoIcon } from "@phosphor-icons/react";
+import { EnvelopeIcon, TelegramLogoIcon, XLogoIcon, GithubLogoIcon } from "@phosphor-icons/react";
+
+const links = [
+  { icon: EnvelopeIcon, label: "nsisay49@gmail.com", href: "mailto:nsisay49@gmail.com" },
+  { icon: GithubLogoIcon, label: "GitHub", href: "#" },
+  { icon: TelegramLogoIcon, label: "Telegram", href: "#" },
+  { icon: XLogoIcon, label: "X / Twitter", href: "#" },
+];
 
 const Contact = () => {
   return (
-    <section className="section text-center" id="contact">
-      <p className="section-label">Contact</p>
-      <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[0.9] tracking-tight mb-8">
-        Let&apos;s work
-        <br />
-        together
-      </h2>
-      <div className="flex items-center justify-center gap-5">
-        <a
-          href="mailto:nsisay49@gmail.com"
-          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest hover:underline underline-offset-4 decoration-1 transition-all"
-        >
-          <EnvelopeIcon size={18} />
-          Email
-        </a>
-        <a
-          href="#"
-          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest hover:underline underline-offset-4 decoration-1 transition-all"
-        >
-          <TelegramLogoIcon size={18} />
-          Telegram
-        </a>
-        <a
-          href="#"
-          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest hover:underline underline-offset-4 decoration-1 transition-all"
-        >
-          <XLogoIcon size={18} />
-          Twitter
-        </a>
+    <section className="section border-t border-border" id="contact">
+      <div className="max-w-2xl">
+        <p className="section-label">Contact</p>
+        <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-3">
+          Let&apos;s build something together.
+        </h2>
+        <p className="text-base text-muted-foreground mb-8">
+          Whether you have a project in mind or just want to say hi,
+          I&apos;m always open to a conversation.
+        </p>
+        <div className="flex flex-col gap-3">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="inline-flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors w-fit"
+            >
+              <l.icon size={18} />
+              {l.label}
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
