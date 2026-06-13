@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Natnael Sisay — Full Stack Developer",
   description:
     "Portfolio of Natnael Sisay, a full-stack software developer.",
+  icons: "/favicon.png",
 };
 
 export default function RootLayout({
