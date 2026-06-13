@@ -75,12 +75,12 @@ const Hero = () => {
               See my work
               <ArrowRightIcon size={15} />
             </Link>
-            <a
-              href="mailto:nsisay49@gmail.com"
+            <Link
+              href="/credentials"
               className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Email me
-            </a>
+              View credentials
+            </Link>
           </div>
         </div>
 

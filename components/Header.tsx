@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const routes = [
   { name: "Work", path: "/#work" },
+  { name: "Credentials", path: "/credentials" },
   { name: "About", path: "/#about" },
   { name: "Contact", path: "/#contact" },
 ];
