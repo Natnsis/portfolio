@@ -1,7 +1,50 @@
 "use client";
 
-import { DownloadSimpleIcon, GlobeIcon } from "@phosphor-icons/react";
+import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import Image from "next/image";
+
+const skills = [
+  {
+    title: "Fast Learner",
+    description:
+      "I pick up new technologies and concepts quickly, adapting to any stack or tool with ease.",
+  },
+  {
+    title: "Continuous Growth",
+    description:
+      "Always leveling up — reading, building, and pushing my skills forward every day.",
+  },
+  {
+    title: "Adaptable",
+    description:
+      "Whether it's a new framework, role, or problem domain, I adjust fast and deliver.",
+  },
+  {
+    title: "Solo & Team Player",
+    description:
+      "I thrive working independently or collaborating closely with a team to ship great products.",
+  },
+  {
+    title: "Researches Before Building",
+    description:
+      "I dig deep into how things work first — no blind vibecoding. Understanding before applying is my rule.",
+  },
+  {
+    title: "Brilliant Ideas",
+    description:
+      "I bring creative, out-of-the-box solutions that elevate every project.",
+  },
+  {
+    title: "Direct & Honest Feedback",
+    description:
+      "Not shy to speak up. Clear, honest feedback helps teams grow and products improve.",
+  },
+  {
+    title: "Problem Solver",
+    description:
+      "Complex challenges excite me. I break them down and build clean solutions.",
+  },
+];
 
 const storyEntries = [
   {
@@ -36,11 +79,14 @@ const storyEntries = [
 
 const About = () => {
   return (
-    <div id="about" className="py-10 md:py-20 px-4 md:px-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+    <section className="section" id="about">
+      <p className="section-label">About</p>
+      <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-16">
         <div>
-          <h1 className="text-4xl md:text-5xl mb-6">About Me</h1>
-          <p className="text-base md:text-lg leading-relaxed">
+          <h2 className="text-4xl md:text-5xl font-medium mb-6 leading-tight">
+            About Me
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
             I am a developer who cares about how things work — not just that
             they work. I research before I build, communicate openly, and adapt
             quickly to whatever the project throws my way. Whether solo or in a
@@ -48,22 +94,44 @@ const About = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-5 bg-black/5 px-6 md:px-10 py-6 md:py-8 border border-black">
-          <div className="flex gap-5 items-center">
-            <div className="border border-black p-3 rounded-full w-fit">
-              <GlobeIcon size={40} className="md:w-[60px] md:h-[60px]" />
-            </div>
-            <h1 className="text-5xl md:text-7xl">120%</h1>
-          </div>
-          <p className="text-sm md:text-base leading-relaxed">
+        <div className="flex flex-col gap-4">
+          <p className="text-6xl md:text-8xl font-medium leading-none">120%</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
             That is the energy I bring to every project. Full commitment, full
             focus, full delivery — no half measures.
           </p>
         </div>
       </div>
 
-      <div className="mb-10 flex flex-col items-center">
-        <p className="text-base md:text-lg">
+      <div className="mb-16">
+        <h3 className="text-sm uppercase tracking-widest text-muted-foreground mb-6">
+          Skills &amp; Qualities
+        </h3>
+        <div>
+          {skills.map((s, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 py-4 border-b border-border"
+            >
+              <span className="text-xs text-muted-foreground font-mono mt-0.5">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <span className="text-sm font-medium">{s.title}</span>
+                <p className="text-sm text-muted-foreground leading-relaxed mt-0.5">
+                  {s.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
+          Journey
+        </h3>
+        <p className="text-sm text-muted-foreground mb-8">
           A timeline of my journey through education, work, and building things.
         </p>
       </div>
@@ -76,9 +144,9 @@ const About = () => {
           {[...storyEntries, ...storyEntries].map((entry, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[280px] md:w-[350px] p-5 flex flex-col gap-3"
+              className="flex-shrink-0 w-[280px] md:w-[320px] flex flex-col gap-3"
             >
-              <div className="w-full h-40 bg-black/10 flex items-center justify-center overflow-hidden">
+              <div className="w-full h-40 border border-border overflow-hidden">
                 <Image
                   src={entry.image}
                   alt={entry.title}
@@ -87,33 +155,29 @@ const About = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-bold">{entry.title}</h2>
-                  <p className="text-sm opacity-60">{entry.subtitle}</p>
-                </div>
-                <DownloadSimpleIcon
-                  size={20}
-                  className="cursor-pointer hover:opacity-60 transition-opacity flex-shrink-0"
-                />
+              <div>
+                <h4 className="text-sm font-medium">{entry.title}</h4>
+                <p className="text-xs text-muted-foreground">{entry.subtitle}</p>
               </div>
-              <p className="text-sm leading-relaxed">{entry.description}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {entry.description}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-8">
         <a
           href="/resume.pdf"
           download
-          className="inline-flex items-center gap-2 border border-black px-6 py-4 text-base hover:bg-black/5 transition-colors"
+          className="inline-flex items-center gap-2 text-sm uppercase tracking-widest border border-border px-6 py-3 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
         >
-          <DownloadSimpleIcon size={20} />
+          <DownloadSimpleIcon size={16} />
           Download Resume
         </a>
       </div>
-    </div>
+    </section>
   );
 };
 

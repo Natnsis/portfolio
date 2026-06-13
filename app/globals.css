@@ -12,6 +12,7 @@
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: "Manrope", sans-serif;
+  --animate-marquee: marquee 30s linear infinite;
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -161,5 +162,32 @@
   }
   html {
     @apply font-sans;
+  }
+
+  .section-label {
+    @apply text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .divider {
+    @apply border-t border-border;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
   }
 }

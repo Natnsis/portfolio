@@ -1,7 +1,6 @@
 "use client";
 
 import { GlobeIcon, GithubLogoIcon } from "@phosphor-icons/react";
-import { Button } from "./ui/button";
 import { useState } from "react";
 
 interface Project {
@@ -93,22 +92,21 @@ const Projects = () => {
       : projects.filter((p) => activeTags.every((tag) => p.tags.includes(tag)));
 
   return (
-    <div className="py-10 md:py-20 px-4 md:px-10">
-      <h1 className="text-4xl md:text-6xl text-center mb-12">
-        Explore my work
-      </h1>
+    <section className="section" id="projects-page">
+      <p className="section-label">Projects</p>
+      <h1 className="text-4xl md:text-5xl font-medium mb-8">Explore my work</h1>
 
-      <div className="flex flex-wrap justify-center gap-3 mb-12">
+      <div className="flex flex-wrap gap-3 mb-8">
         {allTags.map((tag) => {
           const isActive = activeTags.includes(tag);
           return (
             <button
               key={tag}
               onClick={() => toggleTag(tag)}
-              className={`px-4 py-2 text-sm border rounded-full transition-colors ${
+              className={`text-xs uppercase tracking-widest px-4 py-2 border transition-all ${
                 isActive
-                  ? "bg-black text-[#F7F4EB] border-black"
-                  : "bg-transparent text-black border-black hover:bg-black/5"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
               }`}
             >
               {tag}
@@ -117,61 +115,63 @@ const Projects = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-8 md:gap-10">
         {filteredProjects.map((p, i) => (
-          <div key={i} className="border border-black p-5 flex flex-col gap-4">
-            <div className="w-full h-48 bg-black/5 border border-black overflow-hidden">
+          <div key={i} className="group flex flex-col gap-3">
+            <div className="aspect-video border border-border overflow-hidden">
               <img
                 src={p.image}
                 alt={p.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
-            <h2 className="text-xl font-bold">{p.title}</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-medium">{p.title}</h2>
+              <div className="flex gap-3">
+                {p.isLive && p.visitUrl && (
+                  <a
+                    href={p.visitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs uppercase tracking-widest text-muted-foreground hover:underline underline-offset-4 decoration-1 transition-all inline-flex items-center gap-1"
+                  >
+                    <GlobeIcon size={12} />
+                    Visit
+                  </a>
+                )}
+                {p.sourceUrl && (
+                  <a
+                    href={p.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs uppercase tracking-widest text-muted-foreground hover:underline underline-offset-4 decoration-1 transition-all inline-flex items-center gap-1"
+                  >
+                    <GithubLogoIcon size={12} />
+                    Source
+                  </a>
+                )}
+              </div>
+            </div>
             <div className="flex flex-wrap gap-2">
               {p.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs border border-black px-2 py-1 rounded-full"
+                  className="text-[10px] uppercase tracking-wider text-muted-foreground border border-border px-2 py-0.5"
                 >
                   {tag}
                 </span>
               ))}
-            </div>
-            <div className="flex gap-3 mt-auto">
-              {p.isLive && p.visitUrl && (
-                <a href={p.visitUrl} target="_blank" rel="noopener noreferrer">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-black gap-2"
-                  >
-                    <GlobeIcon size={16} /> Visit
-                  </Button>
-                </a>
-              )}
-              {p.sourceUrl && (
-                <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-black gap-2"
-                  >
-                    <GithubLogoIcon size={16} /> Source
-                  </Button>
-                </a>
-              )}
             </div>
           </div>
         ))}
       </div>
 
       {filteredProjects.length === 0 && (
-        <p className="text-center text-lg mt-10 opacity-60">
+        <p className="text-center text-sm text-muted-foreground mt-10">
           No projects match your filters.
         </p>
       )}
-    </div>
+    </section>
   );
 };
 

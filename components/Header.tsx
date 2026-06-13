@@ -15,15 +15,17 @@ const Header = () => {
   ];
 
   return (
-    <header className="flex justify-between items-center p-5 md:px-10 md:py-8">
-      <h1 className="text-lg md:text-xl">Full Stack - Software Developer</h1>
+    <header className="flex justify-between items-center py-8">
+      <Link href="/" className="text-sm font-medium tracking-tight">
+        N. Sisay
+      </Link>
 
       <div className="hidden md:flex gap-10">
         {routes.map((r, index) => (
           <Link
             key={index}
             href={r.path}
-            className="text-lg hover:opacity-60 transition-opacity"
+            className="text-xs uppercase tracking-widest hover:underline underline-offset-4 decoration-1 transition-all"
           >
             {r.name}
           </Link>
@@ -35,16 +37,16 @@ const Header = () => {
         onClick={() => setMobileOpen(!mobileOpen)}
         aria-label="Toggle menu"
       >
-        {mobileOpen ? <XIcon size={28} /> : <ListIcon size={28} />}
+        {mobileOpen ? <XIcon size={22} /> : <ListIcon size={22} />}
       </button>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-[#F7F4EB] flex flex-col items-center justify-center gap-10">
+        <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-12">
           {routes.map((r, index) => (
             <Link
               key={index}
               href={r.path}
-              className="text-3xl"
+              className="text-2xl uppercase tracking-widest"
               onClick={() => setMobileOpen(false)}
             >
               {r.name}
