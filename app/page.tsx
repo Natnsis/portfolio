@@ -1,7 +1,11 @@
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+
 const page = () => {
   return (
-    <div>
-      <div>hehe</div>
+    <div className="p-5">
+      <Header />
+      <Hero />
     </div>
   );
 };
