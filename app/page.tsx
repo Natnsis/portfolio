@@ -1,13 +1,9 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+import { Button } from "@/components/ui/button";
 
-const page = () => {
+export default function Home() {
   return (
     <div className="p-5">
-      <Header />
-      <Hero />
+      <Button variant={"outline"}>hehe</Button>
     </div>
   );
-};
-
-export default page;
+}

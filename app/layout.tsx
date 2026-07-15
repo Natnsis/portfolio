@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import { Anton, Fredoka, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const fredoka = Fredoka({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-fredoka",
-});
-
-const anton = Anton({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  variable: "--font-anton",
-});
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +28,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fredoka.variable} ${anton.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col w-full">{children}</body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
