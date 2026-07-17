@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("h-full antialiased", manrope.variable)}>
-      <body className="min-h-full">
+      <body className="min-h-full" suppressHydrationWarning>
         <div className="mx-auto max-w-6xl px-6 md:px-10">{children}</div>
       </body>
     </html>
