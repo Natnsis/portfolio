@@ -123,13 +123,14 @@ const ProjectsCut = () => {
         {projects.map((p, index) => (
           <div
             key={index}
-            className={`group relative cursor-pointer overflow-hidden ${
+            className="group relative cursor-pointer overflow-hidden"
+            style={
               index === 0
-                ? "md:col-span-2 md:row-span-2"
+                ? { gridColumn: "1 / 3", gridRow: "1 / 3" }
                 : index === 5
-                  ? "md:col-span-2"
-                  : ""
-            }`}
+                  ? { gridColumn: "2 / 4", gridRow: "3 / 5" }
+                  : undefined
+            }
             onClick={() => setSelected(p)}
           >
             <div

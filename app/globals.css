@@ -185,7 +185,14 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border rounded-md outline-ring/50;
+  }
+  button,
+  input,
+  select,
+  optgroup,
+  textarea {
+    @apply rounded-md;
   }
   body {
     @apply bg-background text-foreground;
