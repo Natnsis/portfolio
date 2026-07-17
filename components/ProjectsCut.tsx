@@ -118,24 +118,45 @@ const ProjectsCut = () => {
 
   return (
     <section className="section" id="work">
-      <p className="section-label">Selected work</p>
-      <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+      <p className="section-label">Recent projects</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 auto-rows-[220px]">
         {projects.map((p, index) => (
           <div
             key={index}
-            className="group flex flex-col gap-3 cursor-pointer"
+            className={`group relative cursor-pointer overflow-hidden ${
+              index === 0
+                ? "md:col-span-2 md:row-span-2"
+                : index === 5
+                  ? "md:col-span-2"
+                  : ""
+            }`}
             onClick={() => setSelected(p)}
           >
-            <div className="aspect-video border border-border overflow-hidden">
-              <div
-                className="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-[1.02]"
-                style={{ backgroundImage: `url("${p.image}")` }}
-              />
-            </div>
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h3 className="text-base font-medium">{p.title}</h3>
-                <p className="text-xs text-muted-foreground mt-0.5">
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+              style={{ backgroundImage: `url("${p.image}")` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-end p-5">
+              <div className="translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {p.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] text-white/80 border border-white/20 px-1.5 py-0.5"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="text-sm font-medium text-white">{p.title}</h3>
+                <p className="text-xs text-white/60 mt-0.5">
+                  {p.type} &middot; {p.year}
+                </p>
+              </div>
+              <div className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+                <h3 className="text-sm font-medium text-white">{p.title}</h3>
+                <p className="text-xs text-white/60 mt-0.5">
                   {p.type} &middot; {p.year}
                 </p>
               </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { GlobeIcon, GithubLogoIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import ProjectModal, { type ProjectData } from "./ProjectModal";
@@ -205,13 +206,14 @@ const Projects = () => {
             onClick={() => setSelected(p)}
           >
             <div
-              className="border border-border overflow-hidden"
+              className="relative border border-border overflow-hidden"
               style={{ aspectRatio: p.aspect ?? "4/3" }}
             >
-              <img
+              <Image
                 src={p.image}
                 alt={p.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
             <div className="mt-3">

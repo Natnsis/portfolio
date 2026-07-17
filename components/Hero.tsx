@@ -23,7 +23,7 @@ const featured = [
   },
   {
     title: "Fimple NVIM Config",
-    url: "fimple.png",
+    url: "/fimple.png",
     desc: "A carefully curated Neovim configuration optimized for full-stack development.",
   },
 ];
@@ -46,7 +46,7 @@ const Hero = () => {
   const p = featured[current];
 
   return (
-    <section className="py-14 md:py-20" id="home">
+    <section className="py-14 md:py-20 max-w-6xl mx-auto px-5 md:px-8" id="home">
       <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
         <div className="flex flex-col gap-5">
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-border overflow-hidden">
@@ -97,11 +97,13 @@ const Hero = () => {
               key={current}
               className={`absolute inset-0 transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`}
             >
-              <div className="h-[180px] border border-border overflow-hidden mb-3">
-                <img
+              <div className="relative h-[180px] border border-border overflow-hidden mb-3">
+                <Image
                   src={p.url}
                   alt={p.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 0px, 50vw"
+                  className="object-cover"
                 />
               </div>
               <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">

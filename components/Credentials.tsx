@@ -1,6 +1,7 @@
 "use client";
 
-import { DownloadSimpleIcon, FileArrowDownIcon } from "@phosphor-icons/react";
+import Image from "next/image";
+import { FileArrowDownIcon } from "@phosphor-icons/react";
 
 const credentials = [
   {
@@ -66,11 +67,12 @@ const Credentials = () => {
               <div className="flex-1 min-w-0">
                 <div className="grid md:grid-cols-[200px_1fr] gap-5 md:gap-8">
                   <div className="order-2 md:order-1">
-                    <div className="border border-border overflow-hidden">
-                      <img
+                    <div className="relative border border-border overflow-hidden aspect-[4/3]">
+                      <Image
                         src={c.image}
                         alt={c.title}
-                        className="w-full aspect-[4/3] object-cover"
+                        fill
+                        className="object-cover"
                       />
                     </div>
                   </div>

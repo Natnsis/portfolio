@@ -1,18 +1,29 @@
+// For adding custom fonts with other frameworks, see:
+// https://tailwindcss.com/docs/font-family
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Geist, Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 
-const manrope = Manrope({
+const fontSans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
+const fontSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-serif",
+});
+
+const fontMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
 export const metadata: Metadata = {
-  title: "Natnael Sisay — Full Stack Developer",
+  title: "Natnael Sisay — Full-Stack Developer",
   description:
-    "Portfolio of Natnael Sisay, a full-stack software developer.",
-  icons: "/favicon.png",
+    "Full-stack developer who researches before building, communicates openly, and ships quality software.",
 };
 
 export default function RootLayout({
@@ -21,9 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full antialiased", manrope.variable)}>
-      <body className="min-h-full" suppressHydrationWarning>
-        <div className="mx-auto max-w-6xl px-6 md:px-10">{children}</div>
+    <html lang="en">
+      <body
+        className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}
+      >
+        {children}
       </body>
     </html>
   );

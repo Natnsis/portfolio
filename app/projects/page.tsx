@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Projects from "@/components/Projects";
 
 const ProjectsPage = () => {
@@ -6,6 +7,7 @@ const ProjectsPage = () => {
     <>
       <Header />
       <Projects />
+      <Footer />
     </>
   );
 };

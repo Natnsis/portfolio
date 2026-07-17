@@ -1,6 +1,6 @@
 "use client";
 
-import { DownloadSimpleIcon, ArrowRightIcon } from "@phosphor-icons/react";
+import { DownloadSimpleIcon } from "@phosphor-icons/react";
 
 const skills = [
   "React",

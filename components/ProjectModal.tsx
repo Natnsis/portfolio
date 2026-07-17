@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect } from "react";
 import {
   XIcon,
@@ -70,11 +71,12 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         </div>
 
         <div className="grid md:grid-cols-2">
-          <div className="border-r border-border max-md:border-r-0 max-md:border-b">
-            <img
+          <div className="relative border-r border-border max-md:border-r-0 max-md:border-b max-md:aspect-video md:min-h-[400px]">
+            <Image
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover max-md:aspect-video md:min-h-[400px]"
+              fill
+              className="object-cover"
             />
           </div>
 

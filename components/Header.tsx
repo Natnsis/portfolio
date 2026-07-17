@@ -23,6 +23,10 @@ const Header = () => {
     document.documentElement.classList.toggle("dark", isDark);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+  }, [dark]);
+
   const toggleTheme = () => {
     const next = !dark;
     setDark(next);
@@ -31,55 +35,57 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-background flex items-center justify-between py-5 md:py-6">
-      <Link href="/" className="text-base font-medium tracking-tight">
-        Natnael<span className="text-primary">.</span>
-      </Link>
+    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between py-5 md:py-6">
+        <Link href="/" className="text-base font-medium tracking-tight">
+          Natnael<span className="text-primary">.</span>
+        </Link>
 
-      <div className="flex items-center gap-6">
-        <nav className="hidden md:flex items-center gap-8">
-          {routes.map((r) => (
-            <Link
-              key={r.path}
-              href={r.path}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {r.name}
-            </Link>
-          ))}
-        </nav>
+        <div className="flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-8">
+            {routes.map((r) => (
+              <Link
+                key={r.path}
+                href={r.path}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {r.name}
+              </Link>
+            ))}
+          </nav>
 
-        <button
-          onClick={toggleTheme}
-          className="text-muted-foreground hover:text-foreground transition-colors"
-          aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          {dark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
-        </button>
+          <button
+            onClick={toggleTheme}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {dark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
+          </button>
 
-        <button
-          className="md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <XIcon size={20} /> : <ListIcon size={20} />}
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-10">
-          {routes.map((r) => (
-            <Link
-              key={r.path}
-              href={r.path}
-              className="text-2xl"
-              onClick={() => setMobileOpen(false)}
-            >
-              {r.name}
-            </Link>
-          ))}
+          <button
+            className="md:hidden"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <XIcon size={20} /> : <ListIcon size={20} />}
+          </button>
         </div>
-      )}
+
+        {mobileOpen && (
+          <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-10">
+            {routes.map((r) => (
+              <Link
+                key={r.path}
+                href={r.path}
+                className="text-2xl"
+                onClick={() => setMobileOpen(false)}
+              >
+                {r.name}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </header>
   );
 };
