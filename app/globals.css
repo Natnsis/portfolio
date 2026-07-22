@@ -35,9 +35,9 @@
   --sidebar-accent-foreground: oklch(0.3448 0.0685 255.0266);
   --sidebar-border: oklch(0.8689 0.0106 261.7872);
   --sidebar-ring: oklch(0.6178 0.0703 257.8148);
-  --font-sans: Geist, ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
   --radius: 0.625rem;
   --shadow-x: 0px;
   --shadow-y: 1px;
