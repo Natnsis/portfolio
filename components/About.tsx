@@ -1,7 +1,6 @@
 "use client";
 
-import { DownloadSimpleIcon, GraduationCapIcon } from "@phosphor-icons/react";
-import Link from "next/link";
+import { DownloadSimpleIcon } from "@phosphor-icons/react";
 
 const SKILLS = [
   "React",
@@ -14,37 +13,6 @@ const SKILLS = [
   "Docker",
   "Neovim",
   "Figma",
-];
-
-const CREDENTIALS = [
-  {
-    num: "01",
-    title: "B.Sc. Computer Science",
-    issuer: "Addis Ababa University",
-    date: "2021–25",
-    file: "/credentials/degree.pdf",
-  },
-  {
-    num: "02",
-    title: "Full Stack Web Development",
-    issuer: "FreeCodeCamp",
-    date: "2024",
-    file: "/credentials/freecodecamp.pdf",
-  },
-  {
-    num: "03",
-    title: "AWS Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    date: "2024",
-    file: "/credentials/aws.pdf",
-  },
-  {
-    num: "04",
-    title: "Professional Resume",
-    issuer: "PDF · updated 2025",
-    date: "2025",
-    file: "/resume.pdf",
-  },
 ];
 
 const About = () => {
@@ -93,22 +61,13 @@ const About = () => {
             experience across the stack, lets me move from concept to
             production with confidence.
           </p>
-          <div className="flex gap-3 flex-wrap">
-            <a
-              href="/resume.pdf"
-              className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
-              style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-            >
-              Download Resume <DownloadSimpleIcon size={15} />
-            </a>
-            <Link
-              href="/credentials"
-              className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
-              style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-            >
-              Credentials <GraduationCapIcon size={15} />
-            </Link>
-          </div>
+          <a
+            href="/resume.pdf"
+            className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
+            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
+          >
+            Download Resume <DownloadSimpleIcon size={15} />
+          </a>
         </div>
 
         <div
@@ -121,7 +80,7 @@ const About = () => {
           >
             Technologies
           </p>
-          <div className="flex flex-wrap gap-1.5 mb-6">
+          <div className="flex flex-wrap gap-1.5">
             {SKILLS.map((s) => (
               <span
                 key={s}
@@ -132,52 +91,6 @@ const About = () => {
               </span>
             ))}
           </div>
-          <p
-            className="text-[11px] font-semibold tracking-[.02em] mb-1"
-            style={{ color: "var(--ink-3)" }}
-          >
-            Credentials
-          </p>
-          {CREDENTIALS.map((c) => (
-            <div
-              key={c.num}
-              className="flex gap-3.5 items-baseline py-3.5 border-b"
-              style={{ borderColor: "var(--line)" }}
-            >
-              <span
-                className="text-[11px] font-semibold"
-                style={{ color: "var(--ink-3)" }}
-              >
-                {c.num}
-              </span>
-              <div className="flex-1">
-                <p
-                  className="text-sm font-semibold mb-0.5"
-                  style={{ color: "var(--ink)" }}
-                >
-                  {c.title}
-                </p>
-                <p className="text-xs" style={{ color: "var(--ink-3)" }}>
-                  {c.issuer}
-                </p>
-              </div>
-              <span
-                className="text-[11px] whitespace-nowrap"
-                style={{ color: "var(--ink-3)" }}
-              >
-                {c.date}
-              </span>
-              <a
-                href={c.file}
-                download
-                aria-label="Download document"
-                className="w-7 h-7 shrink-0 border rounded-[8px] grid place-items-center transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
-                style={{ borderColor: "var(--line)", color: "var(--ink-2)" }}
-              >
-                <DownloadSimpleIcon size={13} />
-              </a>
-            </div>
-          ))}
         </div>
       </div>
     </section>

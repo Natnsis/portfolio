@@ -51,7 +51,7 @@ const Contact = () => {
         </a>
         <div className="grid grid-cols-3 gap-2.5">
           <a
-            href="https://github.com/"
+            href="https://github.com/Natnsis"
             target="_blank"
             rel="noopener noreferrer"
             className="text-center border text-[13px] font-semibold px-2.5 py-3.5 rounded-[10px] transition-colors hover:bg-[var(--card)]"
@@ -60,7 +60,7 @@ const Contact = () => {
             GitHub
           </a>
           <a
-            href="https://t.me/"
+            href="https://t.me/Flawless_22_4"
             target="_blank"
             rel="noopener noreferrer"
             className="text-center border text-[13px] font-semibold px-2.5 py-3.5 rounded-[10px] transition-colors hover:bg-[var(--card)]"
