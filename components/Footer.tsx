@@ -1,3 +1,6 @@
+"use client";
+
+import { ArrowUpIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 const Footer = () => {
@@ -16,10 +19,10 @@ const Footer = () => {
           style={{ color: "var(--ink-2)" }}
         >
           <span
-            className="w-7 h-7 rounded-full border grid place-items-center text-[13px]"
+            className="w-7 h-7 rounded-full border grid place-items-center"
             style={{ borderColor: "var(--wire-2)" }}
           >
-            ↑
+            <ArrowUpIcon size={13} />
           </span>
           Back to top
         </Link>

@@ -1,3 +1,8 @@
+"use client";
+
+import { DownloadSimpleIcon, GraduationCapIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+
 const SKILLS = [
   "React",
   "Next.js",
@@ -88,13 +93,22 @@ const About = () => {
             experience across the stack, lets me move from concept to
             production with confidence.
           </p>
-          <a
-            href="/resume.pdf"
-            className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
-            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-          >
-            Download Resume ↓
-          </a>
+          <div className="flex gap-3 flex-wrap">
+            <a
+              href="/resume.pdf"
+              className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
+              style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
+            >
+              Download Resume <DownloadSimpleIcon size={15} />
+            </a>
+            <Link
+              href="/credentials"
+              className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
+              style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
+            >
+              Credentials <GraduationCapIcon size={15} />
+            </Link>
+          </div>
         </div>
 
         <div
@@ -157,10 +171,10 @@ const About = () => {
                 href={c.file}
                 download
                 aria-label="Download document"
-                className="w-7 h-7 shrink-0 border rounded-[8px] grid place-items-center text-xs transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
+                className="w-7 h-7 shrink-0 border rounded-[8px] grid place-items-center transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
                 style={{ borderColor: "var(--line)", color: "var(--ink-2)" }}
               >
-                ↓
+                <DownloadSimpleIcon size={13} />
               </a>
             </div>
           ))}

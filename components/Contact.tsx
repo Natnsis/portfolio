@@ -1,3 +1,7 @@
+"use client";
+
+import { ArrowRightIcon } from "@phosphor-icons/react";
+
 const EMAIL = "nsisay49@gmail.com";
 
 const Contact = () => {
@@ -43,7 +47,7 @@ const Contact = () => {
           className="flex items-center justify-between text-[15px] font-semibold px-5.5 py-[17px] rounded-[10px] whitespace-nowrap transition-opacity hover:opacity-90"
           style={{ background: "var(--dark)", color: "var(--bg)" }}
         >
-          {EMAIL} <span>→</span>
+          {EMAIL} <ArrowRightIcon size={16} />
         </a>
         <div className="grid grid-cols-3 gap-2.5">
           <a

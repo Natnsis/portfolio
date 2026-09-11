@@ -1,10 +1,11 @@
 "use client";
 
+import { ArrowRightIcon, XIcon } from "@phosphor-icons/react";
 import { useEffect } from "react";
-import type { WorkProject } from "./Work";
+import type { Project } from "@/lib/projects";
 
 interface WorkModalProps {
-  project: WorkProject | null;
+  project: Project | null;
   onClose: () => void;
   onNext: () => void;
 }
@@ -57,7 +58,7 @@ const WorkModal = ({ project, onClose, onNext }: WorkModalProps) => {
             className="w-8 h-8 shrink-0 grid place-items-center border rounded-[8px] bg-transparent cursor-pointer transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
             style={{ borderColor: "var(--wire-2)", color: "var(--ink-2)" }}
           >
-            ✕
+            <XIcon size={15} />
           </button>
         </div>
 
@@ -108,10 +109,10 @@ const WorkModal = ({ project, onClose, onNext }: WorkModalProps) => {
           </span>
           <button
             onClick={onNext}
-            className="text-[13px] font-semibold border rounded-[9px] px-4.5 py-2.5 whitespace-nowrap cursor-pointer transition-colors hover:bg-[var(--card-2)]"
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold border rounded-[9px] px-4.5 py-2.5 whitespace-nowrap cursor-pointer transition-colors hover:bg-[var(--card-2)]"
             style={{ color: "var(--ink)", borderColor: "var(--wire-2)" }}
           >
-            Next project →
+            Next project <ArrowRightIcon size={13} />
           </button>
         </div>
       </div>

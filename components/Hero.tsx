@@ -58,21 +58,21 @@ const Hero = () => {
               Sisay
             </span>
             <span
-              className="font-caveat font-semibold text-[22px] leading-[1.3] pb-3 inline-block whitespace-nowrap"
+              className="font-caveat font-semibold tracking-normal text-[22px] leading-[1.25] flex flex-col pb-3 whitespace-nowrap"
               style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
             >
-              builds the
-              <br />
-              whole thing
+              <span>builds the</span>
+              <span>whole thing</span>
             </span>
           </span>
         </h1>
         <p
-          className="text-[17px] leading-[1.55] mb-8 max-w-[34ch]"
+          className="text-[17px] leading-[1.55] mb-8 max-w-[36ch]"
           style={{ color: "var(--ink-2)" }}
         >
-          Full-stack developer who researches before building and ships
-          quality software, solo or with a team.
+          I read the docs, talk to my rubber duck, and ship things that
+          actually work. Full-stack developer, solo or with a team — bugs
+          included at no extra charge.
         </p>
         <div className="flex gap-3.5 flex-wrap">
           <Link
@@ -80,7 +80,7 @@ const Hero = () => {
             className="inline-flex items-center gap-2.5 text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-all duration-200 hover:-translate-y-px hover:opacity-90"
             style={{ background: "var(--dark)", color: "var(--bg)" }}
           >
-            View My Projects <span>→</span>
+            View My Projects <ArrowRightIcon size={16} />
           </Link>
           <Link
             href="/#contact"
@@ -196,17 +196,17 @@ const Hero = () => {
             </span>
             <Link
               href="/#work"
-              className="text-[12.5px] font-semibold transition-colors hover:text-[var(--ink)]"
+              className="inline-flex items-center gap-1 text-[12.5px] font-semibold transition-colors hover:text-[var(--ink)]"
               style={{ color: "var(--ink-2)" }}
             >
-              Explore the work →
+              Explore the work <ArrowRightIcon size={12} />
             </Link>
           </div>
         </div>
 
         <div className="hidden md:block absolute left-[-86px] bottom-0.5 text-right pointer-events-none">
           <p
-            className="font-caveat text-xl leading-[1.05]"
+            className="font-caveat tracking-normal text-xl leading-[1.3]"
             style={{ color: "var(--ink-2)", transform: "rotate(-5deg)" }}
           >
             shipped,
