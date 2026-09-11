@@ -97,7 +97,7 @@ const Work = () => {
             <button
               key={p.title}
               onClick={() => setActiveIdx(idx)}
-              className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-all duration-200 hover:-translate-y-[3px] hover:border-[var(--wire-2)] hover:shadow-[0_16px_30px_-22px_rgba(0,0,0,.35)]"
+              className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-colors duration-200 hover:border-[var(--wire-2)]"
               style={{ background: "var(--card)", borderColor: "var(--line)" }}
             >
               <CardThumb />

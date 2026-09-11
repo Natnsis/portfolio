@@ -65,10 +65,10 @@ const Header = () => {
   return (
     <div className="sticky top-[14px] z-50 max-w-[1060px] mx-auto px-7">
       <div
-        className="flex items-center gap-5 my-2.5 py-[9px] pl-5 pr-2.5 rounded-2xl border backdrop-blur-2xl shadow-[0_10px_30px_-24px_rgba(0,0,0,.5)]"
+        className="flex items-center gap-5 my-2.5 py-[9px] pl-5 pr-2.5 rounded-2xl border"
         style={{
           borderColor: "var(--line)",
-          background: "color-mix(in oklab, var(--bg) 72%, transparent)",
+          background: "var(--bg)",
         }}
       >
         <Link

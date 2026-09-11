@@ -73,7 +73,7 @@ const About = () => {
                 WebkitTextStroke: "1.3px var(--ink)",
               }}
             >
-              not just that they work.
+              and why they work that way.
             </span>
           </h2>
           <p

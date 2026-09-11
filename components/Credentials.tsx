@@ -19,7 +19,7 @@ const credentials = [
     issuer: "FreeCodeCamp",
     date: "2024",
     description:
-      "Comprehensive certification covering modern web development — React, Node.js, databases, and API design. Built multiple projects as part of the curriculum.",
+      "Comprehensive certification covering modern web development: React, Node.js, databases, and API design. Built multiple projects as part of the curriculum.",
     image: "/another.webp",
     fileUrl: "#",
   },
@@ -59,7 +59,7 @@ const Credentials = () => {
         {credentials.map((c, i) => (
           <div
             key={i}
-            className="border-l-[3px] border-primary pl-5 md:pl-7 py-7 md:py-8 border-b border-border last:border-b-0"
+            className="pl-5 md:pl-7 py-7 md:py-8 border-b border-border last:border-b-0"
           >
             <div className="flex items-start gap-3 mb-2">
               <span className="text-xs font-mono text-muted-foreground mt-0.5">

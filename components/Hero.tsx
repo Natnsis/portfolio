@@ -71,13 +71,13 @@ const Hero = () => {
           style={{ color: "var(--ink-2)" }}
         >
           I read the docs, talk to my rubber duck, and ship things that
-          actually work. Full-stack developer, solo or with a team — bugs
+          actually work. Full-stack developer, solo or with a team, bugs
           included at no extra charge.
         </p>
         <div className="flex gap-3.5 flex-wrap">
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2.5 text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-all duration-200 hover:-translate-y-px hover:opacity-90"
+            className="inline-flex items-center gap-2.5 text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-opacity duration-200 hover:opacity-90"
             style={{ background: "var(--dark)", color: "var(--bg)" }}
           >
             View My Projects <ArrowRightIcon size={16} />
@@ -110,7 +110,7 @@ const Hero = () => {
           }}
         />
         <div
-          className="relative rounded-2xl border p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,.55)]"
+          className="relative rounded-2xl border p-5"
           style={{ background: "var(--card)", borderColor: "var(--wire)" }}
         >
           <div className="flex items-center justify-between mb-4">
