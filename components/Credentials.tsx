@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FileArrowDownIcon } from "@phosphor-icons/react";
+import { FileArrowDownIcon, GraduationCapIcon } from "@phosphor-icons/react";
+import SectionLabel from "./SectionLabel";
 
 const credentials = [
   {
@@ -45,8 +46,8 @@ const credentials = [
 const Credentials = () => {
   return (
     <section className="section" id="credentials">
-      <p className="section-label">Credentials</p>
-      <h1 className="text-3xl md:text-4xl font-medium mb-3">
+      <SectionLabel icon={GraduationCapIcon}>Credentials</SectionLabel>
+      <h1 className="text-3xl md:text-4xl font-bold mb-3">
         Education &amp; Documents
       </h1>
       <p className="text-muted-foreground text-sm mb-12 max-w-lg leading-relaxed">
@@ -67,7 +68,7 @@ const Credentials = () => {
               <div className="flex-1 min-w-0">
                 <div className="grid md:grid-cols-[200px_1fr] gap-5 md:gap-8">
                   <div className="order-2 md:order-1">
-                    <div className="relative border border-border overflow-hidden aspect-[4/3]">
+                    <div className="relative rounded-2xl border border-border overflow-hidden aspect-[4/3]">
                       <Image
                         src={c.image}
                         alt={c.title}
@@ -92,7 +93,7 @@ const Credentials = () => {
                       <a
                         href={c.fileUrl}
                         download
-                        className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest border border-border px-3 py-1.5 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+                        className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest rounded-full border border-border px-3.5 py-1.5 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
                       >
                         <FileArrowDownIcon size={13} />
                         Download

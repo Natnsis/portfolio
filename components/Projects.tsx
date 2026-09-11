@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { GlobeIcon, GithubLogoIcon } from "@phosphor-icons/react";
+import { GlobeIcon, GithubLogoIcon, FolderIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import ProjectModal, { type ProjectData } from "./ProjectModal";
+import SectionLabel from "./SectionLabel";
 
 const projects: ProjectData[] = [
   {
@@ -168,9 +169,9 @@ const Projects = () => {
 
   return (
     <section className="section" id="projects-page">
-      <p className="section-label">Projects</p>
+      <SectionLabel icon={FolderIcon}>Projects</SectionLabel>
       <div className="mb-3">
-        <h1 className="text-3xl md:text-4xl font-medium">
+        <h1 className="text-3xl md:text-4xl font-bold">
           Things I have built
         </h1>
         <p className="text-muted-foreground text-sm mt-2 max-w-lg leading-relaxed">
@@ -186,7 +187,7 @@ const Projects = () => {
             <button
               key={tag}
               onClick={() => toggleTag(tag)}
-              className={`text-xs px-3 py-1.5 border transition-all ${
+              className={`font-mono text-xs px-3.5 py-1.5 rounded-full border transition-all ${
                 isActive
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
@@ -206,7 +207,7 @@ const Projects = () => {
             onClick={() => setSelected(p)}
           >
             <div
-              className="relative border border-border overflow-hidden"
+              className="relative rounded-2xl border border-border overflow-hidden"
               style={{ aspectRatio: p.aspect ?? "4/3" }}
             >
               <Image

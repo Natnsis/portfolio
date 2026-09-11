@@ -1,13 +1,13 @@
 "use client";
 
-import { ListIcon, XIcon, SunIcon, MoonIcon } from "@phosphor-icons/react";
+import { ListIcon, XIcon, SunIcon, MoonIcon, ArrowUpRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const routes = [
   { name: "Work", path: "/#work" },
-  { name: "Credentials", path: "/credentials" },
   { name: "About", path: "/#about" },
+  { name: "Credentials", path: "/credentials" },
   { name: "Contact", path: "/#contact" },
 ];
 
@@ -19,6 +19,7 @@ const Header = () => {
     const stored = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const isDark = stored ? stored === "dark" : prefersDark;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time read of persisted theme on mount
     setDark(isDark);
     document.documentElement.classList.toggle("dark", isDark);
   }, []);
@@ -36,46 +37,64 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between py-5 md:py-6">
-          <Link href="/" className="text-base font-medium tracking-tight">
-            Natnael<span className="text-primary">.</span>
+      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between py-4 md:py-5">
+          <Link href="/" className="flex items-center gap-3">
+            <span className="w-9 h-9 rounded-xl border border-border bg-card flex items-center justify-center text-sm font-bold">
+              N
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border pl-2 pr-3 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                Available Now
+              </span>
+            </span>
           </Link>
 
-          <div className="flex items-center gap-6">
-            <nav className="hidden md:flex items-center gap-8">
-              {routes.map((r) => (
+          <nav className="hidden md:flex items-center gap-2 font-mono text-xs uppercase tracking-wider">
+            {routes.map((r, i) => (
+              <span key={r.path} className="flex items-center gap-2">
+                {i !== 0 && <span className="text-border">&bull;</span>}
                 <Link
-                  key={r.path}
                   href={r.path}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {r.name}
                 </Link>
-              ))}
-            </nav>
+              </span>
+            ))}
+          </nav>
 
+          <div className="flex items-center gap-3">
             <button
               onClick={toggleTheme}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {dark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
+              {dark ? <SunIcon size={16} /> : <MoonIcon size={16} />}
             </button>
 
+            <Link
+              href="/#contact"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground pl-4 pr-3.5 py-2 text-xs font-medium hover:opacity-90 transition-opacity"
+            >
+              Say Hello
+              <ArrowUpRightIcon size={13} />
+            </Link>
+
             <button
-              className="md:hidden p-2 min-w-[40px] min-h-[40px] flex items-center justify-center"
+              className="md:hidden w-9 h-9 rounded-xl border border-border flex items-center justify-center"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
-              {mobileOpen ? <XIcon size={20} /> : <ListIcon size={20} />}
+              {mobileOpen ? <XIcon size={16} /> : <ListIcon size={16} />}
             </button>
           </div>
         </div>
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-10">
+        <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center gap-10 font-mono uppercase tracking-wider">
           {routes.map((r) => (
             <Link
               key={r.path}

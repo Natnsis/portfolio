@@ -57,13 +57,13 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       onClick={onClose}
     >
       <div
-        className="bg-background border border-border w-full max-w-4xl max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200"
+        className="bg-background border border-border rounded-3xl overflow-x-hidden w-full max-w-4xl max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-background border border-border hover:bg-muted transition-colors"
+            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-background border border-border hover:bg-muted transition-colors"
             aria-label="Close"
           >
             <XIcon size={16} />
@@ -82,11 +82,11 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
           <div className="p-6 md:p-8 flex flex-col gap-5">
             <div>
-              <h2 className="text-2xl md:text-3xl font-medium leading-snug">
+              <h2 className="text-2xl md:text-3xl font-bold leading-snug">
                 {project.title}
               </h2>
 
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 text-xs text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 font-mono text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <BriefcaseIcon size={14} />
                   {project.type}
@@ -116,7 +116,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             <div className="border-t border-border" />
 
             <div>
-              <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-2 inline-flex items-center gap-1.5">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2 inline-flex items-center gap-1.5">
                 <BookOpenIcon size={13} />
                 The story
               </h3>
@@ -126,7 +126,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             </div>
 
             <div>
-              <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-2 inline-flex items-center gap-1.5">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-2 inline-flex items-center gap-1.5">
                 <CodeIcon size={13} />
                 How it was built
               </h3>
@@ -139,7 +139,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[11px] text-muted-foreground border border-border px-2 py-0.5"
+                  className="font-mono text-[11px] text-muted-foreground border border-border rounded-full px-2.5 py-0.5"
                 >
                   {tag}
                 </span>
@@ -153,7 +153,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                     href={project.visitUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest hover:underline underline-offset-4 transition-all"
+                    className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest hover:underline underline-offset-4 transition-all"
                   >
                     <GlobeIcon size={14} />
                     Visit Live
@@ -164,7 +164,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                     href={project.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest hover:underline underline-offset-4 transition-all"
+                    className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest hover:underline underline-offset-4 transition-all"
                   >
                     <GithubLogoIcon size={14} />
                     View Source

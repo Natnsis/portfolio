@@ -1,9 +1,10 @@
 "use client";
 
-import { ArrowRightIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, BriefcaseIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
 import ProjectModal, { type ProjectData } from "./ProjectModal";
+import SectionLabel from "./SectionLabel";
 
 const projects: ProjectData[] = [
   {
@@ -118,19 +119,18 @@ const ProjectsCut = () => {
 
   return (
     <section className="section" id="work">
-      <p className="section-label">Recent projects</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 auto-rows-[220px]">
+      <SectionLabel icon={BriefcaseIcon}>Recent projects</SectionLabel>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[220px]">
         {projects.map((p, index) => (
           <div
             key={index}
-            className="group relative cursor-pointer overflow-hidden"
-            style={
+            className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border ${
               index === 0
-                ? { gridColumn: "1 / 3", gridRow: "1 / 3" }
+                ? "md:col-[1/3] md:row-[1/3]"
                 : index === 5
-                  ? { gridColumn: "2 / 4", gridRow: "3 / 5" }
-                  : undefined
-            }
+                  ? "md:col-[2/4] md:row-[3/5]"
+                  : ""
+            }`}
             onClick={() => setSelected(p)}
           >
             <div
@@ -144,7 +144,7 @@ const ProjectsCut = () => {
                   {p.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] text-white/80 border border-white/20 px-1.5 py-0.5"
+                      className="font-mono text-[10px] text-white/80 border border-white/20 rounded-full px-2 py-0.5"
                     >
                       {tag}
                     </span>
@@ -168,7 +168,7 @@ const ProjectsCut = () => {
       <div className="flex justify-center mt-12">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-sm rounded-full border border-border px-5 py-2.5 text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
         >
           View all projects
           <ArrowRightIcon size={15} />

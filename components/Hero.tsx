@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRightIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, ArrowUpRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -46,88 +46,108 @@ const Hero = () => {
   const p = featured[current];
 
   return (
-    <section className="py-14 md:py-20 max-w-6xl mx-auto px-5 md:px-8" id="home">
-      <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
-        <div className="flex flex-col gap-5">
-          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-border overflow-hidden">
-            <Image
-              src="/another.webp"
-              alt="Natnael Sisay"
-              width={96}
-              height={96}
-              className="w-full h-full object-cover"
-            />
+    <section className="section" id="home">
+      <div className="flex flex-col gap-10 md:gap-14">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-14 items-start">
+          <div className="flex items-center gap-5">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl border border-border overflow-hidden shrink-0">
+              <Image
+                src="/another.webp"
+                alt="Natnael Sisay"
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <p className="mono-label mb-1">I&apos;m</p>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-none tracking-tight">
+                Natnael Sisay
+              </h1>
+            </div>
           </div>
-          <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight">
-              Natnael Sisay
-            </h1>
-            <p className="text-base md:text-lg text-muted-foreground mt-3 max-w-md leading-relaxed">
+
+          <div className="flex flex-col gap-5 md:pt-2">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
               Full-stack developer who researches before building, communicates
               openly, and ships quality software — solo or with a team.
             </p>
-          </div>
-          <div className="flex items-center gap-4 pt-1">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-sm font-medium bg-primary text-primary-foreground px-5 py-2.5 hover:opacity-90 transition-opacity"
-            >
-              See my work
-              <ArrowRightIcon size={15} />
-            </Link>
-            <Link
-              href="/credentials"
-              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              View credentials
-            </Link>
+            <div className="flex items-center gap-5">
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 text-sm font-medium rounded-full bg-primary text-primary-foreground pl-5 pr-4 py-2.5 hover:opacity-90 transition-opacity"
+              >
+                See my work
+                <ArrowRightIcon size={15} />
+              </Link>
+              <Link
+                href="/credentials"
+                className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                View credentials
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="hidden md:flex flex-col gap-4 p-6 border border-border">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">
-              Available for new projects
-            </span>
+        <div className="rounded-3xl bg-secondary text-secondary-foreground p-5 md:p-8">
+          <div className="flex items-center justify-between mb-5">
+            <p className="font-mono text-xs uppercase tracking-widest text-secondary-foreground/50">
+              Featured project
+            </p>
+            <p className="font-mono text-xs text-primary">
+              {"// "}
+              {String(current + 1).padStart(2, "0")}
+            </p>
           </div>
-          <div className="border-t border-border" />
-          <div className="relative h-[340px]">
+
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6 md:gap-10 items-center">
             <div
               key={current}
-              className={`absolute inset-0 transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`}
+              className={`transition-opacity duration-300 order-2 md:order-1 ${fade ? "opacity-100" : "opacity-0"}`}
             >
-              <div className="relative h-[180px] border border-border overflow-hidden mb-3">
-                <Image
-                  src={p.url}
-                  alt={p.title}
-                  fill
-                  sizes="(max-width: 768px) 0px, 50vw"
-                  className="object-cover"
-                />
-              </div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                Featured project
-              </p>
-              <p className="text-sm font-medium leading-snug">{p.title}</p>
-              <p className="text-xs text-muted-foreground mt-1 leading-relaxed line-clamp-2">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight mb-3">
+                {p.title}
+              </h2>
+              <p className="text-sm text-secondary-foreground/60 leading-relaxed mb-5 max-w-sm">
                 {p.desc}
               </p>
               <Link
                 href="/projects"
-                className="text-xs text-primary hover:underline underline-offset-4 mt-2 inline-flex items-center gap-1"
+                className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline underline-offset-4"
               >
-                View project <ArrowRightIcon size={12} />
+                Explore the work
+                <ArrowUpRightIcon size={14} />
               </Link>
             </div>
+
+            <div
+              key={`${current}-img`}
+              className={`relative aspect-[4/3] rounded-2xl overflow-hidden order-1 md:order-2 transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`}
+            >
+              <Image
+                src={p.url}
+                alt={p.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
           </div>
-          <div className="flex gap-1.5">
+
+          <div className="flex gap-1.5 mt-6">
             {featured.map((_, i) => (
               <button
                 key={i}
-                onClick={() => { setFade(false); setTimeout(() => { setCurrent(i); setFade(true); }, 300); }}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${
-                  i === current ? "bg-foreground w-3" : "bg-border"
+                onClick={() => {
+                  setFade(false);
+                  setTimeout(() => {
+                    setCurrent(i);
+                    setFade(true);
+                  }, 300);
+                }}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === current ? "bg-primary w-6" : "bg-secondary-foreground/20 w-1.5"
                 }`}
                 aria-label={`Show project ${i + 1}`}
               />

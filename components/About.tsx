@@ -1,6 +1,7 @@
 "use client";
 
-import { DownloadSimpleIcon } from "@phosphor-icons/react";
+import { DownloadSimpleIcon, UserIcon } from "@phosphor-icons/react";
+import SectionLabel from "./SectionLabel";
 
 const skills = [
   "React",
@@ -18,9 +19,9 @@ const skills = [
 const About = () => {
   return (
     <section className="section" id="about">
-      <p className="section-label">About</p>
+      <SectionLabel icon={UserIcon}>About</SectionLabel>
       <div className="max-w-2xl">
-        <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-5">
+        <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
           I care about how things work — not just that they work.
         </h2>
         <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -40,14 +41,14 @@ const About = () => {
       </div>
 
       <div className="mt-10">
-        <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-4">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
           Technologies I work with
-        </h3>
+        </p>
         <div className="flex flex-wrap gap-2">
           {skills.map((skill) => (
             <span
               key={skill}
-              className="text-sm border border-border px-3 py-1.5"
+              className="font-mono text-xs rounded-full bg-accent text-accent-foreground px-3.5 py-1.5"
             >
               {skill}
             </span>
@@ -59,7 +60,7 @@ const About = () => {
         <a
           href="/resume.pdf"
           download
-          className="inline-flex items-center gap-2 text-sm border border-border px-5 py-2.5 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+          className="inline-flex items-center gap-2 text-sm font-medium rounded-full border border-border px-5 py-2.5 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
         >
           <DownloadSimpleIcon size={16} />
           Download Resume
