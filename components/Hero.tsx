@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -57,7 +58,7 @@ const Hero = () => {
               Sisay
             </span>
             <span
-              className="font-caveat font-semibold text-[21px] leading-[1.05] pb-2.5"
+              className="font-caveat font-semibold text-[22px] leading-[1.3] pb-3 inline-block whitespace-nowrap"
               style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
             >
               builds the

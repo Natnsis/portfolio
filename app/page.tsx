@@ -8,7 +8,7 @@ import Work from "@/components/Work";
 
 const page = () => {
   return (
-    <div className="min-h-screen overflow-x-hidden relative">
+    <div className="min-h-screen relative">
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
