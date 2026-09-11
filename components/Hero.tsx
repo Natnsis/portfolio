@@ -1,158 +1,232 @@
 "use client";
 
-import Image from "next/image";
-import { ArrowRightIcon, ArrowUpRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const featured = [
+const SPOTLIGHT = [
   {
     title: "Snippet & Boilerplate Manager",
-    url: "/sbm.png",
     desc: "A tool for managing code snippets and boilerplate templates across projects.",
   },
   {
     title: "Rate My Portfolio",
-    url: "/rmp(1).png",
     desc: "A community platform for developers to share and get feedback on their portfolios.",
   },
   {
     title: "Asu Students App",
-    url: "/asu.jpg",
     desc: "A mobile app built for university students to access campus resources and updates.",
   },
   {
     title: "Fimple NVIM Config",
-    url: "/fimple.png",
     desc: "A carefully curated Neovim configuration optimized for full-stack development.",
   },
 ];
 
 const Hero = () => {
-  const [current, setCurrent] = useState(0);
-  const [fade, setFade] = useState(true);
+  const [spot, setSpot] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setFade(false);
-      setTimeout(() => {
-        setCurrent((prev) => (prev + 1) % featured.length);
-        setFade(true);
-      }, 300);
-    }, 4000);
+      setSpot((s) => (s + 1) % SPOTLIGHT.length);
+    }, 4200);
     return () => clearInterval(timer);
   }, []);
 
-  const p = featured[current];
+  const current = SPOTLIGHT[spot];
 
   return (
-    <section className="section" id="home">
-      <div className="flex flex-col gap-10 md:gap-14">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-14 items-start">
-          <div className="flex items-center gap-5">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl border border-border overflow-hidden shrink-0">
-              <Image
-                src="/another.webp"
-                alt="Natnael Sisay"
-                width={80}
-                height={80}
-                className="w-full h-full object-cover"
+    <section
+      id="top"
+      className="grid md:grid-cols-[1.12fr_1fr] gap-11 items-center pt-14 pb-8"
+    >
+      <div>
+        <h1
+          className="font-extrabold leading-[0.92] tracking-[-0.045em] mb-5 relative"
+          style={{ fontSize: "clamp(46px,6.4vw,72px)" }}
+        >
+          <span className="block" style={{ color: "var(--ink)" }}>
+            Natnael
+          </span>
+          <span className="flex items-end gap-3.5 flex-wrap">
+            <span
+              style={{
+                color: "transparent",
+                WebkitTextStroke: "1.5px var(--ink)",
+              }}
+            >
+              Sisay
+            </span>
+            <span
+              className="font-caveat font-semibold text-[21px] leading-[1.05] pb-2.5"
+              style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
+            >
+              builds the
+              <br />
+              whole thing
+            </span>
+          </span>
+        </h1>
+        <p
+          className="text-[17px] leading-[1.55] mb-8 max-w-[34ch]"
+          style={{ color: "var(--ink-2)" }}
+        >
+          Full-stack developer who researches before building and ships
+          quality software, solo or with a team.
+        </p>
+        <div className="flex gap-3.5 flex-wrap">
+          <Link
+            href="/#work"
+            className="inline-flex items-center gap-2.5 text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-all duration-200 hover:-translate-y-px hover:opacity-90"
+            style={{ background: "var(--dark)", color: "var(--bg)" }}
+          >
+            View My Projects <span>→</span>
+          </Link>
+          <Link
+            href="/#contact"
+            className="inline-flex items-center border text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-colors duration-200 hover:bg-[var(--card)]"
+            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
+          >
+            Get In Touch
+          </Link>
+        </div>
+      </div>
+
+      <div className="relative pt-6 pb-2.5">
+        <div
+          className="absolute left-3.5 top-1.5 right-[34px] h-[86%] rounded-2xl border"
+          style={{
+            background: "var(--card-2)",
+            borderColor: "var(--line)",
+            transform: "rotate(-4.5deg)",
+          }}
+        />
+        <div
+          className="absolute left-6 top-3.5 right-5.5 h-[86%] rounded-2xl border"
+          style={{
+            background: "var(--card)",
+            borderColor: "var(--line)",
+            transform: "rotate(-1.8deg)",
+          }}
+        />
+        <div
+          className="relative rounded-2xl border p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,.55)]"
+          style={{ background: "var(--card)", borderColor: "var(--wire)" }}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <span
+              className="text-[11px] font-semibold"
+              style={{ color: "var(--ink-3)" }}
+            >
+              Currently building
+            </span>
+            <span className="flex gap-1.5">
+              <span
+                className="w-[7px] h-[7px] rounded-full"
+                style={{ background: "var(--wire-2)" }}
               />
-            </div>
-            <div>
-              <p className="mono-label mb-1">I&apos;m</p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-none tracking-tight">
-                Natnael Sisay
-              </h1>
-            </div>
+              <span
+                className="w-[7px] h-[7px] rounded-full"
+                style={{ background: "var(--wire-2)" }}
+              />
+              <span
+                className="w-[7px] h-[7px] rounded-full"
+                style={{ background: "var(--wire-2)" }}
+              />
+            </span>
           </div>
 
-          <div className="flex flex-col gap-5 md:pt-2">
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
-              Full-stack developer who researches before building, communicates
-              openly, and ships quality software — solo or with a team.
+          <div
+            className="rounded-[11px] py-[15px] px-4 flex flex-col gap-[9px] mb-[18px]"
+            style={{ background: "var(--darker)" }}
+          >
+            <span
+              className="h-[5px] w-[78%] rounded-full"
+              style={{ background: "rgba(255,255,255,.5)" }}
+            />
+            <span
+              className="h-[5px] w-[52%] rounded-full ml-3.5"
+              style={{ background: "rgba(255,255,255,.28)" }}
+            />
+            <span
+              className="h-[5px] w-[66%] rounded-full ml-3.5"
+              style={{ background: "rgba(255,255,255,.28)" }}
+            />
+            <span
+              className="h-[5px] w-[40%] rounded-full ml-7"
+              style={{ background: "rgba(255,255,255,.28)" }}
+            />
+            <span
+              className="h-[5px] w-[58%] rounded-full"
+              style={{ background: "rgba(255,255,255,.5)" }}
+            />
+          </div>
+
+          <div className="min-h-[74px]">
+            <h3
+              className="text-[17px] font-bold tracking-[-0.02em] mb-[7px]"
+              style={{ color: "var(--ink)" }}
+            >
+              {current.title}
+            </h3>
+            <p
+              className="text-[13.5px] leading-[1.5]"
+              style={{ color: "var(--ink-2)" }}
+            >
+              {current.desc}
             </p>
-            <div className="flex items-center gap-5">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 text-sm font-medium rounded-full bg-primary text-primary-foreground pl-5 pr-4 py-2.5 hover:opacity-90 transition-opacity"
-              >
-                See my work
-                <ArrowRightIcon size={15} />
-              </Link>
-              <Link
-                href="/credentials"
-                className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                View credentials
-              </Link>
-            </div>
+          </div>
+
+          <div
+            className="flex items-center justify-between mt-4 pt-3.5 border-t"
+            style={{ borderColor: "var(--line)" }}
+          >
+            <span className="flex gap-1.5">
+              {SPOTLIGHT.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSpot(i)}
+                  aria-label={`Show project ${i + 1}`}
+                  className="w-[18px] h-1 border-0 p-0 rounded-full cursor-pointer transition-all duration-300"
+                  style={{
+                    background: i === spot ? "var(--ink)" : "var(--wire)",
+                  }}
+                />
+              ))}
+            </span>
+            <Link
+              href="/#work"
+              className="text-[12.5px] font-semibold transition-colors hover:text-[var(--ink)]"
+              style={{ color: "var(--ink-2)" }}
+            >
+              Explore the work →
+            </Link>
           </div>
         </div>
 
-        <div className="rounded-3xl bg-secondary text-secondary-foreground p-5 md:p-8">
-          <div className="flex items-center justify-between mb-5">
-            <p className="font-mono text-xs uppercase tracking-widest text-secondary-foreground/50">
-              Featured project
-            </p>
-            <p className="font-mono text-xs text-primary">
-              {"// "}
-              {String(current + 1).padStart(2, "0")}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6 md:gap-10 items-center">
-            <div
-              key={current}
-              className={`transition-opacity duration-300 order-2 md:order-1 ${fade ? "opacity-100" : "opacity-0"}`}
-            >
-              <h2 className="text-2xl md:text-3xl font-bold leading-tight mb-3">
-                {p.title}
-              </h2>
-              <p className="text-sm text-secondary-foreground/60 leading-relaxed mb-5 max-w-sm">
-                {p.desc}
-              </p>
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline underline-offset-4"
-              >
-                Explore the work
-                <ArrowUpRightIcon size={14} />
-              </Link>
-            </div>
-
-            <div
-              key={`${current}-img`}
-              className={`relative aspect-[4/3] rounded-2xl overflow-hidden order-1 md:order-2 transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`}
-            >
-              <Image
-                src={p.url}
-                alt={p.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-1.5 mt-6">
-            {featured.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setFade(false);
-                  setTimeout(() => {
-                    setCurrent(i);
-                    setFade(true);
-                  }, 300);
-                }}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === current ? "bg-primary w-6" : "bg-secondary-foreground/20 w-1.5"
-                }`}
-                aria-label={`Show project ${i + 1}`}
-              />
-            ))}
-          </div>
+        <div className="hidden md:block absolute left-[-86px] bottom-0.5 text-right pointer-events-none">
+          <p
+            className="font-caveat text-xl leading-[1.05]"
+            style={{ color: "var(--ink-2)", transform: "rotate(-5deg)" }}
+          >
+            shipped,
+            <br />
+            not just
+            <br />
+            designed
+          </p>
+          <svg
+            width="60"
+            height="40"
+            viewBox="0 0 60 40"
+            fill="none"
+            stroke="var(--ink-2)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            className="mt-0.5 ml-auto"
+          >
+            <path d="M2 6c10 20 30 28 54 26" />
+            <path d="M46 24l10 8-11 5" />
+          </svg>
         </div>
       </div>
     </section>

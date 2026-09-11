@@ -1,16 +1,30 @@
-"use client";
+import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="py-8 md:py-10 max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between font-mono text-xs text-muted-foreground border-t border-border">
-      <p>&copy; {new Date().getFullYear()} Natnael Sisay</p>
-      <a
-        href="mailto:nsisay49@gmail.com"
-        className="hover:text-foreground transition-colors"
+    <div className="max-w-[1060px] mx-auto px-7">
+      <footer
+        className="flex items-center justify-between gap-6 flex-wrap py-5.5 pb-[34px] border-t"
+        style={{ borderColor: "var(--line)" }}
       >
-        nsisay49@gmail.com
-      </a>
-    </footer>
+        <span className="text-[13px]" style={{ color: "var(--ink-2)" }}>
+          © {new Date().getFullYear()} Natnael Sisay
+        </span>
+        <Link
+          href="/#top"
+          className="inline-flex items-center gap-2.5 text-[13px] font-semibold transition-colors hover:text-[var(--ink)]"
+          style={{ color: "var(--ink-2)" }}
+        >
+          <span
+            className="w-7 h-7 rounded-full border grid place-items-center text-[13px]"
+            style={{ borderColor: "var(--wire-2)" }}
+          >
+            ↑
+          </span>
+          Back to top
+        </Link>
+      </footer>
+    </div>
   );
 };
 
