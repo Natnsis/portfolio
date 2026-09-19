@@ -1,8 +1,9 @@
 "use client";
 
 import { ArrowRightIcon } from "@phosphor-icons/react";
+import Link from "next/link";
 import { useState } from "react";
-import { FILTERS, PROJECTS } from "@/lib/projects";
+import { FEATURED_PROJECTS } from "@/lib/projects";
 import WorkModal from "./WorkModal";
 
 const CardThumb = () => (
@@ -37,13 +38,9 @@ const CardThumb = () => (
 );
 
 const Work = () => {
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
-  const list =
-    filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
-
-  const active = activeIdx === null ? null : PROJECTS[activeIdx];
+  const active = activeIdx === null ? null : FEATURED_PROJECTS[activeIdx];
 
   return (
     <section id="work" className="pt-11 border-t" style={{ borderColor: "var(--line)" }}>
@@ -69,74 +66,66 @@ const Work = () => {
               className="font-caveat font-semibold tracking-normal text-[19px] pb-1.5"
               style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
             >
-              nine so far
+              {FEATURED_PROJECTS.length} so far
             </span>
           </h2>
-        </div>
-        <div className="flex gap-1 flex-wrap">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className="text-sm font-semibold px-[19px] py-2.5 border-0 rounded-full cursor-pointer transition-colors duration-200"
-              style={{
-                background: f === filter ? "var(--dark)" : "transparent",
-                color: f === filter ? "var(--bg)" : "var(--ink-2)",
-              }}
-            >
-              {f}
-            </button>
-          ))}
         </div>
       </div>
 
       <div className="grid gap-4.5" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))" }}>
-        {list.map((p) => {
-          const idx = PROJECTS.indexOf(p);
-          return (
-            <button
-              key={p.title}
-              onClick={() => setActiveIdx(idx)}
-              className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-colors duration-200 hover:border-[var(--wire-2)]"
-              style={{ background: "var(--card)", borderColor: "var(--line)" }}
+        {FEATURED_PROJECTS.map((p, idx) => (
+          <button
+            key={p.title}
+            onClick={() => setActiveIdx(idx)}
+            className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-colors duration-200 hover:border-[var(--wire-2)]"
+            style={{ background: "var(--card)", borderColor: "var(--line)" }}
+          >
+            <CardThumb />
+            <h3
+              className="text-[17px] font-bold tracking-[-0.02em] mb-2"
+              style={{ color: "var(--ink)" }}
             >
-              <CardThumb />
-              <h3
-                className="text-[17px] font-bold tracking-[-0.02em] mb-2"
-                style={{ color: "var(--ink)" }}
-              >
-                {p.title}
-              </h3>
-              <p
-                className="text-sm leading-[1.5] min-h-[42px]"
-                style={{ color: "var(--ink-2)" }}
-              >
-                {p.summary}
-              </p>
-              <div className="flex flex-wrap gap-1.5 mt-4 items-center">
-                {p.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="text-[11px] font-semibold rounded-full px-2.5 py-1"
-                    style={{ color: "var(--ink-2)", background: "var(--card-2)" }}
-                  >
-                    {t}
-                  </span>
-                ))}
-                <span className="ml-auto" style={{ color: "var(--ink-2)" }}>
-                  <ArrowRightIcon size={15} />
+              {p.title}
+            </h3>
+            <p
+              className="text-sm leading-[1.5] min-h-[42px]"
+              style={{ color: "var(--ink-2)" }}
+            >
+              {p.summary}
+            </p>
+            <div className="flex flex-wrap gap-1.5 mt-4 items-center">
+              {p.tags.map((t) => (
+                <span
+                  key={t}
+                  className="text-[11px] font-semibold rounded-full px-2.5 py-1"
+                  style={{ color: "var(--ink-2)", background: "var(--card-2)" }}
+                >
+                  {t}
                 </span>
-              </div>
-            </button>
-          );
-        })}
+              ))}
+              <span className="ml-auto" style={{ color: "var(--ink-2)" }}>
+                <ArrowRightIcon size={15} />
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div className="flex justify-center mt-9">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2.5 text-sm font-semibold px-6 py-3.5 border rounded-[10px] whitespace-nowrap transition-colors duration-200 hover:bg-[var(--card-2)]"
+          style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
+        >
+          View all projects <ArrowRightIcon size={15} />
+        </Link>
       </div>
 
       <WorkModal
         project={active}
         onClose={() => setActiveIdx(null)}
         onNext={() =>
-          setActiveIdx((i) => (i === null ? null : (i + 1) % PROJECTS.length))
+          setActiveIdx((i) => (i === null ? null : (i + 1) % FEATURED_PROJECTS.length))
         }
       />
     </section>
