@@ -1,19 +1,7 @@
 "use client";
 
 import { DownloadSimpleIcon } from "@phosphor-icons/react";
-
-const SKILLS = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  "PostgreSQL",
-  "Python",
-  "Tailwind",
-  "Docker",
-  "Neovim",
-  "Figma",
-];
+import { CREDENTIALS } from "@/lib/credentials";
 
 const About = () => {
   return (
@@ -75,20 +63,41 @@ const About = () => {
           style={{ background: "var(--card)", borderColor: "var(--line)" }}
         >
           <p
-            className="text-[11px] font-semibold tracking-[.02em] mb-4"
+            className="text-[11px] font-semibold tracking-[.02em] mb-1.5"
             style={{ color: "var(--ink-3)" }}
           >
-            Technologies
+            Credentials
           </p>
-          <div className="flex flex-wrap gap-1.5">
-            {SKILLS.map((s) => (
-              <span
-                key={s}
-                className="text-xs font-semibold rounded-full px-3 py-1.5"
-                style={{ color: "var(--ink-2)", background: "var(--card-2)" }}
+          <div className="flex flex-col">
+            {CREDENTIALS.map((c) => (
+              <a
+                key={c.title}
+                href={c.fileUrl}
+                download
+                className="group flex items-start justify-between gap-3 py-3.5 border-t transition-colors first:border-t-0"
+                style={{ borderColor: "var(--line)" }}
               >
-                {s}
-              </span>
+                <div className="min-w-0">
+                  <p
+                    className="text-[13px] font-semibold"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    {c.title}
+                  </p>
+                  <p
+                    className="text-[12px] leading-[1.5] mt-0.5"
+                    style={{ color: "var(--ink-2)" }}
+                  >
+                    {c.description}
+                  </p>
+                </div>
+                <span
+                  className="shrink-0 mt-0.5 w-7 h-7 grid place-items-center rounded-[8px] border transition-colors group-hover:bg-[var(--card-2)] group-hover:text-[var(--ink)]"
+                  style={{ borderColor: "var(--wire-2)", color: "var(--ink-2)" }}
+                >
+                  <DownloadSimpleIcon size={13} />
+                </span>
+              </a>
             ))}
           </div>
         </div>
