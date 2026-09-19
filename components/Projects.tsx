@@ -8,45 +8,17 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { FILTERS, PROJECTS } from "@/lib/projects";
+import ProjectThumb from "./ProjectThumb";
 import WorkModal from "./WorkModal";
-
-const CardThumb = () => (
-  <div
-    className="h-32 rounded-[9px] grid place-items-center mb-4.5 overflow-hidden"
-    style={{ background: "var(--card-2)" }}
-  >
-    <div className="w-[76%] flex gap-[7px] items-stretch h-[66%]">
-      <div
-        className="w-[26%] rounded-[4px] p-[7px] flex flex-col gap-[5px]"
-        style={{ background: "var(--wire)" }}
-      >
-        <span className="h-1 rounded-full" style={{ background: "var(--card)" }} />
-        <span
-          className="h-1 w-[78%] rounded-full"
-          style={{ background: "var(--card)" }}
-        />
-        <span
-          className="h-1 w-[62%] rounded-full"
-          style={{ background: "var(--card)" }}
-        />
-      </div>
-      <div className="flex-1 flex flex-col gap-1.5">
-        <div className="flex-1 rounded-[4px]" style={{ background: "var(--wire)" }} />
-        <div className="flex-1 flex gap-1.5">
-          <div className="flex-1 rounded-[4px]" style={{ background: "var(--wire)" }} />
-          <div className="flex-1 rounded-[4px]" style={{ background: "var(--wire)" }} />
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 const Projects = () => {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   const list =
-    filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
+    filter === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.categories.includes(filter));
   const active = activeIdx === null ? null : PROJECTS[activeIdx];
   const liveCount = PROJECTS.filter((p) => p.live).length;
 
@@ -110,29 +82,31 @@ const Projects = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-6 flex-wrap mb-7.5 pt-8 border-t" style={{ borderColor: "var(--line)" }}>
-        <div className="flex gap-1 flex-wrap">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className="text-sm font-semibold px-[19px] py-2.5 border-0 rounded-full cursor-pointer transition-colors duration-200"
-              style={{
-                background: f === filter ? "var(--dark)" : "transparent",
-                color: f === filter ? "var(--bg)" : "var(--ink-2)",
-              }}
-            >
-              {f}
-            </button>
-          ))}
+      <div className="mb-7.5 pt-8 border-t" style={{ borderColor: "var(--line)" }}>
+        <div className="flex items-center justify-between gap-6 flex-wrap mb-3">
+          <div className="flex gap-1 flex-wrap">
+            {FILTERS.map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className="text-sm font-semibold px-[19px] py-2.5 border-0 rounded-full cursor-pointer transition-colors duration-200"
+                style={{
+                  background: f === filter ? "var(--dark)" : "transparent",
+                  color: f === filter ? "var(--bg)" : "var(--ink-2)",
+                }}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+          <Link
+            href="/#contact"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap transition-colors hover:text-[var(--ink)]"
+            style={{ color: "var(--ink-2)" }}
+          >
+            Have something in mind? <ArrowRightIcon size={14} />
+          </Link>
         </div>
-        <Link
-          href="/#contact"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-[var(--ink)]"
-          style={{ color: "var(--ink-2)" }}
-        >
-          Have something in mind? <ArrowRightIcon size={14} />
-        </Link>
       </div>
 
       <div
@@ -148,7 +122,7 @@ const Projects = () => {
               className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-colors duration-200 hover:border-[var(--wire-2)]"
               style={{ background: "var(--card)", borderColor: "var(--line)" }}
             >
-              <CardThumb />
+              <ProjectThumb image={p.image} title={p.title} />
               <div className="flex items-start justify-between gap-2 mb-2">
                 <h3
                   className="text-[17px] font-bold tracking-[-0.02em]"

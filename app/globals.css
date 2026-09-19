@@ -16,6 +16,7 @@
   --dark: #373D42;
   --darker: #2B3136;
   --grid: rgba(35, 38, 42, .085);
+  --glow: rgba(35, 38, 42, .16);
 
   /* Tailwind semantic bridge — old pages/components keep working unchanged */
   --background: var(--bg);
@@ -95,6 +96,7 @@
   --dark: #E8E8E6;
   --darker: #23272C;
   --grid: rgba(255, 255, 255, .075);
+  --glow: rgba(255, 255, 255, .18);
 
   --background: var(--bg);
   --foreground: var(--ink);
@@ -249,6 +251,19 @@
   to {
     transform: translateX(-100%);
   }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--glow);
+  }
+  50% {
+    box-shadow: 0 0 0 5px var(--glow);
+  }
+}
+
+@utility glow-pulse {
+  animation: glowPulse 2.4s ease-in-out infinite;
 }
 
 @utility section {

@@ -3,39 +3,9 @@
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
-import { FEATURED_PROJECTS } from "@/lib/projects";
+import { FEATURED_PROJECTS, PROJECTS } from "@/lib/projects";
+import ProjectThumb from "./ProjectThumb";
 import WorkModal from "./WorkModal";
-
-const CardThumb = () => (
-  <div
-    className="h-32 rounded-[9px] grid place-items-center mb-4.5 overflow-hidden"
-    style={{ background: "var(--card-2)" }}
-  >
-    <div className="w-[76%] flex gap-[7px] items-stretch h-[66%]">
-      <div
-        className="w-[26%] rounded-[4px] p-[7px] flex flex-col gap-[5px]"
-        style={{ background: "var(--wire)" }}
-      >
-        <span className="h-1 rounded-full" style={{ background: "var(--card)" }} />
-        <span
-          className="h-1 w-[78%] rounded-full"
-          style={{ background: "var(--card)" }}
-        />
-        <span
-          className="h-1 w-[62%] rounded-full"
-          style={{ background: "var(--card)" }}
-        />
-      </div>
-      <div className="flex-1 flex flex-col gap-1.5">
-        <div className="flex-1 rounded-[4px]" style={{ background: "var(--wire)" }} />
-        <div className="flex-1 flex gap-1.5">
-          <div className="flex-1 rounded-[4px]" style={{ background: "var(--wire)" }} />
-          <div className="flex-1 rounded-[4px]" style={{ background: "var(--wire)" }} />
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 const Work = () => {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
@@ -66,7 +36,7 @@ const Work = () => {
               className="font-caveat font-semibold tracking-normal text-[19px] pb-1.5"
               style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
             >
-              {FEATURED_PROJECTS.length} so far
+              {PROJECTS.length} so far
             </span>
           </h2>
         </div>
@@ -80,7 +50,7 @@ const Work = () => {
             className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-colors duration-200 hover:border-[var(--wire-2)]"
             style={{ background: "var(--card)", borderColor: "var(--line)" }}
           >
-            <CardThumb />
+            <ProjectThumb image={p.image} title={p.title} />
             <h3
               className="text-[17px] font-bold tracking-[-0.02em] mb-2"
               style={{ color: "var(--ink)" }}

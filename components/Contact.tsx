@@ -69,7 +69,7 @@ const Contact = () => {
             Telegram
           </a>
           <a
-            href="https://x.com/"
+            href="https://x.com/NatnaelSis24858"
             target="_blank"
             rel="noopener noreferrer"
             className="text-center border text-[13px] font-semibold px-2.5 py-3.5 rounded-[10px] transition-colors hover:bg-[var(--card)]"
