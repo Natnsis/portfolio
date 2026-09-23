@@ -48,7 +48,7 @@ const Hero = () => {
           <span className="block" style={{ color: "var(--ink)" }}>
             Natnael
           </span>
-          <span className="flex items-end gap-3.5 flex-wrap">
+          <span className="flex items-end gap-4 flex-wrap">
             <span
               style={{
                 color: "transparent",
@@ -58,11 +58,20 @@ const Hero = () => {
               Sisay
             </span>
             <span
-              className="font-caveat font-semibold tracking-normal text-[22px] leading-[1.25] flex flex-col pb-3 whitespace-nowrap"
-              style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
+              className="shrink-0 w-[54px] h-[54px] mb-1 rounded-[10px] overflow-hidden border"
+              style={{
+                borderColor: "var(--wire-2)",
+                background: "var(--card)",
+                transform: "rotate(-3deg)",
+                boxShadow: "0 1px 0 var(--line)",
+              }}
             >
-              <span>builds the</span>
-              <span>whole thing</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/avatar.png"
+                alt="Natnael Sisay"
+                className="w-full h-full object-cover"
+              />
             </span>
           </span>
         </h1>
