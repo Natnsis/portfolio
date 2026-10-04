@@ -1,245 +1,219 @@
 "use client";
 
-import { ArrowRightIcon } from "@phosphor-icons/react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { HERO_VIDEO_URL } from "@/lib/site";
+import { ArrowDisc, ArrowDown, ArrowRight, ChevronUp } from "./icons";
+import SiteNav from "./SiteNav";
 
-const SPOTLIGHT = [
-  {
-    title: "Snippet & Boilerplate Manager",
-    desc: "A tool for managing code snippets and boilerplate templates across projects.",
-  },
-  {
-    title: "Rate My Portfolio",
-    desc: "A community platform for developers to share and get feedback on their portfolios.",
-  },
-  {
-    title: "Asu Students App",
-    desc: "A mobile app built for university students to access campus resources and updates.",
-  },
-  {
-    title: "Fimple NVIM Config",
-    desc: "A carefully curated Neovim configuration optimized for full-stack development.",
-  },
+const NAVY = "#1D3045";
+const EASE = "cubic-bezier(.16,1,.3,1)";
+
+// Staggered reveal for each line of a hero slide.
+const reveal = (on: boolean, delay: number) => ({
+  opacity: on ? 1 : 0,
+  transform: on ? "translateY(0)" : "translateY(24px)",
+  transition: `opacity .8s ${EASE} ${delay}ms, transform .8s ${EASE} ${delay}ms`,
+});
+
+// Slide opacity as a function of scroll progress through the 500vh track.
+const slideOpacity = (p: number) => [
+  p < 0.2 ? 1 : Math.max(0, 1 - (p - 0.2) / 0.08),
+  p < 0.32 ? 0 : p < 0.4 ? (p - 0.32) / 0.08 : p < 0.55 ? 1 : Math.max(0, 1 - (p - 0.55) / 0.08),
+  p < 0.67 ? 0 : p < 0.75 ? (p - 0.67) / 0.08 : 1,
 ];
 
 const Hero = () => {
-  const [spot, setSpot] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const s1Ref = useRef<HTMLElement>(null);
+  const s2Ref = useRef<HTMLElement>(null);
+  const s3Ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState([true, false, false]);
+  const [light, setLight] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setSpot((s) => (s + 1) % SPOTLIGHT.length);
-    }, 4200);
-    return () => clearInterval(timer);
+    let cur = 0;
+    let last = performance.now();
+    let raf = 0;
+    let blobUrl: string | undefined;
+    let prev = { v: [true, false, false], light: false };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Load the whole video into memory so scrubbing seeks instantly instead of
+    // waiting on range requests.
+    fetch(HERO_VIDEO_URL)
+      .then((r) => (r.ok ? r.blob() : Promise.reject()))
+      .then((b) => {
+        const v = videoRef.current;
+        if (!v) return;
+        const t = v.currentTime;
+        blobUrl = URL.createObjectURL(b);
+        v.src = blobUrl;
+        v.addEventListener("loadedmetadata", () => (v.currentTime = t), { once: true });
+      })
+      .catch(() => {});
+
+    const tick = (now: number) => {
+      const dt = Math.min(0.1, (now - last) / 1000);
+      last = now;
+      const el = trackRef.current;
+      const v = videoRef.current;
+      if (el) {
+        const span = el.offsetHeight - window.innerHeight;
+        const p = Math.max(0, Math.min(1, window.scrollY / (span || 1)));
+        const ops = slideOpacity(p);
+        [s1Ref, s2Ref, s3Ref].forEach((r, i) => {
+          if (r.current) r.current.style.opacity = String(ops[i]);
+        });
+
+        const next = { v: ops.map((o) => o > 0.3), light: p > 0.55 };
+        if (next.v.some((on, i) => on !== prev.v[i])) setVisible(next.v);
+        if (next.light !== prev.light) setLight(next.light);
+        prev = next;
+
+        if (v && v.duration > 0) {
+          const target = p * v.duration;
+          if (reduce) cur = target;
+          else {
+            cur += (target - cur) * (1 - Math.exp(-dt * 8));
+            if (Math.abs(target - cur) < 0.002) cur = target;
+          }
+          if (!v.seeking && Math.abs(v.currentTime - cur) > 0.01) v.currentTime = cur;
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+    };
   }, []);
 
-  const current = SPOTLIGHT[spot];
+  const [v1, v2, v3] = visible;
 
   return (
-    <section
-      id="top"
-      className="grid md:grid-cols-[1.12fr_1fr] gap-11 items-center pt-14 pb-8"
-    >
-      <div>
-        <h1
-          className="font-extrabold leading-[0.92] tracking-[-0.045em] mb-5 relative"
-          style={{ fontSize: "clamp(46px,6.4vw,72px)" }}
-        >
-          <span className="block" style={{ color: "var(--ink)" }}>
-            Natnael
-          </span>
-          <span className="flex items-end gap-4 flex-wrap">
-            <span
-              style={{
-                color: "transparent",
-                WebkitTextStroke: "1.5px var(--ink)",
-              }}
-            >
-              Sisay
-            </span>
-            <span
-              className="shrink-0 w-[54px] h-[54px] mb-1 rounded-[10px] overflow-hidden border"
-              style={{
-                borderColor: "var(--wire-2)",
-                background: "var(--card)",
-                transform: "rotate(-3deg)",
-                boxShadow: "0 1px 0 var(--line)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/avatar.png"
-                alt="Natnael Sisay"
-                className="w-full h-full object-cover"
-              />
-            </span>
-          </span>
-        </h1>
-        <p
-          className="text-[17px] leading-[1.55] mb-8 max-w-[36ch]"
-          style={{ color: "var(--ink-2)" }}
-        >
-          I read the docs, talk to my rubber duck, and ship things that
-          actually work. Full-stack developer, solo or with a team, bugs
-          included at no extra charge.
-        </p>
-        <div className="flex gap-3.5 flex-wrap">
-          <Link
-            href="/#work"
-            className="inline-flex items-center gap-2.5 text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-opacity duration-200 hover:opacity-90"
-            style={{ background: "var(--dark)", color: "var(--bg)" }}
-          >
-            View My Projects <ArrowRightIcon size={16} />
-          </Link>
-          <Link
-            href="/#contact"
-            className="inline-flex items-center border text-[15px] font-semibold px-6 py-[15px] rounded-[10px] whitespace-nowrap transition-colors duration-200 hover:bg-[var(--card)]"
-            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-          >
-            Get In Touch
-          </Link>
-        </div>
-      </div>
-
-      <div className="relative pt-6 pb-2.5">
-        <div
-          className="absolute left-3.5 top-1.5 right-[34px] h-[86%] rounded-2xl border"
-          style={{
-            background: "var(--card-2)",
-            borderColor: "var(--line)",
-            transform: "rotate(-4.5deg)",
-          }}
+    <div id="top" ref={trackRef} className="relative h-[500vh]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-haze">
+        <video
+          ref={videoRef}
+          src={HERO_VIDEO_URL}
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        <div
-          className="absolute left-6 top-3.5 right-5.5 h-[86%] rounded-2xl border"
-          style={{
-            background: "var(--card)",
-            borderColor: "var(--line)",
-            transform: "rotate(-1.8deg)",
-          }}
-        />
-        <div
-          className="relative rounded-2xl border p-5"
-          style={{ background: "var(--card)", borderColor: "var(--wire)" }}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <span
-              className="text-[11px] font-semibold"
-              style={{ color: "var(--ink-3)" }}
-            >
-              Currently building
-            </span>
-            <span className="flex gap-1.5">
-              <span
-                className="w-[7px] h-[7px] rounded-full"
-                style={{ background: "var(--wire-2)" }}
-              />
-              <span
-                className="w-[7px] h-[7px] rounded-full"
-                style={{ background: "var(--wire-2)" }}
-              />
-              <span
-                className="w-[7px] h-[7px] rounded-full"
-                style={{ background: "var(--wire-2)" }}
-              />
-            </span>
-          </div>
 
-          <div
-            className="rounded-[11px] py-[15px] px-4 flex flex-col gap-[9px] mb-[18px]"
-            style={{ background: "var(--darker)" }}
+        <div className="pointer-events-none absolute inset-0">
+          <SiteNav
+            color={light ? "#fff" : NAVY}
+            className="pointer-events-auto absolute inset-x-0 top-0"
+          />
+
+          {/* Slide 1 */}
+          <section
+            ref={s1Ref}
+            className="absolute inset-0 flex flex-col justify-center gutter-x"
+            style={{ transition: "opacity .1s ease-out" }}
           >
-            <span
-              className="h-[5px] w-[78%] rounded-full"
-              style={{ background: "rgba(255,255,255,.5)" }}
-            />
-            <span
-              className="h-[5px] w-[52%] rounded-full ml-3.5"
-              style={{ background: "rgba(255,255,255,.28)" }}
-            />
-            <span
-              className="h-[5px] w-[66%] rounded-full ml-3.5"
-              style={{ background: "rgba(255,255,255,.28)" }}
-            />
-            <span
-              className="h-[5px] w-[40%] rounded-full ml-7"
-              style={{ background: "rgba(255,255,255,.28)" }}
-            />
-            <span
-              className="h-[5px] w-[58%] rounded-full"
-              style={{ background: "rgba(255,255,255,.5)" }}
-            />
-          </div>
-
-          <div className="min-h-[74px]">
-            <h3
-              className="text-[17px] font-bold tracking-[-0.02em] mb-[7px]"
-              style={{ color: "var(--ink)" }}
+            <h1
+              className="m-0 max-w-[16ch] font-light uppercase leading-[1.2] text-navy"
+              style={{ fontSize: "clamp(2rem,5vw,5rem)", ...reveal(v1, 0) }}
             >
-              {current.title}
-            </h3>
+              I read the docs and ship things that work
+            </h1>
             <p
-              className="text-[13.5px] leading-[1.5]"
-              style={{ color: "var(--ink-2)" }}
+              className="mt-6 text-sm uppercase tracking-[.3em] text-navy/55"
+              style={reveal(v1, 150)}
             >
-              {current.desc}
+              Natnael Sisay — Full-stack developer
             </p>
-          </div>
-
-          <div
-            className="flex items-center justify-between mt-4 pt-3.5 border-t"
-            style={{ borderColor: "var(--line)" }}
-          >
-            <span className="flex gap-1.5">
-              {SPOTLIGHT.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSpot(i)}
-                  aria-label={`Show project ${i + 1}`}
-                  className="w-[18px] h-1 border-0 p-0 rounded-full cursor-pointer transition-all duration-300"
-                  style={{
-                    background: i === spot ? "var(--ink)" : "var(--wire)",
-                  }}
-                />
-              ))}
-            </span>
-            <Link
-              href="/#work"
-              className="inline-flex items-center gap-1 text-[12.5px] font-semibold transition-colors hover:text-[var(--ink)]"
-              style={{ color: "var(--ink-2)" }}
+            <a
+              href="#work"
+              aria-label="View work"
+              className="pointer-events-auto absolute bottom-12 flex size-12 items-center justify-center rounded-full border border-navy/50 text-navy"
+              style={{ right: "clamp(24px,4vw,48px)", ...reveal(v1, 300) }}
             >
-              Explore the work <ArrowRightIcon size={12} />
-            </Link>
-          </div>
-        </div>
+              <ArrowRight />
+            </a>
+          </section>
 
-        <div className="hidden md:block absolute left-[-86px] bottom-0.5 text-right pointer-events-none">
-          <p
-            className="font-caveat tracking-normal text-xl leading-[1.3]"
-            style={{ color: "var(--ink-2)", transform: "rotate(-5deg)" }}
+          {/* Slide 2 */}
+          <section
+            ref={s2Ref}
+            className="absolute inset-0 flex items-center justify-center opacity-0"
+            style={{ padding: "0 clamp(24px,4vw,32px)", transition: "opacity .1s ease-out" }}
           >
-            shipped,
-            <br />
-            not just
-            <br />
-            designed
-          </p>
-          <svg
-            width="60"
-            height="40"
-            viewBox="0 0 60 40"
-            fill="none"
-            stroke="var(--ink-2)"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            className="mt-0.5 ml-auto"
+            <h2
+              className="m-0 max-w-[900px] text-center font-extralight uppercase leading-[1.3] tracking-[.025em] text-navy"
+              style={{ fontSize: "clamp(1.5rem,4.5vw,4.5rem)", ...reveal(v2, 0) }}
+            >
+              I care about how things work{" "}
+              <span className="text-navy/80">and why they work</span>{" "}
+              <span className="text-navy/50">that way</span>
+            </h2>
+            <div
+              className="pointer-events-auto absolute bottom-16 flex flex-col items-center gap-4"
+              style={{ right: "clamp(24px,4vw,48px)" }}
+            >
+              <a
+                href="#work"
+                aria-label="Down"
+                className="flex size-12 items-center justify-center rounded-full border border-navy/40 text-navy"
+                style={reveal(v2, 200)}
+              >
+                <ArrowDown />
+              </a>
+              <div className="mt-4 flex flex-col items-center gap-2" style={reveal(v2, 350)}>
+                <span className="size-1.5 rounded-full bg-navy/40" />
+                <span className="size-2 rounded-full bg-navy" />
+                <span className="size-1.5 rounded-full bg-navy/40" />
+              </div>
+              <a
+                href="#top"
+                aria-label="Up"
+                className="mt-2 flex size-10 items-center justify-center rounded-full border border-navy/30 text-navy/80"
+                style={reveal(v2, 500)}
+              >
+                <ChevronUp size={16} />
+              </a>
+            </div>
+          </section>
+
+          {/* Slide 3 */}
+          <section
+            ref={s3Ref}
+            className="absolute inset-0 flex items-center justify-end opacity-0 gutter-x"
+            style={{ transition: "opacity .1s ease-out" }}
           >
-            <path d="M2 6c10 20 30 28 54 26" />
-            <path d="M46 24l10 8-11 5" />
-          </svg>
+            <div className="max-w-[672px]">
+              <p className="mb-4 text-lg tracking-[.025em] text-white/60" style={reveal(v3, 0)}>
+                Currently shipping
+              </p>
+              <h2
+                className="mb-8 display text-white"
+                style={{ fontSize: "clamp(2rem,4vw,4rem)", ...reveal(v3, 150) }}
+              >
+                Snippet &amp;
+                <br />
+                Boilerplate Manager
+              </h2>
+              <a
+                href="#work"
+                className="group pointer-events-auto inline-flex items-center gap-4"
+                style={reveal(v3, 300)}
+              >
+                <span className="text-sm uppercase tracking-[.3em] text-white/80">
+                  Explore the work
+                </span>
+                <ArrowDisc />
+              </a>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

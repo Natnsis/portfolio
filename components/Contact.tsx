@@ -1,86 +1,35 @@
-"use client";
+import { EMAIL } from "@/lib/site";
+import Footer from "./Footer";
+import { ArrowDisc } from "./icons";
 
-import { ArrowRightIcon } from "@phosphor-icons/react";
-
-const EMAIL = "nsisay49@gmail.com";
-
-const Contact = () => {
-  return (
-    <section
-      id="contact"
-      className="py-[78px] pb-[88px] border-t grid md:grid-cols-2 gap-14 items-center"
-      style={{ borderColor: "var(--line)" }}
-    >
-      <div>
-        <p
-          className="text-[11px] font-semibold tracking-[.02em] mb-3"
-          style={{ color: "var(--ink-3)" }}
-        >
-          Contact
-        </p>
-        <h2
-          className="font-extrabold tracking-[-0.045em] leading-[1.02] mb-4"
-          style={{ fontSize: "clamp(30px,4.2vw,44px)", color: "var(--ink)" }}
-        >
-          Let&apos;s build{" "}
-          <span
-            style={{
-              color: "transparent",
-              WebkitTextStroke: "1.4px var(--ink)",
-            }}
-          >
-            something together.
-          </span>
+const Contact = () => (
+  <section
+    id="contact"
+    className="flex flex-col bg-navy pb-12 text-white gutter-x"
+    style={{ paddingTop: "clamp(100px,14vw,200px)", gap: "clamp(80px,10vw,140px)" }}
+  >
+    <div className="flex justify-end">
+      <div className="max-w-[720px]">
+        <p className="mb-4 text-lg tracking-[.025em] text-white/60">Contact</p>
+        <h2 className="mb-6 mt-0 display" style={{ fontSize: "clamp(2rem,4vw,4rem)" }}>
+          Let&apos;s build
+          <br />
+          something together.
         </h2>
-        <p
-          className="text-[15px] leading-[1.6] max-w-[38ch]"
-          style={{ color: "var(--ink-2)" }}
-        >
-          Whether you have a project in mind or just want to say hi, I&apos;m
-          always open to a conversation.
+        <p className="mb-10 mt-0 max-w-[46ch] text-base font-light leading-[1.65] text-white/75">
+          Whether you have a project in mind or just want to say hi, I&apos;m always open to
+          a conversation.
         </p>
-      </div>
-
-      <div className="flex flex-col gap-2.5">
-        <a
-          href={`mailto:${EMAIL}`}
-          className="flex items-center justify-between text-[15px] font-semibold px-5.5 py-[17px] rounded-[10px] whitespace-nowrap transition-opacity hover:opacity-90"
-          style={{ background: "var(--dark)", color: "var(--bg)" }}
-        >
-          {EMAIL} <ArrowRightIcon size={16} />
+        <a href={`mailto:${EMAIL}`} className="group inline-flex items-center gap-4">
+          <span className="text-sm uppercase tracking-[.3em] text-white/80 break-all">
+            {EMAIL}
+          </span>
+          <ArrowDisc />
         </a>
-        <div className="grid grid-cols-3 gap-2.5">
-          <a
-            href="https://github.com/Natnsis"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-center border text-[13px] font-semibold px-2.5 py-3.5 rounded-[10px] transition-colors hover:bg-[var(--card)]"
-            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-          >
-            GitHub
-          </a>
-          <a
-            href="https://t.me/Flawless_22_4"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-center border text-[13px] font-semibold px-2.5 py-3.5 rounded-[10px] transition-colors hover:bg-[var(--card)]"
-            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-          >
-            Telegram
-          </a>
-          <a
-            href="https://x.com/NatnaelSis24858"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-center border text-[13px] font-semibold px-2.5 py-3.5 rounded-[10px] transition-colors hover:bg-[var(--card)]"
-            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-          >
-            X
-          </a>
-        </div>
       </div>
-    </section>
-  );
-};
+    </div>
+    <Footer />
+  </section>
+);
 
 export default Contact;

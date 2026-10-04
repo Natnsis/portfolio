@@ -1,18 +1,16 @@
 import Footer from "@/components/Footer";
 import Projects from "@/components/Projects";
-import SideDock from "@/components/SideDock";
+import SiteNav from "@/components/SiteNav";
 
 const ProjectsPage = () => {
   return (
-    <div className="min-h-screen relative">
-      <SideDock />
-      <div className="relative">
-        <div className="max-w-[1060px] mx-auto px-7">
-          <Projects />
-        </div>
+    <main id="top" className="min-h-screen bg-navy">
+      <SiteNav color="#fff" onHome={false} />
+      <Projects />
+      <div className="bg-navy pb-12 gutter-x">
         <Footer />
       </div>
-    </div>
+    </main>
   );
 };
 

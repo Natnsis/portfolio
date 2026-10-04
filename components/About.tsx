@@ -1,109 +1,98 @@
-"use client";
-
-import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import { CREDENTIALS } from "@/lib/credentials";
+import { PORTRAIT_URL, RESUME_URL } from "@/lib/site";
+import { ArrowDown, ArrowUpRight } from "./icons";
 
-const About = () => {
-  return (
-    <section
-      id="about"
-      className="py-[88px] mt-16 border-t"
-      style={{ borderColor: "var(--line)" }}
+const About = () => (
+  <section
+    id="about"
+    className="bg-mist text-navy gutter-x"
+    style={{ paddingBlock: "clamp(80px,12vw,160px)" }}
+  >
+    <p className="mb-6 eyebrow text-navy/55">About</p>
+    <h2
+      className="mt-0 max-w-[900px] font-extralight uppercase leading-[1.25] tracking-[.025em] text-pretty"
+      style={{ fontSize: "clamp(1.75rem,4vw,4rem)", marginBottom: "clamp(48px,6vw,80px)" }}
     >
-      <p
-        className="text-[11px] font-semibold tracking-[.02em] mb-2.5"
-        style={{ color: "var(--ink-3)" }}
-      >
-        About
-      </p>
-      <div className="grid md:grid-cols-[1.15fr_1fr] gap-14 items-start">
-        <div>
-          <h2
-            className="font-extrabold leading-[1.18] tracking-[-0.04em] mb-5.5"
-            style={{ fontSize: "clamp(26px,3.4vw,34px)", color: "var(--ink)" }}
-          >
-            I care about how things work,{" "}
-            <span
-              style={{
-                color: "transparent",
-                WebkitTextStroke: "1.3px var(--ink)",
-              }}
-            >
-              and why they work that way.
-            </span>
-          </h2>
-          <p
-            className="text-[15px] leading-[1.68] mb-4"
-            style={{ color: "var(--ink-2)" }}
-          >
-            I&apos;m a full-stack developer who researches before building,
-            communicates openly, and adapts quickly to whatever the project
-            throws my way. Whether working solo or with a team, I bring
-            ideas, honest feedback, and a drive to ship quality software.
-          </p>
-          <p
-            className="text-[15px] leading-[1.68] mb-7"
-            style={{ color: "var(--ink-2)" }}
-          >
-            My foundation in computer science, combined with hands-on
-            experience across the stack, lets me move from concept to
-            production with confidence.
-          </p>
-          <a
-            href="/resume.pdf"
-            className="inline-flex items-center gap-2.5 border text-sm font-semibold px-5 py-3.5 rounded-[10px] whitespace-nowrap transition-colors hover:bg-[var(--card)]"
-            style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-          >
-            Download Resume <DownloadSimpleIcon size={15} />
-          </a>
-        </div>
+      Research before building, <span className="text-navy/80">honest feedback,</span>{" "}
+      <span className="text-navy/50">quality software</span>
+    </h2>
 
-        <div
-          className="rounded-[14px] border p-5.5"
-          style={{ background: "var(--card)", borderColor: "var(--line)" }}
-        >
-          <p
-            className="text-[11px] font-semibold tracking-[.02em] mb-1.5"
-            style={{ color: "var(--ink-3)" }}
-          >
-            Credentials
-          </p>
-          <div className="flex flex-col">
-            {CREDENTIALS.map((c) => (
-              <a
-                key={c.title}
-                href={c.fileUrl}
-                download
-                className="group flex items-start justify-between gap-3 py-3.5 border-t transition-colors first:border-t-0"
-                style={{ borderColor: "var(--line)" }}
-              >
-                <div className="min-w-0">
-                  <p
-                    className="text-[13px] font-semibold"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {c.title}
-                  </p>
-                  <p
-                    className="text-[12px] leading-[1.5] mt-0.5"
-                    style={{ color: "var(--ink-2)" }}
-                  >
-                    {c.description}
-                  </p>
-                </div>
-                <span
-                  className="shrink-0 mt-0.5 w-7 h-7 grid place-items-center rounded-[8px] border transition-colors group-hover:bg-[var(--card-2)] group-hover:text-[var(--ink)]"
-                  style={{ borderColor: "var(--wire-2)", color: "var(--ink-2)" }}
-                >
-                  <DownloadSimpleIcon size={13} />
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
+    <div
+      className="grid items-start"
+      style={{
+        gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
+        gap: "clamp(32px,4vw,64px)",
+      }}
+    >
+      <div className="relative aspect-[4/5] w-full max-w-[420px]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PORTRAIT_URL}
+          alt="Natnael Sisay"
+          className="block h-full w-full object-cover"
+        />
+        <span className="absolute left-0 -bottom-7 text-[11px] uppercase tracking-[.3em] text-navy/55">
+          Natnael Sisay
+        </span>
       </div>
-    </section>
-  );
-};
+      <p className="m-0 text-[17px] font-light leading-[1.7] text-pretty">
+        I&apos;m a full-stack developer who researches before building, communicates
+        openly, and adapts quickly to whatever the project throws my way. Whether working
+        solo or with a team, I bring ideas, honest feedback, and a drive to ship quality
+        software.
+      </p>
+      <div className="flex flex-col items-start gap-8">
+        <p className="m-0 text-[17px] font-light leading-[1.7] text-pretty">
+          My foundation in computer science, combined with hands-on experience across the
+          stack, lets me move from concept to production with confidence.
+        </p>
+        <a
+          href={RESUME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-4"
+        >
+          <span className="text-sm uppercase tracking-[.3em]">Download resume</span>
+          <span className="flex size-12 items-center justify-center rounded-full border border-navy/50">
+            <ArrowDown />
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div id="credentials" style={{ marginTop: "clamp(80px,10vw,140px)" }}>
+      <p className="mb-8 eyebrow text-navy/55">Credentials</p>
+      <div className="flex flex-col border-b border-navy/15">
+        {CREDENTIALS.map((c) => (
+          <a
+            key={c.title}
+            href={c.fileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border-t border-navy/15 py-7"
+          >
+            <div
+              className="grid items-baseline gap-x-12 gap-y-2"
+              style={{ gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))" }}
+            >
+              <span
+                className="font-light uppercase tracking-[.03em]"
+                style={{ fontSize: "clamp(1.1rem,1.6vw,1.5rem)" }}
+              >
+                {c.title}
+              </span>
+              <span className="text-[15px] font-light leading-[1.6] text-navy/70">
+                {c.description}
+              </span>
+            </div>
+            <span className="flex size-10 items-center justify-center rounded-full border border-navy/30">
+              <ArrowUpRight size={16} />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default About;

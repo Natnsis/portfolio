@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  ArrowRightIcon,
-  ArrowSquareOutIcon,
-  GithubLogoIcon,
-  XIcon,
-} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import type { Project } from "@/lib/projects";
-import ProjectThumb from "./ProjectThumb";
+import { ArrowRight, ArrowUpRight, Close } from "./icons";
 
 interface WorkModalProps {
   project: Project | null;
@@ -22,21 +16,33 @@ const ClampedText = ({ text }: { text: string }) => {
   return (
     <>
       <p
-        className={`text-[15px] leading-[1.68] mb-1.5 ${expanded ? "" : "line-clamp-4"}`}
-        style={{ color: "var(--ink-2)" }}
+        className={`mb-2 mt-0 text-[15px] font-light leading-[1.7] text-white/75 ${expanded ? "" : "line-clamp-4"}`}
       >
         {text}
       </p>
       <button
         onClick={() => setExpanded((v) => !v)}
-        className="text-[12px] font-semibold mb-6 cursor-pointer transition-colors hover:text-[var(--ink)]"
-        style={{ color: "var(--ink-3)" }}
+        className="mb-8 cursor-pointer border-0 bg-transparent p-0 text-[11px] uppercase tracking-[.2em] text-white/50 transition-colors hover:text-white"
       >
         {expanded ? "Show less" : "Read more"}
       </button>
     </>
   );
 };
+
+const OutLink = ({ href, label }: { href: string; label: string }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-3 text-xs uppercase tracking-[.2em] text-white/80"
+  >
+    {label}
+    <span className="flex size-8 items-center justify-center rounded-full border border-white/30">
+      <ArrowUpRight size={14} />
+    </span>
+  </a>
+);
 
 const WorkModal = ({ project, onClose, onNext }: WorkModalProps) => {
   useEffect(() => {
@@ -45,7 +51,11 @@ const WorkModal = ({ project, onClose, onNext }: WorkModalProps) => {
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
   }, [project, onClose]);
 
   if (!project) return null;
@@ -53,113 +63,70 @@ const WorkModal = ({ project, onClose, onNext }: WorkModalProps) => {
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-[60] flex items-center justify-center px-5.5 py-[52px] overflow-y-auto"
-      style={{ background: "rgba(15,17,19,.45)", backdropFilter: "blur(4px)" }}
+      className="fixed inset-0 z-[90] flex items-center justify-center overflow-y-auto bg-[#0f1a26]/70 px-5 py-12 backdrop-blur-sm"
     >
       <div
         key={project.title}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[1120px] max-h-[85vh] rounded-2xl border overflow-hidden shadow-[0_30px_70px_-30px_rgba(0,0,0,.5)] flex flex-col md:flex-row"
-        style={{
-          background: "var(--card)",
-          borderColor: "var(--line)",
-          animation: "fadeUp .28s ease both",
-        }}
+        className="relative flex max-h-[85vh] w-full max-w-[1120px] flex-col overflow-hidden border border-white/15 bg-navy text-white md:flex-row"
+        style={{ animation: "fadeUp .28s ease both" }}
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 z-10 w-8 h-8 grid place-items-center rounded-[8px] cursor-pointer transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
-          style={{ background: "var(--card)", border: "1px solid var(--wire-2)", color: "var(--ink-2)" }}
+          className="absolute right-4 top-4 z-10 flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/30 bg-navy text-white transition-colors hover:border-white"
         >
-          <XIcon size={15} />
+          <Close size={16} />
         </button>
 
-        <div className="w-full h-40 sm:h-64 md:h-auto md:w-[46%] shrink-0" style={{ background: "var(--card-2)" }}>
-          <ProjectThumb image={project.image} title={project.title} variant="full" />
+        <div className="h-48 w-full shrink-0 bg-white/5 sm:h-64 md:h-auto md:w-[46%]">
+          {project.image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
+          )}
         </div>
 
-        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto p-7 md:p-8.5">
-          <div className="mb-5 pr-10">
-            <p
-              className="text-[11px] font-semibold tracking-[.02em] mb-2.5"
-              style={{ color: "var(--ink-3)" }}
-            >
-              {project.meta}
-            </p>
-            <h3
-              className="text-[25px] font-bold tracking-[-0.03em]"
-              style={{ color: "var(--ink)" }}
-            >
-              {project.title}
-            </h3>
-          </div>
-
-          <div className="flex flex-wrap gap-1.5 mb-6.5">
+        <div className="min-h-0 min-w-0 flex-1 overflow-y-auto p-7 md:p-10">
+          <p className="mb-4 mt-0 pr-12 text-[11px] uppercase tracking-[.25em] text-white/50">
+            {project.meta}
+          </p>
+          <h3 className="mb-5 mt-0 pr-12 display" style={{ fontSize: "clamp(1.5rem,2.4vw,2.25rem)" }}>
+            {project.title}
+          </h3>
+          <div className="mb-8 flex flex-wrap gap-x-5 gap-y-2">
             {project.tags.map((t) => (
-              <span
-                key={t}
-                className="text-[11px] font-semibold rounded-full px-2.5 py-1"
-                style={{ color: "var(--ink-2)", background: "var(--card-2)" }}
-              >
+              <span key={t} className="text-[11px] uppercase tracking-[.2em] text-white/60">
                 {t}
               </span>
             ))}
           </div>
 
-          <p
-            className="text-[11px] font-semibold tracking-[.02em] mb-2"
-            style={{ color: "var(--ink-3)" }}
-          >
-            The story
-          </p>
+          <p className="mb-3 mt-0 text-[11px] uppercase tracking-[.3em] text-white/50">The story</p>
           <ClampedText text={project.story} />
 
-          <p
-            className="text-[11px] font-semibold tracking-[.02em] mb-2"
-            style={{ color: "var(--ink-3)" }}
-          >
+          <p className="mb-3 mt-0 text-[11px] uppercase tracking-[.3em] text-white/50">
             How it was built
           </p>
           <ClampedText text={project.built} />
 
-          <div
-            className="flex items-center justify-between gap-4 pt-5 border-t flex-wrap"
-            style={{ borderColor: "var(--line)" }}
-          >
-            <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-[13px]" style={{ color: "var(--ink-3)" }}>
-                {project.live ? "Live in production" : "Source only"}
-              </span>
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glow-pulse inline-flex items-center gap-1.5 text-[12px] font-semibold rounded-full border px-3 py-1.5 transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
-                  style={{ color: "var(--ink-2)", borderColor: "var(--wire-2)" }}
-                >
-                  View live <ArrowSquareOutIcon size={12} />
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glow-pulse inline-flex items-center gap-1.5 text-[12px] font-semibold rounded-full border px-3 py-1.5 transition-colors hover:bg-[var(--card-2)] hover:text-[var(--ink)]"
-                  style={{ color: "var(--ink-2)", borderColor: "var(--wire-2)" }}
-                >
-                  Source <GithubLogoIcon size={12} />
-                </a>
+          <div className="flex flex-wrap items-center justify-between gap-6 border-t border-white/15 pt-6">
+            <div className="flex flex-wrap items-center gap-6">
+              {project.liveUrl && <OutLink href={project.liveUrl} label="View live" />}
+              {project.githubUrl && <OutLink href={project.githubUrl} label="Source" />}
+              {!project.liveUrl && !project.githubUrl && (
+                <span className="text-xs uppercase tracking-[.2em] text-white/50">
+                  {project.live ? "Live in production" : "Source only"}
+                </span>
               )}
             </div>
             <button
               onClick={onNext}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold border rounded-[9px] px-4.5 py-2.5 whitespace-nowrap cursor-pointer transition-colors hover:bg-[var(--card-2)]"
-              style={{ color: "var(--ink)", borderColor: "var(--wire-2)" }}
+              className="group inline-flex cursor-pointer items-center gap-3 border-0 bg-transparent p-0 text-xs uppercase tracking-[.2em] text-white"
             >
-              Next project <ArrowRightIcon size={13} />
+              Next project
+              <span className="flex size-8 items-center justify-center rounded-full bg-white text-gray-800 transition-transform group-hover:scale-110">
+                <ArrowRight size={14} strokeWidth={1.75} />
+              </span>
             </button>
           </div>
         </div>

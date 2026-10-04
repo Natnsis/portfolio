@@ -1,93 +1,47 @@
 "use client";
 
-import { ArrowRightIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
 import { FEATURED_PROJECTS, PROJECTS } from "@/lib/projects";
-import ProjectThumb from "./ProjectThumb";
+import { ArrowDisc } from "./icons";
+import ProjectRow from "./ProjectRow";
 import WorkModal from "./WorkModal";
 
 const Work = () => {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
-
   const active = activeIdx === null ? null : FEATURED_PROJECTS[activeIdx];
 
   return (
-    <section id="work" className="pt-11 border-t" style={{ borderColor: "var(--line)" }}>
-      <div className="flex items-end justify-between gap-6 flex-wrap mb-7.5">
+    <section
+      id="work"
+      className="bg-navy text-white gutter-x"
+      style={{ paddingBlock: "clamp(80px,12vw,160px)" }}
+    >
+      <div
+        className="flex flex-wrap items-end justify-between gap-6"
+        style={{ marginBottom: "clamp(48px,6vw,96px)" }}
+      >
         <div>
-          <p
-            className="text-[11px] font-semibold tracking-[.02em] mb-2.5"
-            style={{ color: "var(--ink-3)" }}
-          >
-            My work
-          </p>
-          <h2
-            className="font-extrabold tracking-[-0.04em] leading-none flex items-end gap-3 flex-wrap"
-            style={{ fontSize: "clamp(30px,4vw,40px)", color: "var(--ink)" }}
-          >
-            Featured{" "}
-            <span
-              style={{ color: "transparent", WebkitTextStroke: "1.4px var(--ink)" }}
-            >
-              Projects
-            </span>
-            <span
-              className="font-caveat font-semibold tracking-normal text-[19px] pb-1.5"
-              style={{ color: "var(--ink-2)", transform: "rotate(-4deg)" }}
-            >
-              {PROJECTS.length} so far
-            </span>
+          <p className="mb-4 eyebrow text-white/60">My work</p>
+          <h2 className="m-0 display" style={{ fontSize: "clamp(2rem,4vw,4rem)" }}>
+            Featured projects
           </h2>
         </div>
+        <p className="m-0 eyebrow text-white/60">{PROJECTS.length} so far</p>
       </div>
 
-      <div className="grid gap-4.5" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))" }}>
-        {FEATURED_PROJECTS.map((p, idx) => (
-          <button
-            key={p.title}
-            onClick={() => setActiveIdx(idx)}
-            className="text-left flex flex-col rounded-[14px] border p-4.5 cursor-pointer transition-colors duration-200 hover:border-[var(--wire-2)]"
-            style={{ background: "var(--card)", borderColor: "var(--line)" }}
-          >
-            <ProjectThumb image={p.image} title={p.title} />
-            <h3
-              className="text-[17px] font-bold tracking-[-0.02em] mb-2"
-              style={{ color: "var(--ink)" }}
-            >
-              {p.title}
-            </h3>
-            <p
-              className="text-sm leading-[1.5] min-h-[42px]"
-              style={{ color: "var(--ink-2)" }}
-            >
-              {p.summary}
-            </p>
-            <div className="flex flex-wrap gap-1.5 mt-4 items-center">
-              {p.tags.map((t) => (
-                <span
-                  key={t}
-                  className="text-[11px] font-semibold rounded-full px-2.5 py-1"
-                  style={{ color: "var(--ink-2)", background: "var(--card-2)" }}
-                >
-                  {t}
-                </span>
-              ))}
-              <span className="ml-auto" style={{ color: "var(--ink-2)" }}>
-                <ArrowRightIcon size={15} />
-              </span>
-            </div>
-          </button>
+      <div className="flex flex-col">
+        {FEATURED_PROJECTS.map((p, i) => (
+          <ProjectRow key={p.title} project={p} index={i} onOpen={() => setActiveIdx(i)} />
         ))}
       </div>
 
-      <div className="flex justify-center mt-9">
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-2.5 text-sm font-semibold px-6 py-3.5 border rounded-[10px] whitespace-nowrap transition-colors duration-200 hover:bg-[var(--card-2)]"
-          style={{ borderColor: "var(--wire-2)", color: "var(--ink)" }}
-        >
-          View all projects <ArrowRightIcon size={15} />
+      <div className="flex justify-end border-t border-white/15 pt-12">
+        <Link href="/projects" className="group inline-flex items-center gap-4">
+          <span className="text-sm uppercase tracking-[.3em] text-white/80">
+            View all projects
+          </span>
+          <ArrowDisc />
         </Link>
       </div>
 
