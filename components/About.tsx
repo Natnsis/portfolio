@@ -1,95 +1,98 @@
-import { CREDENTIALS } from "@/lib/credentials";
-import { PORTRAIT_URL, RESUME_URL } from "@/lib/site";
-import { ArrowDown, ArrowUpRight } from "./icons";
+import { PORTRAIT_URL, RESUME_URL, SIDEKICK_URL } from "@/lib/site";
+import { Polaroid, ROUGH } from "./artsy/Bits";
+import Reveal from "./artsy/Reveal";
+import { ArrowDown, CurveDivider } from "./icons";
+
+const PHOTOS = [
+  { src: PORTRAIT_URL, caption: "that's me" },
+  { src: SIDEKICK_URL, caption: "the coworker" },
+];
+
+// Chip color, label color, and the two emoji it flips between.
+const SKILLS = [
+  { label: "Full-Stack Web", bg: "var(--ca-yellow)", fg: "text-ca-ink", emoji: ["✨", "🌐"] },
+  { label: "Go Backends", bg: "var(--ca-green)", fg: "text-white", emoji: ["⚙️", "🐹"] },
+  { label: "Mobile Apps", bg: "var(--ca-magenta)", fg: "text-white", emoji: ["📱", "🧩"] },
+  { label: "Bots & Tools", bg: "var(--ca-blue)", fg: "text-ca-ink", emoji: ["🤖", "🛠️"] },
+];
 
 const About = () => (
-  <section
-    id="about"
-    className="bg-mist text-navy gutter-x"
-    style={{ paddingBlock: "clamp(80px,12vw,160px)" }}
-  >
-    <p className="mb-6 eyebrow text-navy/55">About</p>
-    <h2
-      className="mt-0 max-w-[900px] font-extralight uppercase leading-[1.25] tracking-[.025em] text-pretty"
-      style={{ fontSize: "clamp(1.75rem,4vw,4rem)", marginBottom: "clamp(48px,6vw,80px)" }}
-    >
-      Research before building, <span className="text-navy/80">honest feedback,</span>{" "}
-      <span className="text-navy/50">quality software</span>
-    </h2>
+  <section id="about" className="ca-grid relative scroll-mt-24 px-4 pb-20 sm:pb-28">
+    <CurveDivider className="-mx-4 w-[calc(100%+2rem)]" />
+    <p className="ca-hand pl-[8%] text-2xl text-ca-ink sm:text-3xl">about me!</p>
 
-    <div
-      className="grid items-start"
-      style={{
-        gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
-        gap: "clamp(32px,4vw,64px)",
-      }}
-    >
-      <div className="relative aspect-[4/5] w-full max-w-[420px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={PORTRAIT_URL}
-          alt="Natnael Sisay"
-          className="block h-full w-full object-cover"
-        />
-        <span className="absolute left-0 -bottom-7 text-[11px] uppercase tracking-[.3em] text-navy/55">
-          Natnael Sisay
-        </span>
-      </div>
-      <p className="m-0 text-[17px] font-light leading-[1.7] text-pretty">
-        I&apos;m a full-stack developer who researches before building, communicates
-        openly, and adapts quickly to whatever the project throws my way. Whether working
-        solo or with a team, I bring ideas, honest feedback, and a drive to ship quality
-        software.
-      </p>
-      <div className="flex flex-col items-start gap-8">
-        <p className="m-0 text-[17px] font-light leading-[1.7] text-pretty">
-          My foundation in computer science, combined with hands-on experience across the
-          stack, lets me move from concept to production with confidence.
-        </p>
+    <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+      <Reveal
+        from="translateY(-28px) rotate(-12.6deg)"
+        to="rotate(-7deg)"
+        className="absolute left-[3%] top-[36%] w-56 xl:left-[5%] xl:w-64"
+      >
+        <Polaroid {...PHOTOS[0]} className="pointer-events-auto w-full" />
+      </Reveal>
+      <Reveal
+        from="translateY(-28px) rotate(14.4deg)"
+        to="rotate(8deg)"
+        delay={120}
+        className="absolute right-[3%] top-[20%] w-56 xl:right-[5%] xl:w-64"
+      >
+        <Polaroid {...PHOTOS[1]} className="pointer-events-auto w-full" />
+      </Reveal>
+    </div>
+
+    <div className="relative z-10 mx-auto mt-10 max-w-5xl sm:mt-16">
+      <div className="flex flex-col items-center text-center">
+        <div className="ca-doodle-box relative inline-block border-2 border-ca-ink px-5 py-2">
+          <span className="text-3xl font-medium text-ca-ink sm:text-4xl">what&apos;s up</span>
+        </div>
+
+        <Reveal from="translateY(28px)" className="mt-10">
+          <p className="ca-hand mx-auto max-w-3xl text-3xl font-medium leading-[1.2] text-ca-ink sm:text-4xl lg:text-5xl">
+            I&apos;m a full-stack developer who researches before building, communicates
+            openly, and adapts fast to whatever the project throws at me.{" "}
+            <span aria-hidden>✨</span> Solo or with a team, I bring ideas, honest feedback,
+            and a real drive to ship quality software. <span aria-hidden>🛠️</span>
+          </p>
+        </Reveal>
+
+        <div className="mt-10 flex justify-center gap-6 lg:hidden">
+          <Polaroid {...PHOTOS[0]} className="w-40 -rotate-3" />
+          <Polaroid {...PHOTOS[1]} className="w-40 rotate-3" />
+        </div>
+
+        <div className="mt-12 flex max-w-3xl flex-wrap items-center justify-center gap-3 sm:mt-14">
+          {SKILLS.map((s, i) => (
+            <Reveal key={s.label} from="scale(0.8)" delay={i * 90} className="flex items-center gap-3">
+              <span
+                className={`inline-flex h-14 items-center px-6 text-2xl font-semibold tracking-tight sm:h-[4.5rem] sm:px-8 sm:text-3xl ${s.fg}`}
+                style={{ backgroundColor: s.bg, clipPath: ROUGH[i % 3] }}
+              >
+                {s.label}
+              </span>
+              <span
+                aria-hidden
+                className="relative inline-block h-14 w-14 shrink-0 sm:h-[4.5rem] sm:w-[4.5rem]"
+                style={{ backgroundColor: s.bg, clipPath: ROUGH[(i + 1) % 3] }}
+              >
+                <span className="ca-emoji-a absolute inset-0 flex items-center justify-center text-3xl sm:text-4xl">
+                  {s.emoji[0]}
+                </span>
+                <span className="ca-emoji-b absolute inset-0 flex items-center justify-center text-3xl sm:text-4xl">
+                  {s.emoji[1]}
+                </span>
+              </span>
+            </Reveal>
+          ))}
+        </div>
+
         <a
           href={RESUME_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-4"
+          className="ca-mono mt-12 inline-flex items-center gap-2.5 border-b-2 border-ca-ink pb-1 text-sm font-bold uppercase tracking-[0.2em] text-ca-ink transition-transform duration-200 hover:translate-x-1"
         >
-          <span className="text-sm uppercase tracking-[.3em]">Download resume</span>
-          <span className="flex size-12 items-center justify-center rounded-full border border-navy/50">
-            <ArrowDown />
-          </span>
+          Grab my resume
+          <ArrowDown />
         </a>
-      </div>
-    </div>
-
-    <div id="credentials" style={{ marginTop: "clamp(80px,10vw,140px)" }}>
-      <p className="mb-8 eyebrow text-navy/55">Credentials</p>
-      <div className="flex flex-col border-b border-navy/15">
-        {CREDENTIALS.map((c) => (
-          <a
-            key={c.title}
-            href={c.fileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border-t border-navy/15 py-7"
-          >
-            <div
-              className="grid items-baseline gap-x-12 gap-y-2"
-              style={{ gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))" }}
-            >
-              <span
-                className="font-light uppercase tracking-[.03em]"
-                style={{ fontSize: "clamp(1.1rem,1.6vw,1.5rem)" }}
-              >
-                {c.title}
-              </span>
-              <span className="text-[15px] font-light leading-[1.6] text-navy/70">
-                {c.description}
-              </span>
-            </div>
-            <span className="flex size-10 items-center justify-center rounded-full border border-navy/30">
-              <ArrowUpRight size={16} />
-            </span>
-          </a>
-        ))}
       </div>
     </div>
   </section>

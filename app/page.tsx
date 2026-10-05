@@ -1,18 +1,26 @@
 import About from "@/components/About";
 import Contact from "@/components/Contact";
+import Credentials from "@/components/Credentials";
+import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import TechTicker from "@/components/TechTicker";
+import SiteHeader from "@/components/SiteHeader";
+import Toolbox from "@/components/Toolbox";
 import Work from "@/components/Work";
 
 const page = () => {
   return (
-    <main>
-      <Hero />
-      <TechTicker />
-      <Work />
-      <About />
-      <Contact />
-    </main>
+    <>
+      <SiteHeader active="home" />
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        <Toolbox />
+        <Credentials />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 };
 

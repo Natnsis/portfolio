@@ -1,17 +1,23 @@
+export type NavKey = "home" | "about" | "work" | "projects";
+
 export interface NavLink {
+  key: NavKey;
   label: string;
-  // Section id on the homepage; links resolve to "#id" there and "/#id" elsewhere.
-  section: string;
-  active?: boolean;
+  // Homepage section id ("top" = page top); "/projects" is its own route.
+  section?: string;
+  href?: string;
 }
 
 export const NAV: NavLink[] = [
-  { label: "Natnael Sisay", section: "top", active: true },
-  { label: "Work", section: "work" },
-  { label: "About", section: "about" },
-  { label: "Credentials", section: "credentials" },
-  { label: "Contact", section: "contact" },
+  { key: "home", label: "Home", section: "top" },
+  { key: "about", label: "About", section: "about" },
+  { key: "work", label: "Work", section: "work" },
+  { key: "projects", label: "Projects", href: "/projects" },
 ];
+
+// Section links resolve to "#id" on the homepage and "/#id" elsewhere.
+export const navHref = (l: NavLink, onHome: boolean) =>
+  l.href ?? (onHome ? `#${l.section}` : `/#${l.section}`);
 
 export const STACK: string[] = [
   "TS/JS",
@@ -34,12 +40,11 @@ export const STACK: string[] = [
 export const EMAIL = "nsisay49@gmail.com";
 export const RESUME_URL = "/resume.pdf";
 export const PORTRAIT_URL = "/avatar.png";
-export const HERO_VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260821_114821_a8ca298f-be2c-4613-a4dd-51b69e16bbde.mp4";
+export const SIDEKICK_URL = "/another.webp";
 
 export const SOCIALS = [
   { label: "GitHub", href: "https://github.com/Natnsis" },
-  { label: "Telegram", href: "https://t.me/Flawless_22_4" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/natnael-sisay-orcadev/" },
+  { label: "Telegram", href: "https://t.me/Flawless_22_4" },
   { label: "X", href: "https://x.com/NatnaelSis24858" },
-];
+] as const;

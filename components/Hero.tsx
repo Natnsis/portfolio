@@ -1,220 +1,124 @@
-"use client";
+import { PORTRAIT_URL, SIDEKICK_URL } from "@/lib/site";
+import { HandLabel, HandNote, Pill, PhotoDot } from "./artsy/Bits";
+import LensGroup from "./artsy/Lens";
+import Letters from "./artsy/Letters";
+import Reveal from "./artsy/Reveal";
+import { ArrowUpRight, CurlyArrow, Flower, Target } from "./icons";
 
-import { useEffect, useRef, useState } from "react";
-import { HERO_VIDEO_URL } from "@/lib/site";
-import { ArrowDisc, ArrowDown, ArrowRight, ChevronUp } from "./icons";
-import SiteNav from "./SiteNav";
+// Hero entrances start as the splash bubble clears.
+const T = 1500;
 
-const NAVY = "#1D3045";
-const EASE = "cubic-bezier(.16,1,.3,1)";
+const DROP = (rot: number, y = -28) => `translateY(${y}px) rotate(${rot}deg)`;
+// Notes settle at a gentler tilt than they fall in at.
+const SETTLE = (rot: number) => `rotate(${(rot / 1.8).toFixed(1)}deg)`;
 
-// Staggered reveal for each line of a hero slide.
-const reveal = (on: boolean, delay: number) => ({
-  opacity: on ? 1 : 0,
-  transform: on ? "translateY(0)" : "translateY(24px)",
-  transition: `opacity .8s ${EASE} ${delay}ms, transform .8s ${EASE} ${delay}ms`,
-});
-
-// Slide opacity as a function of scroll progress through the 500vh track.
-const slideOpacity = (p: number) => [
-  p < 0.2 ? 1 : Math.max(0, 1 - (p - 0.2) / 0.08),
-  p < 0.32 ? 0 : p < 0.4 ? (p - 0.32) / 0.08 : p < 0.55 ? 1 : Math.max(0, 1 - (p - 0.55) / 0.08),
-  p < 0.67 ? 0 : p < 0.75 ? (p - 0.67) / 0.08 : 1,
+const NOTES = [
+  { text: "Reads the docs", color: "var(--ca-mint)" },
+  { text: "Ships the thing", color: "var(--ca-yellow-soft)" },
 ];
+const ROLE = "Full-Stack Developer";
+const PLACE = "Based in Ethiopia";
 
-const Hero = () => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const s1Ref = useRef<HTMLElement>(null);
-  const s2Ref = useRef<HTMLElement>(null);
-  const s3Ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState([true, false, false]);
-  const [light, setLight] = useState(false);
-
-  useEffect(() => {
-    let cur = 0;
-    let last = performance.now();
-    let raf = 0;
-    let blobUrl: string | undefined;
-    let prev = { v: [true, false, false], light: false };
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // Load the whole video into memory so scrubbing seeks instantly instead of
-    // waiting on range requests.
-    fetch(HERO_VIDEO_URL)
-      .then((r) => (r.ok ? r.blob() : Promise.reject()))
-      .then((b) => {
-        const v = videoRef.current;
-        if (!v) return;
-        const t = v.currentTime;
-        blobUrl = URL.createObjectURL(b);
-        v.src = blobUrl;
-        v.addEventListener("loadedmetadata", () => (v.currentTime = t), { once: true });
-      })
-      .catch(() => {});
-
-    const tick = (now: number) => {
-      const dt = Math.min(0.1, (now - last) / 1000);
-      last = now;
-      const el = trackRef.current;
-      const v = videoRef.current;
-      if (el) {
-        const span = el.offsetHeight - window.innerHeight;
-        const p = Math.max(0, Math.min(1, window.scrollY / (span || 1)));
-        const ops = slideOpacity(p);
-        [s1Ref, s2Ref, s3Ref].forEach((r, i) => {
-          if (r.current) r.current.style.opacity = String(ops[i]);
-        });
-
-        const next = { v: ops.map((o) => o > 0.3), light: p > 0.55 };
-        if (next.v.some((on, i) => on !== prev.v[i])) setVisible(next.v);
-        if (next.light !== prev.light) setLight(next.light);
-        prev = next;
-
-        if (v && v.duration > 0) {
-          const target = p * v.duration;
-          if (reduce) cur = target;
-          else {
-            cur += (target - cur) * (1 - Math.exp(-dt * 8));
-            if (Math.abs(target - cur) < 0.002) cur = target;
-          }
-          if (!v.seeking && Math.abs(v.currentTime - cur) > 0.01) v.currentTime = cur;
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-    };
-  }, []);
-
-  const [v1, v2, v3] = visible;
-
-  return (
-    <div id="top" ref={trackRef} className="relative h-[500vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-haze">
-        <video
-          ref={videoRef}
-          src={HERO_VIDEO_URL}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-
-        <div className="pointer-events-none absolute inset-0">
-          <SiteNav
-            color={light ? "#fff" : NAVY}
-            className="pointer-events-auto absolute inset-x-0 top-0"
-          />
-
-          {/* Slide 1 */}
-          <section
-            ref={s1Ref}
-            className="absolute inset-0 flex flex-col justify-center gutter-x"
-            style={{ transition: "opacity .1s ease-out" }}
-          >
-            <h1
-              className="m-0 max-w-[16ch] font-light uppercase leading-[1.2] text-navy"
-              style={{ fontSize: "clamp(2rem,5vw,5rem)", ...reveal(v1, 0) }}
-            >
-              I read the docs and ship things that work
-            </h1>
-            <p
-              className="mt-6 text-sm uppercase tracking-[.3em] text-navy/55"
-              style={reveal(v1, 150)}
-            >
-              Natnael Sisay — Full-stack developer
-            </p>
-            <a
-              href="#work"
-              aria-label="View work"
-              className="pointer-events-auto absolute bottom-12 flex size-12 items-center justify-center rounded-full border border-navy/50 text-navy"
-              style={{ right: "clamp(24px,4vw,48px)", ...reveal(v1, 300) }}
-            >
-              <ArrowRight />
-            </a>
-          </section>
-
-          {/* Slide 2 */}
-          <section
-            ref={s2Ref}
-            className="absolute inset-0 flex items-center justify-center opacity-0"
-            style={{ padding: "0 clamp(24px,4vw,32px)", transition: "opacity .1s ease-out" }}
-          >
-            <h2
-              className="m-0 max-w-[900px] text-center font-extralight uppercase leading-[1.3] tracking-[.025em] text-navy"
-              style={{ fontSize: "clamp(1.5rem,4.5vw,4.5rem)", ...reveal(v2, 0) }}
-            >
-              I care about how things work{" "}
-              <span className="text-navy/80">and why they work</span>{" "}
-              <span className="text-navy/50">that way</span>
-            </h2>
-            <div
-              className="pointer-events-auto absolute bottom-16 flex flex-col items-center gap-4"
-              style={{ right: "clamp(24px,4vw,48px)" }}
-            >
-              <a
-                href="#work"
-                aria-label="Down"
-                className="flex size-12 items-center justify-center rounded-full border border-navy/40 text-navy"
-                style={reveal(v2, 200)}
-              >
-                <ArrowDown />
-              </a>
-              <div className="mt-4 flex flex-col items-center gap-2" style={reveal(v2, 350)}>
-                <span className="size-1.5 rounded-full bg-navy/40" />
-                <span className="size-2 rounded-full bg-navy" />
-                <span className="size-1.5 rounded-full bg-navy/40" />
-              </div>
-              <a
-                href="#top"
-                aria-label="Up"
-                className="mt-2 flex size-10 items-center justify-center rounded-full border border-navy/30 text-navy/80"
-                style={reveal(v2, 500)}
-              >
-                <ChevronUp size={16} />
-              </a>
-            </div>
-          </section>
-
-          {/* Slide 3 */}
-          <section
-            ref={s3Ref}
-            className="absolute inset-0 flex items-center justify-end opacity-0 gutter-x"
-            style={{ transition: "opacity .1s ease-out" }}
-          >
-            <div className="max-w-[672px]">
-              <p className="mb-4 text-lg tracking-[.025em] text-white/60" style={reveal(v3, 0)}>
-                Currently shipping
-              </p>
-              <h2
-                className="mb-8 display text-white"
-                style={{ fontSize: "clamp(2rem,4vw,4rem)", ...reveal(v3, 150) }}
-              >
-                Snippet &amp;
-                <br />
-                Boilerplate Manager
-              </h2>
-              <a
-                href="#work"
-                className="group pointer-events-auto inline-flex items-center gap-4"
-                style={reveal(v3, 300)}
-              >
-                <span className="text-sm uppercase tracking-[.3em] text-white/80">
-                  Explore the work
-                </span>
-                <ArrowDisc />
-              </a>
-            </div>
-          </section>
-        </div>
-      </div>
+const Hero = () => (
+  <section
+    id="top"
+    className="ca-grid relative flex min-h-[100svh] scroll-mt-24 flex-col justify-center overflow-hidden px-4 pb-12 pt-4 sm:pb-16"
+  >
+    <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
+      <PhotoDot src={PORTRAIT_URL} className="absolute left-[12%] top-[52%] -rotate-6" />
+      <PhotoDot src={SIDEKICK_URL} className="absolute right-[12%] top-[56%] rotate-6" />
     </div>
-  );
-};
+
+    <div className="relative mx-auto flex max-w-5xl flex-col items-center pt-1 text-center sm:pt-2">
+      <LensGroup group="name" className="relative flex w-full flex-col items-center">
+        <HandLabel>my name is</HandLabel>
+
+        {/* Mobile: notes sit in a row above the name */}
+        <div className="mt-4 flex flex-wrap justify-center gap-2 lg:hidden">
+          {NOTES.map((n, i) => (
+            <Reveal key={n.text} from={DROP(i ? 7.2 : -7.2)} to={SETTLE(i ? 7.2 : -7.2)} delay={T + 600 + i * 120}>
+              <Pill color={n.color}>{n.text}</Pill>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="relative mt-5">
+          <Reveal from="scale(0.55)" delay={T} duration={800}>
+            <div className="ca-doodle-box relative inline-block border-[3px] border-ca-orange px-5 py-1 sm:px-10 sm:py-2">
+              <Letters
+                text="NATNAEL"
+                rise={0.7}
+                delay={T + 150}
+                className="text-[22vw] leading-[0.95] tracking-tight text-ca-ink sm:text-9xl lg:text-[12rem]"
+              />
+            </div>
+          </Reveal>
+
+          {/* Desktop: notes pinned to the corners of the name */}
+          <div className="pointer-events-none absolute -inset-x-24 -inset-y-6 hidden lg:block">
+            <div className="pointer-events-auto absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2">
+              <Reveal from={DROP(-14.4)} to={SETTLE(-14.4)} delay={T + 700}>
+                <Pill color={NOTES[0].color}>{NOTES[0].text}</Pill>
+              </Reveal>
+            </div>
+            <div className="pointer-events-auto absolute right-0 top-0 -translate-y-1/2 translate-x-1/2">
+              <Reveal from={DROP(12.6)} to={SETTLE(12.6)} delay={T + 820}>
+                <Pill color={NOTES[1].color}>{NOTES[1].text}</Pill>
+              </Reveal>
+            </div>
+            <div className="pointer-events-auto absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2">
+              <Reveal from={DROP(-7.2, -140)} to={SETTLE(-7.2)} delay={T + 950} duration={900}>
+                <span className="relative inline-block">
+                  <HandNote color="var(--ca-yellow)">{ROLE}</HandNote>
+                  <CurlyArrow className="absolute -right-7 -top-4 -scale-x-100" />
+                </span>
+              </Reveal>
+            </div>
+            <div className="pointer-events-auto absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2">
+              <Reveal from={DROP(3.6, -140)} to={SETTLE(3.6)} delay={T + 1080} duration={900}>
+                <span className="relative inline-block">
+                  <CurlyArrow className="absolute -left-6 -top-6" />
+                  <HandNote color="var(--ca-mint)">{PLACE}</HandNote>
+                </span>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+
+        <p className="ca-mono mt-6 inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.2em] text-ca-ink sm:text-sm">
+          <span className="h-3 w-3 rounded-full bg-ca-blue" />
+          Open to new work and good problems
+        </p>
+      </LensGroup>
+
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-5 lg:hidden">
+        <Reveal from={DROP(-5.4, -90)} to={SETTLE(-5.4)} delay={T + 700}>
+          <HandNote color="var(--ca-yellow)" className="text-xl sm:text-2xl">
+            {ROLE}
+          </HandNote>
+        </Reveal>
+        <Reveal from={DROP(3.6, -90)} to={SETTLE(3.6)} delay={T + 820}>
+          <HandNote color="var(--ca-mint)" className="text-xl sm:text-2xl">
+            {PLACE}
+          </HandNote>
+        </Reveal>
+      </div>
+
+      <h1 className="mt-10 max-w-3xl text-4xl font-semibold leading-[1.15] tracking-tight text-ca-ink sm:mt-14 sm:text-6xl">
+        I read the docs <Target /> and ship things that work. <Flower />
+      </h1>
+
+      <a
+        href="#contact"
+        className="group/cta ca-mono relative mt-9 inline-flex items-center gap-3 border-2 border-ca-ink bg-ca-ink py-2.5 pl-2.5 pr-6 text-sm font-bold uppercase tracking-[0.2em] text-white transition-colors duration-200 hover:bg-transparent hover:text-ca-ink"
+      >
+        <span className="flex h-9 w-9 items-center justify-center bg-ca-blue text-ca-ink transition-colors duration-200 group-hover/cta:bg-ca-magenta group-hover/cta:text-ca-blue">
+          <ArrowUpRight />
+        </span>
+        Contact me
+      </a>
+    </div>
+  </section>
+);
 
 export default Hero;
