@@ -7,6 +7,7 @@
 // list is all of data/projects.json, and NORMAL mode parks focus on a hidden key catcher
 // so vim-style browser extensions (Vimium, Surfingkeys) let j/k through.
 import { Component, createRef, useEffect, useRef, useState } from "react";
+import { getMode, setMode, UI_PATH } from "@/lib/mode";
 import { PROJECTS } from "@/lib/projects";
 
 const G = "#2ea44f";
@@ -155,6 +156,7 @@ const HELP = [
   ["socials", "github · linkedin · telegram · x", "socials"],
   ["history", "commands you ran", "history"],
   ["clear", "clear the screen  (ctrl+l)", "clear"],
+  ["exit", "leave the terminal for the regular site", "exit"],
 ];
 const VIM = [
   ["j / k", "select next / prev link"],
@@ -167,7 +169,7 @@ const VIM = [
   ["q", "clear screen"],
   ["?", "help"],
 ];
-const CMDS = ["help", "whoami", "ls", "work", "projects", "visit", "source", "open", "cat", "cd", "next", "prev", "find", "about", "stack", "certs", "resume", "contact", "email", "socials", "history", "clear", "sudo", "exit"];
+const CMDS = ["help", "whoami", "ls", "work", "projects", "visit", "source", "open", "cat", "cd", "next", "prev", "find", "about", "stack", "certs", "resume", "contact", "email", "socials", "history", "clear", "sudo", "exit", "gui"];
 const FLOW = ["your name", "email", "message"];
 const CHIPS = ["help", "work", "projects", "about", "stack", "certs", "contact", "resume", "clear"];
 
@@ -224,10 +226,12 @@ interface State {
   flow: Flow | null;
   cur: number;
   cwd: string;
+  // Asking first-time visitors whether a terminal suits them.
+  gate: boolean;
 }
 
 export default class Terminal extends Component<{ showChips?: boolean }, State> {
-  state: State = { blocks: [], mode: "insert", sel: 0, input: "", hist: [], hIdx: -1, flow: null, cur: -1, cwd: "~" };
+  state: State = { blocks: [], mode: "insert", sel: 0, input: "", hist: [], hIdx: -1, flow: null, cur: -1, cwd: "~", gate: false };
   scrollEl = createRef<HTMLDivElement>();
   inputEl = createRef<HTMLInputElement>();
   // Focused in NORMAL mode. Vim-style browser extensions grab j/k unless a text field has
@@ -242,7 +246,13 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   pressing = false;
 
   componentDidMount() {
-    this.push(this.welcome());
+    const mode = getMode();
+    if (mode === "ui") {
+      window.location.replace(UI_PATH);
+      return;
+    }
+    if (mode === "terminal") this.push(this.welcome());
+    else this.push(this.ask(), { gate: true });
     // Capture phase, so nothing else on the page can swallow the vim keys first.
     window.addEventListener("keydown", this.handleKey, true);
     window.addEventListener("pointerup", this.endPress);
@@ -313,6 +323,35 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
       T(d("status: "), g("● open to new work and good problems")),
     ];
   }
+  ask(): Line[] {
+    return [
+      T(d("nasi.work · terminal v1")),
+      T(""),
+      T("Hi! This portfolio is built to look like a terminal."),
+      T("Are you technical, and fine browsing it this way?"),
+      T(""),
+      T("  ", L("yes", "y"), d("   keep the terminal")),
+      T("  ", L("no", "n"), d("    take me to the regular site")),
+      T(""),
+      T(d("type y or n, then press enter")),
+    ];
+  }
+  // Answer to the first-visit question.
+  answer(raw: string) {
+    const a = raw.trim().toLowerCase();
+    const echo = T(g("? technical [y/n] › "), raw.trim());
+    if (/^y(es)?$/.test(a)) {
+      setMode("terminal");
+      this.push(this.welcome(), { gate: false });
+    } else if (/^no?$/.test(a)) this.leave([echo]);
+    else this.push([echo, T(d("please answer "), L("y", "y"), d(" or "), L("n", "n"))], {}, true);
+  }
+  // Switch to the animated UI; a full load, since it has its own root layout.
+  leave(out: Line[]) {
+    setMode("ui");
+    this.push([...out, T(d("switching to the regular site…"))]);
+    window.location.assign(UI_PATH);
+  }
   welcome(): Line[] {
     return [
       T(d("nasi.work · terminal v1 · last login: today")),
@@ -321,6 +360,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
       T(""),
       T(d("type "), L("help", "help"), d(" to see every command, or click one below.")),
       T(d("press "), g("esc"), d(" for vim motions: j/k to move, enter to open, / to find.")),
+      T(d("rather not use a terminal? type "), L("exit", "exit"), d(" for the regular site.")),
     ];
   }
   help(): Line[] {
@@ -453,6 +493,10 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   }
 
   run(raw: string) {
+    if (this.state.gate) {
+      this.answer(raw);
+      return;
+    }
     const cmd = raw.trim();
     const echo = T(g(`nasi@work:${this.state.cwd}$ `), cmd);
     if (!cmd) {
@@ -608,7 +652,8 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
       case "exit":
       case "quit":
       case ":q":
-        this.push([...out, T(d("there is no exit. there is, however, "), L("contact", "contact"))]);
+      case "gui":
+        this.leave(out);
         return;
       default: {
         const guess = CMDS.find((x) => x.startsWith(c.slice(0, 2))) || "help";
@@ -771,7 +816,8 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   };
 
   render() {
-    const { blocks, mode, sel, flow, cwd, input } = this.state;
+    const { blocks, mode, sel, flow, cwd, input, gate } = this.state;
+    const chips = this.props.showChips !== false && !gate;
     const normal = mode === "normal";
     const lastI = blocks.length - 1;
     const links: Seg[] = [];
@@ -882,7 +928,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
     });
     this.outLinks = links.length;
     const chipBase = links.length;
-    if (this.props.showChips !== false) CHIPS.forEach((c) => links.push({ text: c, cmd: c }));
+    if (chips) CHIPS.forEach((c) => links.push({ text: c, cmd: c }));
     this.links = links;
 
     return (
@@ -906,7 +952,18 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
           <i style={{ width: 9, height: 9, border: "1.5px solid #888", borderRadius: "50%" }} />
           <i style={{ width: 9, height: 9, border: "1.5px solid #888", borderRadius: "50%" }} />
           <i style={{ width: 9, height: 9, border: "1.5px solid #888", borderRadius: "50%" }} />
-          <span style={{ marginLeft: "auto", color: "#888", fontSize: 11 }}>nasi@work: {cwd}</span>
+          <span style={{ marginLeft: "auto", color: "#888", fontSize: 11, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>nasi@work: {cwd}</span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              this.leave([]);
+            }}
+            title="Leave the terminal for the regular site"
+            className="term-exit"
+          >
+            exit ↗ regular site
+          </button>
         </div>
 
         <textarea
@@ -921,7 +978,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
         <div ref={this.scrollEl} style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "14px 20px 8px" }}>
           {body}
           <div style={{ display: "flex", alignItems: "baseline", gap: 0, whiteSpace: "pre" }}>
-            <span style={{ color: G }}>{flow ? `? ${FLOW[flow.step]} › ` : `nasi@work:${cwd}$ `}</span>
+            <span style={{ color: G }}>{gate ? "? technical [y/n] › " : flow ? `? ${FLOW[flow.step]} › ` : `nasi@work:${cwd}$ `}</span>
             <input
               ref={this.inputEl}
               aria-label="Terminal command"
@@ -932,7 +989,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
                 if (this.state.mode !== "insert") this.setState({ mode: "insert" });
               }}
               onBlur={this.onInputBlur}
-              placeholder={flow ? "" : normal ? "NORMAL mode, press i to type" : "type a command… (try help)"}
+              placeholder={gate ? "y or n" : flow ? "" : normal ? "NORMAL mode, press i to type" : "type a command… (try help)"}
               spellCheck={false}
               autoComplete="off"
               className="term-input"
@@ -940,7 +997,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
           </div>
         </div>
 
-        {this.props.showChips !== false && (
+        {chips && (
           <div style={{ flex: "none", display: "flex", flexWrap: "wrap", gap: 6, padding: "8px 14px", borderTop: "1.5px solid #444" }}>
             {CHIPS.map((c, i) => {
               const on = normal && sel === chipBase + i;
