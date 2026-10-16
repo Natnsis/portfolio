@@ -1,17 +1,14 @@
-import Footer from "@/components/Footer";
-import Projects from "@/components/Projects";
-import SiteHeader from "@/components/SiteHeader";
+import ProjectList from "@/components/site/ProjectList";
+import { Contact, TopBar } from "@/components/site/Sections";
 
-const ProjectsPage = () => {
-  return (
-    <>
-      <SiteHeader active="projects" />
-      <main>
-        <Projects />
-      </main>
-      <Footer onHome={false} />
-    </>
-  );
-};
+const ProjectsPage = () => (
+  <>
+    <TopBar home={false} />
+    <main>
+      <ProjectList />
+    </main>
+    <Contact />
+  </>
+);
 
 export default ProjectsPage;
