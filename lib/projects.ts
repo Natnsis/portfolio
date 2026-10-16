@@ -38,3 +38,19 @@ export const FILTERS: string[] = [
   "Next.js",
   "Golang",
 ];
+
+// "Freelance · 2026 · Frontend developer" → its three parts.
+export const projectMeta = (p: Project) => {
+  const [kind = "", year = "", role = ""] = p.meta.split(" · ");
+  return { kind, year, role };
+};
+
+// Some entries keep a placeholder liveUrl while not live; only link real ones.
+export const liveUrl = (p: Project) => (p.live ? p.liveUrl : undefined);
+
+// 0 → "001"
+export const projectNo = (i: number) => String(i + 1).padStart(3, "0");
+
+// Cloudinary screenshots are full 1920px PNGs; ask for a resized, auto-format copy.
+export const imageAt = (url: string | undefined, width: number) =>
+  url?.replace("/image/upload/", `/image/upload/w_${width},f_auto,q_auto/`);

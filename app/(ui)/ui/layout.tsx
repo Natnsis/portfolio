@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
-import { DM_Mono, Handjet, Inter, Just_Me_Again_Down_Here } from "next/font/google";
-import Splash from "@/components/artsy/Splash";
-import TerminalSwitch from "@/components/TerminalSwitch";
+import { Figtree, Fraunces, IBM_Plex_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 
-const display = Handjet({
+const sans = Figtree({ subsets: ["latin"], variable: "--font-dk-sans" });
+// Headings and spines: soft old-style serif; optical sizing tightens it at large sizes.
+const serif = Fraunces({
   subsets: ["latin"],
-  axes: ["ELGR", "ELSH"],
-  variable: "--font-artsy-display",
+  style: ["normal", "italic"],
+  axes: ["SOFT", "opsz"],
+  variable: "--font-dk-serif",
 });
-const hand = Just_Me_Again_Down_Here({
+// Long-form reading inside the open book.
+const read = Newsreader({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-artsy-hand",
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  variable: "--font-dk-read",
 });
-const mono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-artsy-mono",
-});
-const sans = Inter({ subsets: ["latin"], variable: "--font-artsy-sans" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dk-mono" });
 
 export const metadata: Metadata = {
   title: "Natnael Sisay — Full-Stack Developer",
@@ -33,19 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${hand.variable} ${mono.variable} ${sans.variable}`}
-    >
-      <body className="min-h-screen bg-ca-surface text-ca-ink antialiased">
-        <div
-          aria-hidden
-          className="ca-grain pointer-events-none fixed inset-0 z-[1] mix-blend-multiply"
-        />
-        <Splash />
-        {children}
-        <TerminalSwitch />
-      </body>
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${read.variable} ${mono.variable}`}>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }
