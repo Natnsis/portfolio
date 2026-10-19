@@ -1,25 +1,35 @@
 @import "tailwindcss";
 
-/* From the design's <helmet> styles. */
+/* Tokyo Night–style shell palette; keep in sync with the constants in components/Terminal.tsx. */
+:root {
+  --t-bg: #1a1b26;
+  --t-panel: #24283b;
+  --t-line: #2f334d;
+  --t-edge: #414868;
+  --t-fg: #c0caf5;
+  --t-dim: #7c84a8;
+  --t-sky: #7aa2f7;
+}
+
 html,
 body {
   margin: 0;
   height: 100%;
-  background: #1d1d1b;
+  background: var(--t-bg);
   overflow: hidden;
 }
 a {
-  color: #f0eee9;
+  color: var(--t-fg);
 }
 a:hover {
-  color: #2ea44f;
+  color: var(--t-sky);
 }
 input::placeholder {
-  color: #666;
+  color: #565f89;
 }
 ::selection {
-  background: #2ea44f;
-  color: #1d1d1b;
+  background: var(--t-sky);
+  color: var(--t-bg);
 }
 
 .term-input {
@@ -28,38 +38,63 @@ input::placeholder {
   background: transparent;
   border: none;
   outline: none;
-  color: #f0eee9;
-  font: 400 13px/1.55 var(--font-space-mono), "Space Mono", monospace;
+  color: var(--t-fg);
+  font: 400 13px/1.55 var(--font-term), ui-monospace, monospace;
   padding: 0;
-  caret-color: #2ea44f;
+  /* The block cursor is drawn by the component. */
+  caret-color: transparent;
 }
 .term-chip {
-  border: 1.5px solid #777;
+  border: 1px solid var(--t-edge);
   border-radius: 4px;
-  padding: 1px 8px;
+  padding: 1px 9px;
   font-size: 12px;
   cursor: pointer;
-  color: #f0eee9;
+  color: var(--t-fg);
+  background: transparent;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 }
 .term-chip:hover {
-  border-color: #2ea44f;
-  color: #2ea44f;
+  border-color: var(--t-sky);
+  background: rgba(122, 162, 247, 0.12);
+  color: var(--t-sky);
 }
 
 .term-exit {
   flex: none;
-  margin-left: 10px;
-  background: transparent;
-  border: 1.5px solid #777;
-  border-radius: 4px;
-  padding: 0 8px;
-  font: 400 11px/16px var(--font-space-mono), "Space Mono", monospace;
-  color: #f0eee9;
+  margin-left: 6px;
+  height: 100%;
+  background: var(--t-panel);
+  border: none;
+  border-radius: 0;
+  padding: 0 10px;
+  font: 400 11px/16px var(--font-term), ui-monospace, monospace;
+  color: #e0af68;
   cursor: pointer;
+  transition: background-color 0.15s;
 }
 .term-exit:hover,
 .term-exit:focus-visible {
-  border-color: #2ea44f;
-  color: #2ea44f;
+  background: #e0af68;
+  color: var(--t-bg);
   outline: none;
+}
+
+/* `exit`: the terminal closes like an app window before the regular site loads. */
+@keyframes term-close {
+  to {
+    opacity: 0;
+    transform: scale(0.94) translateY(14px);
+    filter: blur(2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes term-close {
+    to {
+      opacity: 0;
+    }
+  }
 }

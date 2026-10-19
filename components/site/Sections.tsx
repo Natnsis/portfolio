@@ -36,14 +36,14 @@ export const Intro = () => (
       <img
         src={PORTRAIT_URL}
         alt="Natnael Sisay"
-        className="h-20 w-20 rounded-2xl object-cover ring-1 ring-white/10 [filter:sepia(0.35)_saturate(0.9)]"
+        className="h-20 w-20 rounded-2xl object-cover ring-1 ring-white/10"
       />
       <div>
         <h1 className="font-serif text-4xl leading-none sm:text-5xl">Natnael Sisay</h1>
         <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-dk-mute">
           Full-stack developer in Ethiopia
-          <span className="inline-flex items-center gap-1.5 text-dk-amber">
-            <span className="h-1.5 w-1.5 rounded-full bg-dk-amber" />
+          <span className="inline-flex items-center gap-1.5 text-dk-live">
+            <span className="h-1.5 w-1.5 rounded-full bg-dk-live" />
             Open to new work
           </span>
         </p>
@@ -72,13 +72,13 @@ export const Intro = () => (
         href={RESUME_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-lg bg-dk-amber px-4 py-2.5 text-[14px] font-medium text-dk-ink transition-colors hover:bg-[#f5b978]"
+        className="inline-flex items-center gap-2 text-[14px] rounded-full bg-dk-amber/15 px-4 py-2 font-medium text-[#f2c38c] ring-1 ring-dk-amber/45 transition-colors hover:bg-dk-amber/25"
       >
         <DownloadSimple size={16} /> Download resume
       </a>
       <a
         href={`mailto:${EMAIL}`}
-        className="inline-flex items-center gap-2 rounded-lg border border-dk-line bg-dk-wood px-4 py-2.5 text-[14px] font-medium transition-colors hover:border-dk-faint"
+        className="inline-flex items-center gap-2 text-[14px] rounded-full bg-dk-sky/10 px-4 py-2 font-medium text-dk-sky ring-1 ring-dk-sky/30 transition-colors hover:bg-dk-sky/20"
       >
         <EnvelopeSimple size={16} /> Email me
       </a>
@@ -98,7 +98,7 @@ export const Toolkit = () => (
     <Heading note={`${STACK.length} tools`}>What I reach for</Heading>
     <ul className="mt-5 flex flex-wrap gap-2">
       {STACK.map((s) => (
-        <li key={s} className="rounded-md bg-dk-wood px-2.5 py-1.5 font-mono text-[13px] text-dk-cream/85 ring-1 ring-dk-line">
+        <li key={s} className="px-2.5 py-1.5 text-[13px] rounded-md bg-black/30 font-mono text-dk-cream/85 ring-1 ring-white/10">
           {s}
         </li>
       ))}
@@ -119,10 +119,10 @@ export const Credentials = () => (
             className="group flex items-center justify-between gap-6 py-4"
           >
             <span>
-              <span className="block text-[16px] text-dk-cream group-hover:text-dk-amber">{c.title}</span>
+              <span className="block text-[16px] text-dk-cream group-hover:text-dk-sky">{c.title}</span>
               <span className="mt-0.5 block text-[14px] text-dk-mute">{c.description}</span>
             </span>
-            <span className="inline-flex shrink-0 items-center gap-1 font-mono text-[12px] text-dk-faint group-hover:text-dk-amber">
+            <span className="inline-flex shrink-0 items-center gap-1 font-mono text-[12px] text-dk-faint group-hover:text-dk-sky">
               PDF <ArrowUpRight size={12} />
             </span>
           </a>
@@ -136,7 +136,7 @@ export const Contact = () => (
   <footer id="contact" className="mx-auto max-w-3xl px-5 pb-16 pt-24">
     <div className="rounded-2xl border border-dk-line bg-dk-wood p-7 sm:p-10">
       <h2 className="font-serif text-4xl leading-tight sm:text-5xl">
-        Let&apos;s build something <em className="text-dk-amber">together.</em>
+        Let&apos;s build something <span className="text-dk-sky">together.</span>
       </h2>
       <p className="mt-4 max-w-lg text-[16px] leading-relaxed text-dk-mute">
         Got a project in mind, a hard problem, or just want to say hi? Send it over. I read every message. Open to
@@ -144,7 +144,7 @@ export const Contact = () => (
       </p>
       <a
         href={`mailto:${EMAIL}`}
-        className="mt-6 inline-block border-b border-dk-amber/60 pb-0.5 text-lg text-dk-cream transition-colors hover:text-dk-amber sm:text-xl"
+        className="mt-6 inline-block text-lg text-dk-sky underline decoration-dk-sky/50 underline-offset-4 transition-colors hover:decoration-dk-sky sm:text-xl"
       >
         {EMAIL}
       </a>

@@ -1,17 +1,21 @@
 @import "tailwindcss";
 
-/* "Evening desk": warm lamp light on a dark room, cream paper, one amber accent. */
+/* Cool slate study: deep blue-grey surfaces, crisp off-white text, sky-blue for links
+   and highlights, amber kept for the main action. Book pages are dark panels too,
+   so "paper" is the page surface and "ink" its text. */
 :root {
-  --dk-room: #16110e;
-  --dk-wood: #201914;
-  --dk-wood-2: #2a211b;
-  --dk-line: #3a2f27;
-  --dk-cream: #f1e6d6;
-  --dk-mute: #b9ab98;
-  --dk-faint: #8a7b6a;
-  --dk-amber: #f0a85c;
-  --dk-paper: #f6eee2;
-  --dk-ink: #2b2219;
+  --dk-room: #13151c;
+  --dk-wood: #1b1e27;
+  --dk-wood-2: #232733;
+  --dk-line: #2d323f;
+  --dk-cream: #e8ebf1;
+  --dk-mute: #a6aebd;
+  --dk-faint: #7a8293;
+  --dk-amber: #e5a65e;
+  --dk-sky: #8cbbe9;
+  --dk-live: #8fd18a;
+  --dk-paper: #1c2029;
+  --dk-ink: #e8ebf1;
 }
 
 @theme inline {
@@ -23,11 +27,14 @@
   --color-dk-mute: var(--dk-mute);
   --color-dk-faint: var(--dk-faint);
   --color-dk-amber: var(--dk-amber);
+  --color-dk-sky: var(--dk-sky);
+  --color-dk-live: var(--dk-live);
   --color-dk-paper: var(--dk-paper);
   --color-dk-ink: var(--dk-ink);
   --font-sans: var(--font-dk-sans), system-ui, sans-serif;
-  --font-serif: var(--font-dk-serif), Georgia, serif;
-  --font-read: var(--font-dk-read), Georgia, serif;
+  /* Outfit everywhere, except code-like chips and labels in JetBrains Mono. */
+  --font-serif: var(--font-dk-sans), system-ui, sans-serif;
+  --font-read: var(--font-dk-sans), system-ui, sans-serif;
   --font-mono: var(--font-dk-mono), ui-monospace, monospace;
 }
 
@@ -42,10 +49,10 @@
     font-family: var(--font-sans);
     color: var(--dk-cream);
     background-color: var(--dk-room);
-    /* The desk lamp: a soft pool of warm light from above. */
+    /* Screen glow: a faint cool light from above. */
     background-image:
-      radial-gradient(ellipse 70% 45% at 50% -5%, rgba(240, 168, 92, 0.16), transparent 70%),
-      radial-gradient(ellipse 50% 35% at 85% 10%, rgba(240, 168, 92, 0.05), transparent 70%);
+      radial-gradient(ellipse 70% 45% at 50% -5%, rgba(140, 187, 233, 0.11), transparent 70%),
+      radial-gradient(ellipse 45% 30% at 90% 5%, rgba(229, 166, 94, 0.04), transparent 70%);
     background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
   }
@@ -57,21 +64,70 @@
     cursor: pointer;
   }
   ::selection {
-    background: var(--dk-amber);
-    color: var(--dk-ink);
+    background: var(--dk-sky);
+    color: var(--dk-room);
   }
 }
 
-/* Fraunces' soft corners suit the warm room; no wonky italics. */
-.font-serif {
-  font-variation-settings: "SOFT" 80, "WONK" 0;
-  letter-spacing: -0.01em;
+/* Headings in Outfit: a touch heavier and tighter than body text.
+   In the base layer so a weight utility on the element still wins. */
+@layer base {
+  .font-serif {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
 }
 
 @keyframes dk-open {
   from {
     opacity: 0;
     transform: translateY(6px) scale(0.985);
+  }
+}
+
+/* Page turns. --flip swings the leaf around the spine; --bend curls each strip off the
+   one before it: the free edge leads as the page lifts, then trails as it lands. */
+@property --flip {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+@property --bend {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+@keyframes dk-turn {
+  0% {
+    --flip: 0deg;
+    --bend: 0deg;
+  }
+  22% {
+    --bend: -5deg;
+  }
+  50% {
+    --bend: -1.5deg;
+  }
+  72% {
+    --bend: 2.5deg;
+  }
+  90%,
+  100% {
+    --bend: 0deg;
+  }
+  100% {
+    --flip: -180deg;
+  }
+}
+
+/* The lifted page's shadow on the pages beneath it. */
+@keyframes dk-cast {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
   }
 }
 

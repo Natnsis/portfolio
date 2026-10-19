@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Caveat, Space_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono" });
-const hand = Caveat({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-caveat" });
+// Same code font as the UI section's chips, so both looks feel like one site.
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-term" });
 
 export const metadata: Metadata = {
   title: "Natnael Sisay — Full-Stack Developer",
@@ -17,8 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${mono.variable} ${hand.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={mono.variable}>
+      {/* Extensions like ColorZilla add attributes to <body> before React loads. */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
