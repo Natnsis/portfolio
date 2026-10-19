@@ -1,23 +1,10 @@
 import type { Metadata } from "next";
-import { Figtree, Fraunces, IBM_Plex_Mono, Newsreader } from "next/font/google";
+import { JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
-const sans = Figtree({ subsets: ["latin"], variable: "--font-dk-sans" });
-// Headings and spines: soft old-style serif; optical sizing tightens it at large sizes.
-const serif = Fraunces({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["SOFT", "opsz"],
-  variable: "--font-dk-serif",
-});
-// Long-form reading inside the open book.
-const read = Newsreader({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
-  variable: "--font-dk-read",
-});
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dk-mono" });
+// Outfit for the whole UI; JetBrains Mono only for code-like chips and labels.
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-dk-sans" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-dk-mono" });
 
 export const metadata: Metadata = {
   title: "Natnael Sisay — Full-Stack Developer",
@@ -31,8 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${read.variable} ${mono.variable}`}>
-      <body className="min-h-screen antialiased">{children}</body>
+    <html lang="en" className={`${outfit.variable} ${mono.variable}`}>
+      {/* Extensions like ColorZilla add attributes to <body> before React loads. */}
+      <body className="min-h-screen antialiased" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

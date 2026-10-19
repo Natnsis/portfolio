@@ -37,10 +37,10 @@ const ProjectList = () => {
               onClick={() => setFilter(f)}
               aria-pressed={on}
               className={`rounded-full px-3 py-1 text-[13px] ring-1 transition-colors ${
-                on ? "bg-dk-amber text-dk-ink ring-dk-amber" : "bg-dk-wood text-dk-cream/80 ring-dk-line hover:ring-dk-faint"
+                on ? "bg-dk-sky/15 text-dk-sky ring-dk-sky/50" : "bg-dk-wood text-dk-cream/80 ring-dk-line hover:ring-dk-faint"
               }`}
             >
-              {f} <span className={on ? "text-dk-ink/60" : "text-dk-faint"}>{n}</span>
+              {f} <span className={on ? "text-dk-sky/70" : "text-dk-faint"}>{n}</span>
             </button>
           );
         })}
@@ -66,8 +66,8 @@ const ProjectList = () => {
                 </span>
                 <span className="min-w-0">
                   <span className="flex flex-wrap items-baseline gap-x-3">
-                    <span className="font-serif text-2xl text-dk-cream group-hover:text-dk-amber">{p.title}</span>
-                    {p.live && <span className="text-[12px] text-[#9fdc7c]">● live</span>}
+                    <span className="font-serif text-2xl text-dk-cream group-hover:text-dk-sky">{p.title}</span>
+                    {p.live && <span className="text-[12px] text-dk-live">● live</span>}
                   </span>
                   <span className="mt-1 block text-[13px] text-dk-faint">
                     {kind} · {year}
@@ -75,7 +75,7 @@ const ProjectList = () => {
                   <span className="mt-2 block text-[15px] leading-relaxed text-dk-mute">{p.summary}</span>
                   <span className="mt-3 flex flex-wrap gap-1.5">
                     {p.tags.map((t) => (
-                      <span key={t} className="rounded bg-dk-wood px-2 py-0.5 font-mono text-[12px] text-dk-cream/75 ring-1 ring-dk-line">
+                      <span key={t} className="rounded-md bg-black/30 px-2 py-0.5 font-mono text-[12px] text-dk-cream/85 ring-1 ring-white/10">
                         {t}
                       </span>
                     ))}
@@ -92,6 +92,7 @@ const ProjectList = () => {
         <div onClick={() => setOpen(null)} className="fixed inset-0 z-50 overflow-y-auto bg-black/70 p-3 sm:p-8">
           <div onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" className="mx-auto max-w-5xl">
             <OpenBook
+              key={open}
               index={open}
               onClose={() => setOpen(null)}
               onPrev={() => setOpen((open - 1 + PROJECTS.length) % PROJECTS.length)}

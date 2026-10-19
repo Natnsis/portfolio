@@ -8,15 +8,15 @@ import OpenBook from "./Book";
 
 const N = PROJECTS.length;
 
-// Cloth colours of an old shelf: [cover, text].
+// Cool cloth covers to match the slate room, with one amber now and then: [cover, text].
 const COVERS: [string, string][] = [
-  ["#5c2b23", "#f1e3cf"],
-  ["#e6d8c1", "#3a2c20"],
-  ["#3b3a2a", "#e9dcc4"],
-  ["#a8693a", "#fbeedc"],
-  ["#2a2420", "#d9c7ad"],
-  ["#6b6f55", "#f3ead8"],
-  ["#7a4b33", "#f6e9d6"],
+  ["#2f3a52", "#dfe6f0"],
+  ["#d6dce6", "#1f2430"],
+  ["#34464a", "#dfe9e7"],
+  ["#b07f4b", "#fff4e6"],
+  ["#20242e", "#c9d1de"],
+  ["#4a5b78", "#eef2f8"],
+  ["#66778c", "#f2f5f9"],
 ];
 
 // Deterministic per-book size so the shelf looks lived in, not uniform.
@@ -72,7 +72,7 @@ const Shelf = () => {
                     </span>
                   </span>
                   {p.live ? (
-                    <span className="h-1.5 w-1.5 rounded-full bg-dk-amber" title="Live" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-dk-live" title="Live" />
                   ) : (
                     <span className="h-1.5 w-1.5" />
                   )}
@@ -83,23 +83,24 @@ const Shelf = () => {
           })}
         </ul>
         {/* The plank */}
-        <div className="relative h-4 rounded-sm bg-gradient-to-b from-[#6a4a32] to-[#3b2a1e] shadow-[0_18px_30px_-8px_rgba(0,0,0,0.8)]">
+        <div className="relative h-4 rounded-sm bg-gradient-to-b from-[#3b4254] to-[#1c2029] shadow-[0_18px_30px_-8px_rgba(0,0,0,0.8)]">
           <div className="absolute inset-x-0 top-0 h-px bg-white/15" />
         </div>
       </div>
 
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2 px-1 text-[13px] text-dk-faint">
         <span>
-          <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-dk-amber align-middle" />
+          <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-dk-live align-middle" />
           dot = live in production
         </span>
-        <Link href={PROJECTS_PATH} className="text-dk-mute hover:text-dk-amber">
+        <Link href={PROJECTS_PATH} className="text-dk-mute hover:text-dk-sky">
           Prefer a plain list? →
         </Link>
       </div>
 
       <div ref={bookRef} className="mt-10 scroll-mt-6">
         <OpenBook
+          key={open}
           index={open}
           onPrev={() => pick((open - 1 + N) % N, true)}
           onNext={() => pick((open + 1) % N, true)}
