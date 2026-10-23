@@ -198,18 +198,6 @@ export const whoamiBig = (): Line[] => [
   T(d("status: "), ok("● open to new work and good problems")),
 ];
 
-export const ask = (): Line[] => [
-  T(d("nasi.work · terminal v2")),
-  T(""),
-  T("Hi! This portfolio is built to look like a terminal."),
-  T("Are you technical, and fine browsing it this way?"),
-  T(""),
-  T("  ", L("yes", "y"), d("   keep the terminal")),
-  T("  ", L("no", "n"), d("    take me to the regular site")),
-  T(""),
-  T(d("type y or n, then press enter")),
-];
-
 export const welcome = (): Line[] => [
   T(d(`nasi.work · terminal v2 · last login: ${new Date().toDateString().toLowerCase()} on ttys001`)),
   T(""),
