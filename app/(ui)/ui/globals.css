@@ -142,3 +142,82 @@
     transition-duration: 0s !important;
   }
 }
+
+/* Floating "terminal view" pill: always in view and softly glowing, so anyone who
+   picked this look by mistake (or wants the terminal) can find the way back. */
+.dk-switch {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 10px;
+  border: 1px solid rgba(140, 187, 233, 0.4);
+  border-radius: 999px;
+  background: rgba(27, 30, 39, 0.85);
+  backdrop-filter: blur(8px);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dk-cream);
+  animation:
+    dk-switch-in 0.5s 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    dk-switch-glow 3s 1.3s ease-in-out infinite;
+  transition:
+    transform 0.18s,
+    border-color 0.18s,
+    background-color 0.18s;
+}
+.dk-switch:hover,
+.dk-switch:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--dk-sky);
+  background: rgba(140, 187, 233, 0.14);
+  color: var(--dk-cream);
+  outline: none;
+}
+.dk-switch:active {
+  transform: translateY(0) scale(0.97);
+}
+.dk-switch-icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--dk-sky);
+  color: var(--dk-room);
+  font: 700 11px/1 var(--font-dk-mono), ui-monospace, monospace;
+}
+@keyframes dk-switch-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+}
+@keyframes dk-switch-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(140, 187, 233, 0), 0 8px 24px -10px rgba(0, 0, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 24px 2px rgba(140, 187, 233, 0.25), 0 8px 24px -10px rgba(0, 0, 0, 0.7);
+  }
+}
+@media (max-width: 640px) {
+  .dk-switch {
+    right: 12px;
+    bottom: 12px;
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dk-switch {
+    animation: none;
+  }
+  .dk-switch:hover,
+  .dk-switch:focus-visible {
+    transform: none;
+  }
+}

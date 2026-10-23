@@ -24,8 +24,14 @@ export const TopBar = ({ home = true }: { home?: boolean }) => (
       <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="hover:text-dk-cream">
         Resume
       </a>
-      <TerminalLink className="hidden font-mono text-[13px] hover:text-dk-cream sm:inline">&gt;_ terminal</TerminalLink>
     </nav>
+    {/* Floating way back to the terminal, for anyone who picked this look by mistake. */}
+    <TerminalLink className="dk-switch">
+      <span className="dk-switch-icon" aria-hidden>
+        &gt;_
+      </span>
+      Terminal view
+    </TerminalLink>
   </header>
 );
 

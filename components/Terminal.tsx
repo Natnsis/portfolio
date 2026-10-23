@@ -5,9 +5,10 @@
 // animations live here; what commands do lives in ./terminal/shell.
 import { Component, createRef, useEffect, useRef, useState } from "react";
 import { getMode, setMode, UI_PATH } from "@/lib/mode";
+import ModeGate from "./ModeGate";
 import { EMAIL } from "./terminal/data";
 import { a, C, d, echoLine, g, L, type Line, ok, r, type Seg, T, type TextLine, U } from "./terminal/lines";
-import { ask, complete, type Ctx, exec, newCtx, SECRETS, tilde, welcome } from "./terminal/shell";
+import { complete, type Ctx, exec, newCtx, SECRETS, tilde, welcome } from "./terminal/shell";
 
 const FLOW = ["your name", "email", "message"];
 const CHIPS = ["help", "ls -a", "projects", "about", "work", "secrets", "contact", "resume", "clear"];
@@ -116,12 +117,12 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
     try {
       (JSON.parse(localStorage.getItem(SECRETS_KEY) ?? "[]") as string[]).forEach((x) => this.ctx.found.add(x));
     } catch {}
-    if (mode === "terminal") this.push(welcome());
-    else this.push(ask(), { gate: true });
+    // First visit: the terminal shows behind the choice dialog as a preview.
+    this.push(welcome(), { gate: mode !== "terminal" });
     // Capture phase, so nothing else on the page can swallow the vim keys first.
     window.addEventListener("keydown", this.handleKey, true);
     window.addEventListener("pointerup", this.endPress);
-    setTimeout(() => this.inputEl.current?.focus(), 60);
+    if (mode === "terminal") setTimeout(() => this.inputEl.current?.focus(), 60);
   }
   componentWillUnmount() {
     window.removeEventListener("keydown", this.handleKey, true);
@@ -133,6 +134,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   endPress = () =>
     setTimeout(() => {
       this.pressing = false;
+      if (this.state.gate) return;
       this.syncMode();
       if (this.state.mode === "normal") this.focusCatcher();
     }, 0);
@@ -211,16 +213,15 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
     });
   }
 
-  // Answer to the first-visit question.
-  answer(raw: string) {
-    const v = raw.trim().toLowerCase();
-    const echo = T({ text: "? technical [y/n] › ", color: C.prompt }, raw.trim());
-    if (/^y(es)?$/.test(v)) {
-      setMode("terminal");
-      this.push(welcome(), { gate: false });
-    } else if (/^no?$/.test(v)) this.leave([echo]);
-    else this.push([echo, T(d("please answer "), L("y", "y"), d(" or "), L("n", "n"))]);
-  }
+  // Answer to the first-visit dialog.
+  choose = (c: "ui" | "terminal") => {
+    if (c === "ui") {
+      this.leave([]);
+      return;
+    }
+    setMode("terminal");
+    this.setState({ gate: false }, () => this.inputEl.current?.focus());
+  };
   // Close the terminal like an app window, then go to the regular site.
   leave(out: Line[]) {
     setMode("ui");
@@ -254,10 +255,6 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   }
 
   run(raw: string) {
-    if (this.state.gate) {
-      this.answer(raw);
-      return;
-    }
     if (this.state.vim) {
       this.vimCmd(raw);
       return;
@@ -390,7 +387,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   };
   // INSERT only while the prompt actually has focus.
   syncMode() {
-    if (this.state.mode !== "insert" || !document.hasFocus()) return;
+    if (this.state.gate || this.state.mode !== "insert" || !document.hasFocus()) return;
     if (document.activeElement === this.inputEl.current) return;
     if (this.state.flow) this.push([T(d("contact cancelled"))], { flow: null });
     this.setState({ mode: "normal", sel: 0 }, () => {
@@ -400,7 +397,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
   }
 
   handleKey = (e: KeyboardEvent) => {
-    if (document.activeElement === this.inputEl.current) return;
+    if (this.state.gate || document.activeElement === this.inputEl.current) return;
     if (this.state.mode === "insert") {
       if (e.key === "Escape") {
         e.preventDefault();
@@ -461,7 +458,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
 
   render() {
     const { blocks, mode, sel, flow, cwd, input, caret, gate, vim, closing } = this.state;
-    const chips = this.props.showChips !== false && !gate;
+    const chips = this.props.showChips !== false;
     const normal = mode === "normal";
     const lastI = blocks.length - 1;
     const links: Seg[] = [];
@@ -570,11 +567,15 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
     if (chips) CHIPS.forEach((c) => links.push({ text: c, cmd: c }));
     this.links = links;
 
-    const promptText = gate ? "? technical [y/n] › " : flow ? `? ${FLOW[flow.step]} › ` : vim ? ":" : "❯ ";
+    const promptText = flow ? `? ${FLOW[flow.step]} › ` : vim ? ":" : "❯ ";
     const at = Math.min(caret, input.length);
 
     return (
+      <>
       <div
+        // Behind the first-visit dialog: visible as a preview, but not reachable.
+        inert={gate}
+        className={gate ? "term-behind" : undefined}
         onClick={this.focusInput}
         onPointerDown={() => {
           this.pressing = true;
@@ -605,10 +606,10 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
           onChange={() => {}}
           style={{ position: "fixed", left: -9999, top: 0, width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
         />
-        <div ref={this.scrollEl} style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "14px 20px 8px" }}>
+        <div ref={this.scrollEl} className="term-scroll" style={{ flex: 1, minHeight: 0, overflowY: "auto" }}>
           {body}
           {/* Starship-style prompt: the folder on its own line, then ❯ and the input. */}
-          {!gate && !flow && !vim && <div style={{ color: C.teal, fontWeight: 700 }}>{cwd}</div>}
+          {!flow && !vim && <div style={{ color: C.teal, fontWeight: 700 }}>{cwd}</div>}
           <div style={{ display: "flex", alignItems: "baseline", gap: 0, whiteSpace: "pre" }}>
             <span style={{ color: C.prompt, fontWeight: 700 }}>{promptText}</span>
             <span style={{ position: "relative", flex: 1, minWidth: 0, display: "flex" }}>
@@ -623,7 +624,7 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
                   if (this.state.mode !== "insert") this.setState({ mode: "insert" });
                 }}
                 onBlur={this.onInputBlur}
-                placeholder={gate ? "y or n" : flow ? "" : vim ? "q to quit" : normal ? "NORMAL mode, press i to type" : "type a command… (try help, ls -a, cd projects)"}
+                placeholder={flow ? "" : vim ? "q to quit" : normal ? "NORMAL mode, press i to type" : "type a command… (try help, ls -a, cd projects)"}
                 spellCheck={false}
                 autoComplete="off"
                 autoCapitalize="off"
@@ -675,20 +676,17 @@ export default class Terminal extends Component<{ showChips?: boolean }, State> 
           <span style={{ marginLeft: "auto", padding: "0 10px", color: C.dim, fontWeight: 400, fontSize: 11, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             {normal ? "j/k move · ⏎ open · gg/G top/bottom · h/l prev/next · / find · i type" : "tab complete · ↑↓ history · ctrl+c cancel · ctrl+l clear · esc vim mode"}
           </span>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              this.leave([]);
-            }}
-            title="Close the terminal and go to the regular site"
-            className="term-exit"
-          >
-            exit ↗ regular site
-          </button>
         </div>
       </div>
+      {/* Floating way out, for anyone who picked the terminal by mistake. */}
+      {!gate && (
+        <button type="button" onClick={() => this.leave([])} title="Close the terminal and go to the regular site" className="term-switch" data-leaving={closing ? "1" : "0"}>
+          <span className="term-switch-dot" aria-hidden />
+          Not a coder? <b>Regular site →</b>
+        </button>
+      )}
+      {gate && <ModeGate onChoose={this.choose} leaving={closing} />}
+      </>
     );
   }
 }
-
